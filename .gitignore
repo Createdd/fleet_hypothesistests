@@ -33,6 +33,8 @@ data/zones/*
 
 # study directories except for example and example case studies
 studies/*
+!studies/uc1_peak_demand/
+!studies/uc2_age_based/
 !studies/example_study
 studies/example_study/results/*
 !studies/module_tests/*
@@ -134,7 +136,7 @@ target/
 
 # Jupyter Notebook
 .ipynb_checkpoints
-*.ipynb
+# *.ipynb
 
 # IPython
 profile_default/
