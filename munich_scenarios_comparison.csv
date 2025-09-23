@@ -1,0 +1,7 @@
+Metric,Scenario 1,Scenario 2
+Total Trips,1788.0,1771.0
+Avg Wait Time (min),5.3,5.3
+Max Wait Time (min),19.0,13.3
+Service Rate ≤10min (%),35.3,35.6
+Unique Vehicles,50.0,50.0
+Peak Hour Demand,744.0,737.0

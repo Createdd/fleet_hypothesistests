@@ -264,25 +264,25 @@ if __name__ == "__main__":
         list_results = read_outputs_for_comparison(cc, sc)
         all_scenario_assert_dict = {0: {"number users": 198}}
         check_assertions(list_results, all_scenario_assert_dict)
-        
+
         # h) Pooling with public charging infrastructure (low range vehicles)
         log_level = "info"
         cc = os.path.join(scs_path, "constant_config_charge.csv")
         sc = os.path.join(scs_path, "example_charge.csv")
         run_scenarios(cc, sc, log_level=log_level, n_cpu_per_sim=1, n_parallel_sim=1)
-        
+
         # i) Pooling and active vehicle fleet size is controlled externally (time and utilization based)
         log_level = "info"
         cc = os.path.join(scs_path, "constant_config_depot.csv")
         sc = os.path.join(scs_path, "example_depot.csv")
         run_scenarios(cc, sc, log_level=log_level, n_cpu_per_sim=1, n_parallel_sim=1)
-        
+
         # j) Pooling with public charging and fleet size control (low range vehicles)
         log_level = "info"
         cc = os.path.join(scs_path, "constant_config_depot_charge.csv")
         sc = os.path.join(scs_path, "example_depot_charge.csv")
         run_scenarios(cc, sc, log_level=log_level, n_cpu_per_sim=1, n_parallel_sim=1)
-        
+
         # k) Pooling with multiprocessing
         log_level = "info"
         cc = os.path.join(scs_path, "constant_config_depot_charge.csv")
@@ -304,13 +304,13 @@ if __name__ == "__main__":
         check_assertions(list_results, all_scenario_assert_dict)
         print("Computation with multiprocessing took {}s".format(time.perf_counter() - t0))
         print(" -> multiprocessing only usefull for large vehicle fleets")
-        
+
         # l) Pooling - multiple operators and broker
         log_level = "info"
         cc = os.path.join(scs_path, "constant_config_broker.csv")
         sc = os.path.join(scs_path, "example_broker.csv")
         run_scenarios(cc, sc, log_level=log_level, n_cpu_per_sim=1, n_parallel_sim=1)
-        
+
         # m) Ride-Parcel-Pooling example
         log_level = "info"
         cc = os.path.join(scs_path, "constant_config_rpp.csv")

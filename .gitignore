@@ -30,6 +30,7 @@ data/vehicles/*
 data/zones/*
 !data/zones/example_zones
 !data/infra/example_infra
+data/FleetPy_Munich
 
 # study directories except for example and example case studies
 studies/*

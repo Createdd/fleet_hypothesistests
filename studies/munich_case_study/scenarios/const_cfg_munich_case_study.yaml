@@ -1,7 +1,7 @@
 # 1 - FleetSimulation
 sim_env: BatchOfferSimulation
 log_level: info
-network_type: NetworkPartialPreprocessed
+network_type: NetworkBasic
 network_name: Aimsun_Munich_2020
 demand_name: Munich_PV_2020
 random_seed: 0
