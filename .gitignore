@@ -31,6 +31,7 @@ data/zones/*
 !data/zones/example_zones
 !data/infra/example_infra
 data/FleetPy_Munich
+data/gip_network_ogd.gpkg
 
 # study directories except for example and example case studies
 studies/*
