@@ -36,7 +36,7 @@ data/gip_network_ogd.gpkg
 !data/networks/klagenfurt
 !data/zones/klagenfurt
 !data/demand/klagenfurt
-!studies/klagenfurt
+!data/vehicles/klagenfurt_peak_morning.csv
 
 # study directories except for example and example case studies
 studies/*
@@ -53,6 +53,7 @@ studies/manhattan_case_study/results/*
 studies/chicago_case_study/results/*
 !studies/munich_case_study
 studies/munich_case_study/results/*
+!studies/klagenfurt
 
 # system dependent C++ Router files
 src/routing/cpp_router/*.pyd
