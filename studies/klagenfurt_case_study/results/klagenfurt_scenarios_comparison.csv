@@ -1,0 +1,4 @@
+,Scenario,Total Trips,Avg Wait Time (min),Max Wait Time (min),Service Rate ≤10min (%),Unique Vehicles,Peak Hour Demand
+0,klagenfurt_scenario_2,100,4.2,5.5,2.0,2,56
+1,klagenfurt_scenario_3,100,4.2,5.5,2.0,2,56
+2,klagenfurt_scenario_1,100,7.5,7.5,1.0,1,56
