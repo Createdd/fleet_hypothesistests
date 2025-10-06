@@ -1,0 +1,5 @@
+Flottengröße,Bediente Anfragen,Service Rate (%),Ø Wartezeit (min),Max Wartezeit (min),Service Rate ≤10min (%),Gesamte Fahrten,Ø Fahrten pro Shuttle
+8,105,21.0,39.9,423.7,68.6,105,13.1
+16,165,33.0,52.9,434.0,62.4,165,10.3
+24,207,41.4,67.4,439.0,55.6,207,8.6
+32,222,44.4,87.3,445.3,37.8,222,6.9

@@ -1,0 +1,2 @@
+Simulation,Datum,Nachfrage_Gesamt,Spitzenzeiten,Getestete_Flottengroessen,Empfohlene_Flotte,Max_Service_Rate,Optimale_Flotte_Service
+Klagenfurt Shuttle-Service,2025-10-06 13:20,500,"Morgens 07-09h, Nachmittags 15-18h","[8, 16, 24, 32]",16,44.4%,32
