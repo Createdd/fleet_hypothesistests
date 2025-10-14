@@ -1,257 +1,454 @@
-# 🚖 FleetPy – Open-Source Fleet Simulation Framework
+# 🚌 FleetPy Klagenfurt Fallstudie
 
-[![GitHub stars](https://img.shields.io/github/stars/TUM-VT/FleetPy?style=social)](https://github.com/TUM-VT/FleetPy)
-FleetPy is an open-source **fleet simulation framework** for modeling and controlling vehicle fleets in **ride-sharing, autonomous mobility, and on-demand transport** applications.
+## Ridepooling-Simulation für Klagenfurt am Wörthersee
 
-> Whether you're a **researcher**, **transportation engineer**, or **mobility innovator**, FleetPy helps you analyze and optimize **fleet operations, routing strategies, and demand-responsive services**.
+[![FleetPy](https://img.shields.io/badge/Framework-FleetPy-blue)](https://github.com/TUM-VT/FleetPy)
+[![Python 3.10](https://img.shields.io/badge/Python-3.10-green.svg)](https://www.python.org/downloads/)
+[![Status](https://img.shields.io/badge/Status-Abgeschlossen-success)](https://github.com)
 
-😶‍🌫️ **[Fleetpy for dummies](https://github.com/TUM-VT/FleetPy/wiki](https://github.com/TUM-VT/FleetPy/wiki/0_Fleetpy_for_dummies))** 📖 **[Read the Wiki](https://github.com/TUM-VT/FleetPy/wiki)** | 🛠 **[Installation Guide](#-installation)** | 🚀 **[Quickstart](#-quickstart)**
-
----
-
-## 🚌 **Klagenfurt H1 Spitzenzeiten Fallstudie**
-
-📊 **Neue Ridepooling-Analyse für Klagenfurt am Wörthersee verfügbar!**
-
-Diese Repository enthält eine umfassende Fallstudie zur Machbarkeit eines Ridepooling-Dienstes in Klagenfurt mit:
-- ✅ **84-98% Service-Rate** über 3 Flottenszenarien (20, 30, 40 Fahrzeuge)
-- ⏱️ **3.6-5.0 min durchschnittliche Wartezeit**
-- 🗺️ **12-Zonen-System** via K-Means Clustering
-- 📈 **Vollständige Performance-Analyse** mit Visualisierungen
-
-👉 **[Zur vollständigen Klagenfurt H1 Spitzenzeiten-Studie](README_KLAGENFURT.md)** 👈
-
-![Klagenfurt Zones](klagenfurt_zones_map.png)
-
-<img src="https://github.com/user-attachments/assets/ea839af5-3465-4bd1-8ed4-79c8fe0fd524" alt="Fleetpy Logo" height="400">
+Diese Studie analysiert die Machbarkeit und Performance eines Ridepooling-Dienstes in Klagenfurt unter Verwendung des professionellen FleetPy-Simulationsframeworks. Die Simulation vergleicht drei Flottengrößen (20, 30, 40 Fahrzeuge) hinsichtlich Servicequalität, Wartezeiten und operativer Effizienz.
 
 ---
 
-## 🎯 Key Features
+## 📊 Zentrale Ergebnisse
 
-✅ **Agent-Based Simulation** – Models individual vehicles, passengers, and operators.
-✅ **Flexible User-Operator Interaction** – Supports multiple request-acceptance models.
-✅ **Multi-Fleet Management** – Simulates **ride-pooling, dispatching, and EV charging**.
-✅ **Customizable Routing Algorithms** – Choose between memory-efficient and fast methods.
-✅ **Modular & Extensible Design** – Easily integrate **new demand models, routing strategies, or data sources**.
-✅ **Optimized for Large-Scale Scenarios** – Handles thousands of vehicles and requests efficiently.
+### 🎯 Service-Raten nach Flottengröße
+
+| Szenario | Flottengröße | Service-Rate | Ø Wartezeit | Fahrzeugauslastung |
+|----------|--------------|--------------|-------------|-------------------|
+| **Szenario 1** | 20 Fahrzeuge | **84.0%** | 5.0 min | 100% |
+| **Szenario 2** | 30 Fahrzeuge | **95.0%** | 4.2 min | 100% |
+| **Szenario 3** | 40 Fahrzeuge | **98.0%** | 3.6 min | 92.5% |
+
+### 📈 Performance-Analyse
+
+![Klagenfurt Performance Analysis](studies/klagenfurt_h1_spitzenzeiten_case_study/results/analysis/klagenfurt_h1_spitzenzeiten_performance_analysis.png)
+
+**Zentrale Erkenntnisse:**
+- ✅ **Hohe Service-Raten**: 84-98% der Anfragen werden bedient
+- ⏱️ **Kurze Wartezeiten**: Durchschnittlich 3.6-5.0 Minuten
+- 🚗 **Optimale Auslastung**: 92-100% der Fahrzeuge werden aktiv genutzt
+- 📊 **Skalierungseffekt**: +50% Flotte → +14% Service-Rate
+- 💰 **Kosteneffizienz**: 20 Fahrzeuge bereits mit 84% Service-Rate
 
 ---
 
-## 🚀 Quickstart
+## 🗺️ Untersuchungsgebiet
 
-Get up and running in just a few commands!
+### Klagenfurt Zonensystem (12 Zonen)
+
+![Klagenfurt Zones Map](klagenfurt_zones_map.png)
+
+**Netzwerk-Charakteristika:**
+- **Knoten**: 2.099 (Straßenkreuzungen und Haltepunkte)
+- **Kanten**: 5.658 (Straßenverbindungen)
+- **Zonen**: 12 (K-Means Clustering)
+- **Zentroiden**: 103 (zentrale Pickup/Drop-off Punkte)
+- **Durchschnittliche Zonengröße**: ~175 Knoten pro Zone
+
+**Begründung des Zonensystems:**
+- Vergleich: 1 Zone → 0% Service-Rate ❌
+- Mit 12 Zonen → 84-98% Service-Rate ✅
+- Zonenstruktur ist **kritisch** für Alonso-Mora-Algorithmus
+
+---
+
+## 🔧 Simulationsaufbau
+
+### 📍 Untersuchungsgebiet: Klagenfurt am Wörthersee
+
+**Stadtgebiet:**
+- Netzwerkgröße: 2.099 Knoten, 5.658 Kanten
+- Netzwerktyp: NetworkBasic (OpenStreetMap-basiert)
+- Abdeckung: Kernstadtgebiet (~100.000 Einwohner)
+- Datenquelle: OpenStreetMap
+
+**Warum Klagenfurt:**
+- Repräsentativ für mittelgroße europäische Städte
+- Überschaubare Stadtgröße für detaillierte Fallstudie
+- Gute Datenqualität und Netzwerkstruktur
+- Vergleichbarkeit mit München-Studie
+
+### 📊 Nachfragedaten
+
+**Simulationsparameter:**
+- **Anfragen**: 100 Mobilitätsnachfragen
+- **Zeitfenster**: 7:00-9:00 Uhr (Morgen-Spitzenzeit)
+- **Typ**: Pendlerverkehr-Spitze
+- **Verteilung**: Realistische räumliche Verteilung über Stadtgebiet
+
+**Warum Morgen-Spitzenzeit:**
+- Höchste Nachfrage und größte Herausforderung
+- Kritisch für Servicequalität (pünktliche Ankunft)
+- Dimensionierungs-kritische Betriebsphase
+- Vergleichbarkeit mit bestehenden Studien
+
+### 🚗 Flottenszenarien
+
+**Testszenarien:**
+
+1. **Szenario 1 - Basisflotte (20 Fahrzeuge)**
+   - Minimale wirtschaftlich sinnvolle Flotte
+   - Ergebnis: 84% Service-Rate, 100% Auslastung
+   - 4.2 Anfragen pro Fahrzeug
+
+2. **Szenario 2 - Mittlere Flotte (30 Fahrzeuge)**
+   - Balance zwischen Servicequalität und Kosten
+   - Ergebnis: 95% Service-Rate, 100% Auslastung
+   - 3.2 Anfragen pro Fahrzeug
+
+3. **Szenario 3 - Große Flotte (40 Fahrzeuge)**
+   - Maximale Kapazität zur Evaluation
+   - Ergebnis: 98% Service-Rate, 92.5% Auslastung
+   - 2.6 Anfragen pro Fahrzeug
+
+**Fahrzeugtyp:**
+- Standard-Ridepooling-Fahrzeuge (4 Passagiere)
+- Identische Flotte für Vergleichbarkeit
+- Boarding-Zeit: 30 Sekunden
+- Maximale Wartezeit: 8 Minuten
+
+### 🧮 Algorithmen und Optimierung
+
+**Optimierungsalgorithmus:**
+- **Algorithmus**: Alonso-Mora Batch Assignment
+- **Typ**: State-of-the-art Ridepooling-Optimierung
+- **Framework**: FleetPy (BatchOfferSimulation)
+- **Reoptimierung**: Alle 30 Sekunden
+
+**Service-Constraints:**
+- Max. Wartezeit: 8 Minuten (Akzeptanzgrenze)
+- Max. Umwegfaktor: 40% der direkten Fahrzeit
+- Boarding-Zeit: 30 Sekunden konstant
+- Max. Touren pro Fahrzeug: 4
+
+**Warum Alonso-Mora:**
+- State-of-the-art in Ridepooling-Forschung
+- Garantiert optimale Lösungen in definiertem Zeitfenster
+- Berücksichtigt vehicle sharing (Mehrfachbelegung)
+- Bewährt in realen Anwendungen
+
+---
+
+## 📋 Detaillierte Ergebnisse
+
+### Service-Qualität nach Wartezeit
+
+| Flottengröße | ≤3 min | ≤5 min | ≤10 min |
+|--------------|--------|--------|---------|
+| 20 Fahrzeuge | 35.7% | 51.2% | 100% |
+| 30 Fahrzeuge | 51.6% | 67.4% | 100% |
+| 40 Fahrzeuge | 60.2% | 74.5% | 100% |
+
+**Interpretation:**
+- ✅ Alle bedienten Anfragen innerhalb von 8 Minuten (Constraint)
+- 📊 Größere Flotte → schnellerer Service
+- 🎯 30 Fahrzeuge: Sweet-Spot mit 67% ≤5min Service
+
+### Flotteneffizienz
+
+| Metrik | Szenario 1 | Szenario 2 | Szenario 3 |
+|--------|-----------|-----------|-----------|
+| Eingesetzte Fahrzeuge | 20/20 | 30/30 | 37/40 |
+| Anfragen/Fahrzeug | 4.2 | 3.2 | 2.6 |
+| Auslastung | 100% | 100% | 92.5% |
+| Median Wartezeit | 5.0 min | 4.0 min | 3.5 min |
+
+**Effizienz-Analyse:**
+- 💰 **Kostenoptimal**: 20 Fahrzeuge (höchste Anfragen/Fahrzeug)
+- ⚖️ **Ausgewogen**: 30 Fahrzeuge (95% Service, 100% Auslastung)
+- 🏆 **Serviceoptimal**: 40 Fahrzeuge (98% Service, kürzeste Wartezeiten)
+
+---
+
+## 🎯 Empfehlungen
+
+### Optimale Flottengröße
+
+**Für unterschiedliche Ziele:**
+
+1. **Kosteneffizienz priorisiert** → **20 Fahrzeuge**
+   - 84% Service-Rate akzeptabel
+   - 100% Fahrzeugauslastung
+   - Geringste operative Kosten
+   - 4.2 Anfragen pro Fahrzeug
+
+2. **Balance Kosten/Service** → **30 Fahrzeuge** ⭐ **EMPFOHLEN**
+   - 95% Service-Rate (exzellent)
+   - 100% Fahrzeugauslastung
+   - 67% mit ≤5 min Wartezeit
+   - Beste Kosten-Nutzen-Relation
+
+3. **Servicequalität priorisiert** → **40 Fahrzeuge**
+   - 98% Service-Rate (nahezu vollständig)
+   - Kürzeste Wartezeiten (Ø 3.6 min)
+   - 75% mit ≤5 min Wartezeit
+   - Höchste Kundenzufriedenheit
+
+### Strategische Erkenntnisse
+
+✅ **Technische Machbarkeit bestätigt**
+- Ridepooling in Klagenfurt funktioniert mit 84-98% Service-Rate
+- Zonenbasierte Optimierung ist kritisch für Erfolg
+- Alonso-Mora-Algorithmus bewältigt Morgen-Spitze
+
+💡 **Kritische Erfolgsfaktoren**
+- **Zonensystem**: 12-Zonen-Struktur essentiell (vs. 1 Zone: 0% Service)
+- **Zentroiden**: 103 strategische Pickup-Points reduzieren Empty-Trips
+- **Reoptimierung**: 30-Sekunden-Intervall ermöglicht dynamisches Matching
+
+⚠️ **Operationale Hinweise**
+- Morgen-Spitze (7-9 Uhr) ist dimensionierungs-kritisch
+- Alle Szenarien erreichen 100% Service innerhalb 8 min Wartezeit
+- Flotte ≥30 Fahrzeuge für >95% Service-Rate empfohlen
+
+---
+
+## � Hypothese 2 (H2): Minimale Flottengröße
+
+### 🎯 Forschungsfrage H2
+
+**Ziel:** Bestimmung der **minimalen wirtschaftlich vertretbaren Flottengröße** für akzeptable Servicequalität (>85% Service-Rate)
+
+**Unterschied zu H1:**
+- **H1 (Optimierung)**: Größere Flotten (20, 30, 40 Fahrzeuge) → Maximale Servicequalität
+- **H2 (Minimalversorgung)**: Kleinere Flotten (8, 16, 24, 32 Fahrzeuge) → Minimale Betriebskosten
+
+### 📈 H2 Ergebnisse: Kleinere Flottengrößen
+
+| Szenario | Flottengröße | Bediente Anfragen | Service-Rate | Ø Wartezeit | Ø Gesamtzeit |
+|----------|--------------|-------------------|--------------|-------------|--------------|
+| **H2-Scenario 1** | 8 Shuttles | 41/100 | **41.0%** | 5.34 min | 19.82 min |
+| **H2-Scenario 2** | 16 Shuttles | 70/100 | **70.0%** | 5.05 min | 18.48 min |
+| **H2-Scenario 3** | 24 Shuttles | 92/100 | **92.0%** | 4.67 min | 18.24 min |
+| **H2-Scenario 4** | 32 Shuttles | 95/100 | **95.0%** | 4.09 min | 17.12 min |
+
+### 🔍 H2 Kernerkenntnisse
+
+**Kritischer Schwellenwert identifiziert:**
+- ✅ **8 Shuttles**: Unterversorgung (41% Service-Rate) - nicht wirtschaftlich vertretbar
+- ⚠️ **16 Shuttles**: Kritischer Bereich (70% Service-Rate) - grenzwertig akzeptabel
+- ✅ **24 Shuttles**: **Optimale Minimalflotte** (92% Service-Rate) - erreicht Akzeptanzgrenze
+- ✅ **32 Shuttles**: Komfortzone (95% Service-Rate) - hohe Zuverlässigkeit
+
+**Skalierungsverhalten:**
+- Verdopplung 8→16: +71% Service-Rate Verbesserung (größter Sprung!)
+- Verdopplung 16→32: +36% Service-Rate Verbesserung
+- 24→32 (+8 Shuttles): Nur +3% Verbesserung (Diminishing Returns)
+
+**Wirtschaftliche Implikation:**
+- **Minimale Flotte**: 24 Shuttles für >90% Service-Rate
+- **Kosteneffizienz**: 24 Shuttles = 60% der Kosten von 40 Shuttles bei 92% vs 98% Service
+- **Sweet Spot**: 24-32 Shuttles balancieren Kosten und Qualität optimal
+
+### 📊 H1 vs H2 Vergleich
+
+```
+Flottenspektrum:
+H2 ←─────────────────────────────────→ H1
+8 ─── 16 ─── 24 ─── 32 ─── 20 ─── 30 ─── 40
+
+Service-Raten:
+41%   70%   92%   95%   84%   95%   98%
+├─────────────┬─────────┬─────────────┤
+Unterversorgung  Optimal   Überkapazität
+```
+
+**H2 Simulation ausführen:**
 
 ```bash
-# Clone the repository
-git clone https://github.com/TUM-VT/FleetPy.git
+# H2 Minimal-Flotten-Simulation
+python run_klagenfurt_h2_spitzenzeiten.py
+
+# H2 Analyse
+python klagenfurt_h2_spitzenzeiten_analysis.py
+```
+
+**H2 Outputs:**
+- ✅ `klagenfurt_h2_spitzenzeiten_scenarios_comparison.csv`
+- ✅ `h2_temporal_analysis.png`
+- ✅ `h2_performance_comparison.png`
+
+### 💡 Strategische H2 Empfehlung
+
+**Für kostenoptimierte Betriebsführung:**
+1. **Start-up Phase**: 24 Shuttles (92% Service-Rate, niedrige Investition)
+2. **Wachstumsphase**: 32 Shuttles bei steigender Nachfrage
+3. **Reife Phase**: H1-Szenarien (30-40 Shuttles) für Premium-Service
+
+**Kritische Grenze:** Niemals unter 16 Shuttles (70% Service unakzeptabel für Nutzer)
+
+---
+
+## �🛠️ Technische Details
+
+### Setup und Reproduzierbarkeit
+
+**System-Anforderungen:**
+- Python 3.10+
+- FleetPy Framework
+- Conda Environment: `fleetpy`
+
+**Installation:**
+
+```bash
+# Repository klonen
+git clone https://github.com/Createdd/fleet_hypothesistests.git
 cd FleetPy
 
-# Set up the virtual environment
+# Conda Environment erstellen
 conda env create -f environment.yml
 conda activate fleetpy
 
-# Run an example simulation
-python run_examples.py
+# Abhängigkeiten installieren
+pip install -r requirements.txt
 ```
 
-✔ The results will be saved in `FleetPy/studies/example_study/results/`
-✔ To visualize the results, run:
+**Simulation ausführen:**
 
 ```bash
-python replay_pyplot.py scenario_result_directory
+# Klagenfurt H1 Spitzenzeiten-Simulation starten
+python run_klagenfurt_h1_spitzenzeiten.py
+
+# Analyse-Notebook öffnen
+jupyter notebook studies/klagenfurt_h1_spitzenzeiten_case_study/analysis/klagenfurt_h1_spitzenzeiten_analysis.ipynb
+```
+
+### Projektstruktur
+
+```
+FleetPy/
+├── data/
+│   ├── networks/klagenfurt_h1_spitzenzeiten/          # Straßennetzwerk (2.099 Knoten)
+│   ├── zones/klagenfurt_h1_spitzenzeiten/             # 12-Zonen-System
+│   ├── demand/klagenfurt_h1_spitzenzeiten/            # 100 Anfragen (7-9 Uhr)
+│   └── vehicles/klagenfurt_peak_morning.csv           # Fahrzeugparameter
+├── studies/klagenfurt_h1_spitzenzeiten_case_study/
+│   ├── scenarios/                                     # Konfigurationsdateien
+│   ├── results/
+│   │   ├── klagenfurt_h1_spitzenzeiten_scenario_1/   # 20 Fahrzeuge
+│   │   ├── klagenfurt_h1_spitzenzeiten_scenario_2/   # 30 Fahrzeuge
+│   │   ├── klagenfurt_h1_spitzenzeiten_scenario_3/   # 40 Fahrzeuge
+│   └── analysis/
+│       ├── visualizations/                            # Alle Plots
+│       └── klagenfurt_h1_spitzenzeiten_analysis.ipynb # Hauptanalyse-Notebook
+├── run_klagenfurt_h1_spitzenzeiten.py                 # Simulation-Runner
+├── filter_klagenfurt_h1_spitzenzeiten.ipynb           # Zonenerstellung
+└── klagenfurt_zones_map.png                           # Zonenkarte
+```
+
+### Konfigurationsdateien
+
+**Hauptkonfiguration:** `studies/klagenfurt_h1_spitzenzeiten_case_study/scenarios/const_cfg_klagenfurt_h1_spitzenzeiten_case_study.yaml`
+
+```yaml
+sim_env: BatchOfferSimulation
+network_type: NetworkBasic
+network_name: klagenfurt_h1_spitzenzeiten
+demand_name: klagenfurt_h1_spitzenzeiten
+start_time: 25200  # 7:00 Uhr
+end_time: 32400    # 9:00 Uhr
+time_step: 30
+op_module: RidePoolingBatchAssignmentFleetcontrol
+op_rp_batch_optimizer: AlonsoMora
+op_max_wait_time: 480  # 8 Minuten
+op_max_detour_time_factor: 40
+op_zone_system: klagenfurt_h1_spitzenzeiten
+```
+
+**Szenario-Konfiguration:** `studies/klagenfurt_h1_spitzenzeiten_case_study/scenarios/scenario_cfg_klagenfurt_h1_spitzenzeiten_case_study.csv`
+
+```csv
+scenario_name,op_fleet_composition
+klagenfurt_h1_spitzenzeiten_scenario_1,default_vehtype:20
+klagenfurt_h1_spitzenzeiten_scenario_2,default_vehtype:30
+klagenfurt_h1_spitzenzeiten_scenario_3,default_vehtype:40
 ```
 
 ---
 
-## 🛠 Installation
+## 📊 Methodische Validität
 
-### 1️⃣ Install with Conda (Recommended)
+### Wissenschaftliche Fundierung
 
-Ensure you have [Anaconda](https://www.anaconda.com/products/distribution) installed.
+**Parameter-Begründung:**
+- ✅ 8 Min. Wartezeit: Akzeptanzgrenze urbane Mobilität (Literatur-gestützt)
+- ✅ 40% Umwegfaktor: Ridepooling-Standard (Alonso-Mora et al.)
+- ✅ 30s Boarding: Durchschnittliche Ein-/Ausstiegszeit (empirisch)
+- ✅ Morgen-Spitze: Dimensionierungs-kritisch (Verkehrsforschung)
 
-```bash
-# Fetch the latest updates
-git clone https://github.com/TUM-VT/FleetPy.git
-cd FleetPy
+**Vergleichbarkeit:**
+- München-Studie als Referenz (gleiches Framework)
+- Ähnliche Zonendichte (~175 vs. ~280 Knoten/Zone)
+- Identische Algorithmen und Constraints
+- Reproduzierbare Konfiguration
 
-# Set up a Conda environment
-conda env create -f environment.yml
-conda activate fleetpy
-```
+**Datenqualität:**
+- OpenStreetMap-Netzwerk (validiert)
+- Realistische Nachfrageverteilung
+- Professionelles Simulationsframework (FleetPy)
+- Peer-reviewed Algorithmen (Alonso-Mora)
 
-### 2️⃣ Install C++ Router (Recommended)
+### Wichtiger Hinweis zur Service-Bestimmung
 
-For improved routing efficiency, compile the C++ router:
-
-```bash
-cd FleetPy/src/routing/cpp_router
-python setup.py build_ext --inplace
-```
-
-**Ensure a C++ compiler and Cython are installed.**
-
-### 3️⃣ Install Optimizer (Optional)
-
-For advanced optimization tasks, install the necessary optimizers:
-
-#### 🏆 **Gurobi**
-
-To install Gurobi:
-
-```bash
-python -m pip install gurobipy==12.0.1
-```
-
-You can acquire a **free academic license** from [Gurobi](https://www.gurobi.com/academia/academic-program-and-licenses/). 🎓
-
-#### ⚡ **OR-Tools**
-
-To install Google's OR-Tools:
-
-```bash
-pip install ortools
-```
-
-This is useful for combinatorial optimization and routing problems.
+⚠️ **Service-Metrik:**
+- Service-Rate wird durch **`pickup_time`-Feld** bestimmt
+- `modal_state=0` für ALLE Anfragen (Feld nicht verwendet in BatchOfferSimulation)
+- Korrekte Interpretation: `pickup_time.notna()` = bedient
+- Entspricht München-Simulation (konsistente Methodik)
 
 ---
 
-## 📂 Data Preparation and Study Setup
+## 📚 Referenzen und Literatur
 
-For now, you can inspect the data structures and files in the examples provided in GitHub:
+**FleetPy Framework:**
+- Engelhardt, R., et al. (2022). "FleetPy: A Modular Open-Source Simulation Tool for Mobility Services"
+- Repository: https://github.com/TUM-VT/FleetPy
 
-* 📁 `FleetPy/data`
-* 📁 `FleetPy/studies`
+**Alonso-Mora Algorithmus:**
+- Alonso-Mora, J., et al. (2017). "On-demand high-capacity ride-sharing via dynamic trip-vehicle assignment"
+- PNAS 114 (3): 462-467
 
-More detailed descriptions of the **data structure, preprocessing steps, and result data** will be provided in upcoming versions.
-Additionally, a **GUI to set up scenarios** (with a choice of submodules and data) is planned for the future. 🎨
-
-In general, you can **save your data and study definitions** in the mentioned directories. These are included in `.gitignore`.
-
-<!-- ... (prepare study by config.csv and scenarios.csv) -->
-<!-- ... (necessary modules for preprocessing can be installed by "pip3 install -r requirements_with_pp.txt") -->
-
----
-
-## 📊 Running a Simulation
-
-To test an example scenario:
-
-```bash
-python run_examples.py
-```
-
-✔ The output will be stored in:
-📂 `FleetPy/studies/example_study/results/`
-
-### 📊 Output Files
-
-| File Name            | Description |
-|----------------------|-------------|
-| `1_user_stats.csv`   | User request statistics |
-| `2_0_op-stats.csv`   | Fleet vehicle task logs |
-| `standard_eval.csv`  | Aggregated evaluation results |
-
-To analyze trends:
-
-```bash
-python FleetPy/src/evaluation/temporal.py scenario_result_directory
-```
+**Ridepooling-Forschung:**
+- Bischoff, J., & Maciejewski, M. (2016). "Simulation of City-wide Replacement of Private Cars with Autonomous Taxis in Berlin"
+- Procedia Computer Science 83: 237-244
 
 ---
 
-## 🎥 Watch a Replay
+## 👥 Autoren und Kontakt
 
-To visualize a **previously simulated scenario**, run:
-
-```bash
-python replay_pyplot.py scenario_result_directory <sim_seconds_per_real_second>
-```
-
-🛑 *(Optional: Specify start time as an additional argument.)*
+**Projekt:** Klagenfurt H1 Spitzenzeiten Ridepooling Feasibility Study
+**Framework:** FleetPy (TUM-VT)
+**Repository:** https://github.com/Createdd/fleet_hypothesistests
+**Datum:** Oktober 2025
 
 ---
 
-## Benchmark Data Sets
+## 📄 Lizenz
 
-Input data and corresponding example scenario files are available for large-scale case studies of Manhattan, NY, Chicago, IL, and Munich, Germany. This data can be used as benchmark data sets to test and compare new algorithms or to set up large-scale simulations quickly. The FleetPy input data can be downloaded here and has to be copied into the FleetPy/data folder:
-
-- Manhattan: https://doi.org/10.5281/zenodo.15187906
-- Chicago: https://doi.org/10.5281/zenodo.15189440
-- Munich: https://doi.org/10.5281/zenodo.15195726
+Dieses Projekt verwendet das FleetPy Framework unter dessen Lizenz.
+FleetPy © Technical University of Munich, Chair of Traffic Engineering and Control
 
 ---
 
-## 🤝 Contributing
+## 🔄 Nächste Schritte
 
-We welcome contributions from the community! 🚀
-📌 **How to contribute:**
+**Weiterführende Analysen:**
+- [ ] Sensitivitätsanalyse für verschiedene Nachfrageszenarien
+- [ ] Kostenmodellierung (CAPEX/OPEX) pro Szenario
+- [ ] Integration öffentlicher Verkehrsmittel
+- [ ] Saisonale Variationen (Tourismus-Spitzen)
+- [ ] Elektrofahrzeug-Integration und Ladeinfrastruktur
 
-1. Fork the repo & create a feature branch (`git checkout -b new-feature`).
-2. Commit your changes (`git commit -m "Added a cool feature"`).
-3. Push to your branch (`git push origin new-feature`).
-4. Make sure that the module tests are running (`\studies\module_tests\run_module_tests.py`).
-5. Open a Pull Request!
-
-<!-- ... TODO: contributing.md
-🔍 Check out [CONTRIBUTING.md](link) for guidelines.
--->
-
----
-
-## 📢 Get Involved
-
-💬 **Join the discussion:** [GitHub Discussions](https://github.com/TUM-VT/FleetPy/discussions)
-💻 **Contribute:** Open an issue or PR!
-⭐ **Support FleetPy:** Give us a **star ⭐** on GitHub!
-🚀 **Stay updated:** Follow us on [Homepage](https://www.mos.ed.tum.de/en/vt/home/) & [LinkedIn](https://www.linkedin.com/school/tum-chair-of-traffic-engineering-and-control/)
+**Implementierungsplanung:**
+- [ ] Pilotprojekt-Design (3-6 Monate)
+- [ ] Stakeholder-Analyse (Stadt, Betreiber, Nutzer)
+- [ ] Regulatorisches Framework
+- [ ] Marketing und User Onboarding
+- [ ] KPI-Dashboard für laufenden Betrieb
 
 ---
 
-## 📌 Tested on
-
-✔ **Windows 10 Pro x64**
-✔ **Chrome 79.0.3945**
-✔ **Python 3.10**
-
----
-
-## 🧪 Research Projects Using FleetPy
-
-FleetPy has been applied in various academic and applied research projects across topics like shared mobility, autonomous vehicle operations, and electrified fleets:
-
-### Ongoing Projects
-
-* **[CONDUCTOR](https://conductor-project.eu/?show=consortium)** – Development of an integrated ride-parcel-pooling service using automated vehicles (CCAM), evaluated via FleetPy-Aimsun coupling *(multi-modal integration, AVs, cooperative routing, traffic control, simulation coupling)*
-* **[metaCCAZE](https://www.metaccaze-project.eu/)** – Scientific support and simulation-based evaluation of Munich’s Living Lab innovations including multimodal logistics hubs, dynamic curbside management, and connected/autonomous last-mile vehicles. FleetPy contributes to monitoring and optimizing operations *(multimodal hubs, curbside management, AV logistics, LL evaluation, policy support)*
-* **[MINGA](https://www.mos.ed.tum.de/en/vt/research/projects/current-projects/minga/)** – Evaluation of AV stop concepts and passenger interactions at TUM’s test field. FleetPy is used alongside MATSim and microscopic traffic simulations to model AV and non-AV traffic, evaluate climate and system-wide impacts, and support accessibility-focused user studies *(AV integration, stop concepts, MATSim coupling, KPI evaluation, accessibility research)*
-* **[STADT:up](https://www.mos.ed.tum.de/en/vt/research/projects/current-projects/stadtup/)** – Simulation of autonomous shuttle bus in different inter-mobility scenarios with dynamic stops *(Operation, traffic evaluation)*
-* **[SUM (Seamless Shared Urban Mobility)](https://sum-project.eu/)** – Simulation-based evaluation of operational strategies for automated on-demand fleets in Munich using FleetPy, including integration with public transport, pricing strategies, and transferability to future mobility hubs *(on-demand AV fleets, public transport integration, pricing, living lab scalability)*
-
-### Completed Projects
-
-* **[MOIA](https://www.mos.ed.tum.de/en/vt/forschung/projekte/abgeschlossene-projekte/moia-accompanying-research-completed-2021/)** – Implementation of algorithms to represent MOIA’s fleet control *(operation, ride-pooling)*
-
-* **[MCube: STEAM](https://mcube-cluster.de/en/projekt/steam/)** – Simulation of semi-flexible bus lines in Munich using FleetPy, integrated with the TUM-OSM decision support system *(agent-based simulation, semi-flexible transit, DSS coupling, urban mobility, evaluation pipeline)*
-
-> 🧠 Do you use FleetPy in your research? [Let us know!](mailto:florian.dandl@tum.de)
-
----
-
-## Citation
-
-If you find this framework useful for your work or use it in your project, please consider citing:
-Engelhardt, R., Dandl, F., Syed, A., Zhang, Y., Fehn, F., Wolf, F., Bogenberger, K. (2022). FleetPy: A Modular Open-Source Simulation Tool for Mobility On-Demand Services. Arxiv pre-print
-
-```
-@misc{engelhardt2022fleetpymodularopensourcesimulation,
-      title={FleetPy: A Modular Open-Source Simulation Tool for Mobility On-Demand Services},
-      author={Roman Engelhardt and Florian Dandl and Arslan-Ali Syed and Yunfei Zhang and Fabian Fehn and Fynn Wolf and Klaus Bogenberger},
-      year={2022},
-      eprint={2207.14246},
-      archivePrefix={arXiv},
-      primaryClass={cs.MA},
-      url={https://arxiv.org/abs/2207.14246},
-}
-```
+<p align="center">
+  <i>Simuliert mit FleetPy | Analysiert für Klagenfurt | Optimiert für Realität</i>
+</p>
