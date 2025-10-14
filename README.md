@@ -17,12 +17,12 @@ Diese Studie analysiert die Machbarkeit und Performance eines Ridepooling-Dienst
 ## � Inhaltsverzeichnis
 
 1. [Simulationsparameter](#-simulationsparameter)
-2. [Setup und Installation](#-setup-und-installation)
-3. [Hypothese 1 (H1): Servicequalität-Optimierung](#-hypothese-1-h1-servicequalität-optimierung)
-4. [Hypothese 2 (H2): Minimale Flottengröße](#-hypothese-2-h2-minimale-flottengröße)
-5. [Vergleich H1 vs H2](#-vergleich-h1-vs-h2)
-6. [Methodische Validität](#-methodische-validität)
-7. [Referenzen](#-referenzen-und-literatur)
+2. [Hypothese 1 (H1): Servicequalität-Optimierung](#-hypothese-1-h1-servicequalität-optimierung)
+3. [Hypothese 2 (H2): Minimale Flottengröße](#-hypothese-2-h2-minimale-flottengröße)
+4. [Vergleich H1 vs H2](#-vergleich-h1-vs-h2)
+5. [Methodische Validität](#-methodische-validität)
+6. [Referenzen](#-referenzen-und-literatur)
+7. [Setup und Installation](#-setup-und-installation)
 
 ---
 
@@ -189,159 +189,6 @@ klagenfurt_h2_spitzenzeiten_scenario_1,default_vehtype:8
 klagenfurt_h2_spitzenzeiten_scenario_2,default_vehtype:16
 klagenfurt_h2_spitzenzeiten_scenario_3,default_vehtype:24
 klagenfurt_h2_spitzenzeiten_scenario_4,default_vehtype:32
-```
-
----
-
-## 🛠️ Setup und Installation
-
-### System-Anforderungen
-
-**Software:**
-- **Python:** 3.10+ (erforderlich)
-- **Framework:** FleetPy
-- **Environment Manager:** Conda (empfohlen)
-- **Betriebssystem:** Windows, macOS, Linux
-
-**Hardware (Empfohlen):**
-- **RAM:** Mindestens 8 GB (16 GB empfohlen)
-- **CPU:** Multi-Core Prozessor
-- **Speicher:** 5 GB freier Speicherplatz
-
-**Konfidenz:** Hoch (Standard-Anforderungen für FleetPy)
-
-### Installation Schritt-für-Schritt
-
-**1. Repository klonen:**
-
-```bash
-git clone https://github.com/Createdd/fleet_hypothesistests.git
-cd FleetPy
-```
-
-**2. Conda Environment erstellen:**
-
-```bash
-# Environment aus YAML-Datei erstellen
-conda env create -f environment.yml
-
-# Environment aktivieren
-conda activate fleetpy
-```
-
-**3. Abhängigkeiten installieren:**
-
-```bash
-# Python-Pakete installieren
-pip install -r requirements.txt
-```
-
-**4. Installation verifizieren:**
-
-```bash
-# Python-Version prüfen
-python --version  # Sollte Python 3.10+ anzeigen
-
-# FleetPy importieren testen
-python -c "import sys; sys.path.append('src'); from FleetSimulationBase import FleetSimulationBase; print('FleetPy erfolgreich importiert')"
-```
-
-### Projektstruktur
-
-```
-FleetPy/
-├── data/                                               # Alle Eingangsdaten
-│   ├── networks/klagenfurt_h1_spitzenzeiten/          # Straßennetzwerk (2.099 Knoten)
-│   ├── zones/klagenfurt_h1_spitzenzeiten/             # 12-Zonen-System
-│   ├── demand/klagenfurt_h1_spitzenzeiten/            # 100 Anfragen (7-9 Uhr)
-│   └── vehicles/default_vehtype.csv                   # Fahrzeugparameter
-│
-├── studies/                                            # Alle Studien
-│   ├── klagenfurt_h1_spitzenzeiten_case_study/        # H1 Studie
-│   │   ├── scenarios/                                 # H1 Konfigurationsdateien
-│   │   │   ├── const_cfg_*.yaml                       # Konstante Parameter
-│   │   │   └── scenario_cfg_*.csv                     # Szenario-Parameter
-│   │   ├── results/                                   # H1 Simulationsergebnisse
-│   │   │   ├── klagenfurt_h1_spitzenzeiten_scenario_1/  # 20 Fahrzeuge
-│   │   │   ├── klagenfurt_h1_spitzenzeiten_scenario_2/  # 30 Fahrzeuge
-│   │   │   └── klagenfurt_h1_spitzenzeiten_scenario_3/  # 40 Fahrzeuge
-│   │   └── analysis/                                  # H1 Auswertungen
-│   │       ├── visualizations/                        # Alle H1 Plots
-│   │       └── *.ipynb                                # Analyse-Notebooks
-│   │
-│   └── klagenfurt_h2_spitzenzeiten_case_study/        # H2 Studie
-│       ├── scenarios/                                 # H2 Konfigurationsdateien
-│       ├── results/                                   # H2 Simulationsergebnisse
-│       │   ├── klagenfurt_h2_spitzenzeiten_scenario_1/  # 8 Fahrzeuge
-│       │   ├── klagenfurt_h2_spitzenzeiten_scenario_2/  # 16 Fahrzeuge
-│       │   ├── klagenfurt_h2_spitzenzeiten_scenario_3/  # 24 Fahrzeuge
-│       │   └── klagenfurt_h2_spitzenzeiten_scenario_4/  # 32 Fahrzeuge
-│       └── analysis/                                  # H2 Auswertungen
-│
-├── src/                                                # FleetPy Quellcode
-│   ├── FleetSimulationBase.py                         # Basis-Simulation
-│   ├── BatchOfferSimulation.py                        # Batch-Optimierung
-│   └── fleetctrl/                                     # Fleet-Control-Module
-│
-├── run_klagenfurt_h1_spitzenzeiten.py                 # H1 Simulation-Runner
-├── run_klagenfurt_h2_spitzenzeiten.py                 # H2 Simulation-Runner
-├── klagenfurt_h1_spitzenzeiten_analysis.py            # H1 Analyse-Script
-├── klagenfurt_h2_spitzenzeiten_analysis.py            # H2 Analyse-Script
-├── environment.yml                                     # Conda Environment
-└── README.md                                           # Diese Datei
-```
-
-### Simulationen ausführen
-
-**H1 Simulation (Servicequalität-Optimierung):**
-
-```bash
-# H1 Simulation starten (20, 30, 40 Fahrzeuge)
-python run_klagenfurt_h1_spitzenzeiten.py
-
-# H1 Analyse ausführen
-python klagenfurt_h1_spitzenzeiten_analysis.py
-
-# H1 Analyse-Notebook öffnen
-jupyter notebook studies/klagenfurt_h1_spitzenzeiten_case_study/analysis/*.ipynb
-```
-
-**H2 Simulation (Minimale Flottengröße):**
-
-```bash
-# H2 Simulation starten (8, 16, 24, 32 Fahrzeuge)
-python run_klagenfurt_h2_spitzenzeiten.py
-
-# H2 Analyse ausführen
-python klagenfurt_h2_spitzenzeiten_analysis.py
-```
-
-**Ergebnisse:**
-- **H1 Outputs:** `studies/klagenfurt_h1_spitzenzeiten_case_study/results/`
-- **H2 Outputs:** `studies/klagenfurt_h2_spitzenzeiten_case_study/results/`
-- **Visualisierungen:** `*/analysis/visualizations/`
-- **CSV-Daten:** `*/analysis/*.csv`
-
-### Troubleshooting
-
-**Problem: ModuleNotFoundError**
-```bash
-# Lösung: PYTHONPATH setzen
-export PYTHONPATH="${PYTHONPATH}:$(pwd)/src"
-```
-
-**Problem: Conda Environment nicht gefunden**
-```bash
-# Lösung: Environment manuell erstellen
-conda create -n fleetpy python=3.10
-conda activate fleetpy
-pip install -r requirements.txt
-```
-
-**Problem: Simulation läuft nicht**
-```bash
-# Lösung: Verzeichnisse prüfen
-python -c "import os; print('Data:', os.path.exists('data')); print('Studies:', os.path.exists('studies'))"
 ```
 
 ---
@@ -1177,7 +1024,6 @@ Phasen:
 
 ---
 
-## 📊 Methodische Validität
 
 ## 📊 Methodische Validität
 
@@ -1563,6 +1409,159 @@ Dieses Projekt verwendet das FleetPy Framework unter dessen Lizenz.
 **Niedrige Konfidenz:**
 - ⚠️ Wirtschaftliche Machbarkeit (reale Kosten prüfen!)
 - ⚠️ Absolute Nachfragezahlen (Marktforschung benötigt)
+
+---
+
+## 🛠️ Setup und Installation
+
+### System-Anforderungen
+
+**Software:**
+- **Python:** 3.10+ (erforderlich)
+- **Framework:** FleetPy
+- **Environment Manager:** Conda (empfohlen)
+- **Betriebssystem:** Windows, macOS, Linux
+
+**Hardware (Empfohlen):**
+- **RAM:** Mindestens 8 GB (16 GB empfohlen)
+- **CPU:** Multi-Core Prozessor
+- **Speicher:** 5 GB freier Speicherplatz
+
+**Konfidenz:** Hoch (Standard-Anforderungen für FleetPy)
+
+### Installation Schritt-für-Schritt
+
+**1. Repository klonen:**
+
+```bash
+git clone https://github.com/Createdd/fleet_hypothesistests.git
+cd FleetPy
+```
+
+**2. Conda Environment erstellen:**
+
+```bash
+# Environment aus YAML-Datei erstellen
+conda env create -f environment.yml
+
+# Environment aktivieren
+conda activate fleetpy
+```
+
+**3. Abhängigkeiten installieren:**
+
+```bash
+# Python-Pakete installieren
+pip install -r requirements.txt
+```
+
+**4. Installation verifizieren:**
+
+```bash
+# Python-Version prüfen
+python --version  # Sollte Python 3.10+ anzeigen
+
+# FleetPy importieren testen
+python -c "import sys; sys.path.append('src'); from FleetSimulationBase import FleetSimulationBase; print('FleetPy erfolgreich importiert')"
+```
+
+### Projektstruktur
+
+```
+FleetPy/
+├── data/                                               # Alle Eingangsdaten
+│   ├── networks/klagenfurt_h1_spitzenzeiten/          # Straßennetzwerk (2.099 Knoten)
+│   ├── zones/klagenfurt_h1_spitzenzeiten/             # 12-Zonen-System
+│   ├── demand/klagenfurt_h1_spitzenzeiten/            # 100 Anfragen (7-9 Uhr)
+│   └── vehicles/default_vehtype.csv                   # Fahrzeugparameter
+│
+├── studies/                                            # Alle Studien
+│   ├── klagenfurt_h1_spitzenzeiten_case_study/        # H1 Studie
+│   │   ├── scenarios/                                 # H1 Konfigurationsdateien
+│   │   │   ├── const_cfg_*.yaml                       # Konstante Parameter
+│   │   │   └── scenario_cfg_*.csv                     # Szenario-Parameter
+│   │   ├── results/                                   # H1 Simulationsergebnisse
+│   │   │   ├── klagenfurt_h1_spitzenzeiten_scenario_1/  # 20 Fahrzeuge
+│   │   │   ├── klagenfurt_h1_spitzenzeiten_scenario_2/  # 30 Fahrzeuge
+│   │   │   └── klagenfurt_h1_spitzenzeiten_scenario_3/  # 40 Fahrzeuge
+│   │   └── analysis/                                  # H1 Auswertungen
+│   │       ├── visualizations/                        # Alle H1 Plots
+│   │       └── *.ipynb                                # Analyse-Notebooks
+│   │
+│   └── klagenfurt_h2_spitzenzeiten_case_study/        # H2 Studie
+│       ├── scenarios/                                 # H2 Konfigurationsdateien
+│       ├── results/                                   # H2 Simulationsergebnisse
+│       │   ├── klagenfurt_h2_spitzenzeiten_scenario_1/  # 8 Fahrzeuge
+│       │   ├── klagenfurt_h2_spitzenzeiten_scenario_2/  # 16 Fahrzeuge
+│       │   ├── klagenfurt_h2_spitzenzeiten_scenario_3/  # 24 Fahrzeuge
+│       │   └── klagenfurt_h2_spitzenzeiten_scenario_4/  # 32 Fahrzeuge
+│       └── analysis/                                  # H2 Auswertungen
+│
+├── src/                                                # FleetPy Quellcode
+│   ├── FleetSimulationBase.py                         # Basis-Simulation
+│   ├── BatchOfferSimulation.py                        # Batch-Optimierung
+│   └── fleetctrl/                                     # Fleet-Control-Module
+│
+├── run_klagenfurt_h1_spitzenzeiten.py                 # H1 Simulation-Runner
+├── run_klagenfurt_h2_spitzenzeiten.py                 # H2 Simulation-Runner
+├── klagenfurt_h1_spitzenzeiten_analysis.py            # H1 Analyse-Script
+├── klagenfurt_h2_spitzenzeiten_analysis.py            # H2 Analyse-Script
+├── environment.yml                                     # Conda Environment
+└── README.md                                           # Diese Datei
+```
+
+### Simulationen ausführen
+
+**H1 Simulation (Servicequalität-Optimierung):**
+
+```bash
+# H1 Simulation starten (20, 30, 40 Fahrzeuge)
+python run_klagenfurt_h1_spitzenzeiten.py
+
+# H1 Analyse ausführen
+python klagenfurt_h1_spitzenzeiten_analysis.py
+
+# H1 Analyse-Notebook öffnen
+jupyter notebook studies/klagenfurt_h1_spitzenzeiten_case_study/analysis/*.ipynb
+```
+
+**H2 Simulation (Minimale Flottengröße):**
+
+```bash
+# H2 Simulation starten (8, 16, 24, 32 Fahrzeuge)
+python run_klagenfurt_h2_spitzenzeiten.py
+
+# H2 Analyse ausführen
+python klagenfurt_h2_spitzenzeiten_analysis.py
+```
+
+**Ergebnisse:**
+- **H1 Outputs:** `studies/klagenfurt_h1_spitzenzeiten_case_study/results/`
+- **H2 Outputs:** `studies/klagenfurt_h2_spitzenzeiten_case_study/results/`
+- **Visualisierungen:** `*/analysis/visualizations/`
+- **CSV-Daten:** `*/analysis/*.csv`
+
+### Troubleshooting
+
+**Problem: ModuleNotFoundError**
+```bash
+# Lösung: PYTHONPATH setzen
+export PYTHONPATH="${PYTHONPATH}:$(pwd)/src"
+```
+
+**Problem: Conda Environment nicht gefunden**
+```bash
+# Lösung: Environment manuell erstellen
+conda create -n fleetpy python=3.10
+conda activate fleetpy
+pip install -r requirements.txt
+```
+
+**Problem: Simulation läuft nicht**
+```bash
+# Lösung: Verzeichnisse prüfen
+python -c "import os; print('Data:', os.path.exists('data')); print('Studies:', os.path.exists('studies'))"
+```
 
 ---
 
