@@ -1,0 +1,4 @@
+Scenario,Fleet Size,Total Requests,Served Requests,Service Rate (%),Avg Wait Time (min),Active Vehicles,Fleet Utilization (%),Morning Peak Service (%),Afternoon Peak Service (%)
+Scenario 1,20,100,0,0.0,N/A,20,100.0,0.0,0
+Scenario 2,30,100,0,0.0,N/A,30,100.0,0.0,0
+Scenario 3,40,100,0,0.0,N/A,37,92.5,0.0,0
