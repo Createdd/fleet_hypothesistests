@@ -199,3 +199,4 @@ dmypy.json
 
 # Analysis notebooks
 !studies/klagenfurt_h1_spitzenzeiten_case_study
+!studies/klagenfurt_h2_spitzenzeiten_case_study

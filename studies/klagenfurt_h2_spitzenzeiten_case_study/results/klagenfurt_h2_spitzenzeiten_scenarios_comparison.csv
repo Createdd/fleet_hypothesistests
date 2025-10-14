@@ -1,0 +1,5 @@
+Fleet Size,Total Requests,Served,Service Rate (%),Avg Wait Time (min),Avg In-Vehicle Time (min),Avg Total Time (min),Avg Occupancy
+8,100,41,41.0,5.34,14.48,19.82,0
+16,100,70,70.0,5.05,13.43,18.48,0
+24,100,92,92.0,4.67,13.57,18.24,0
+32,100,95,95.0,4.09,13.03,17.12,0

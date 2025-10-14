@@ -204,7 +204,83 @@ Diese Studie analysiert die Machbarkeit und Performance eines Ridepooling-Dienst
 
 ---
 
-## 🛠️ Technische Details
+## � Hypothese 2 (H2): Minimale Flottengröße
+
+### 🎯 Forschungsfrage H2
+
+**Ziel:** Bestimmung der **minimalen wirtschaftlich vertretbaren Flottengröße** für akzeptable Servicequalität (>85% Service-Rate)
+
+**Unterschied zu H1:**
+- **H1 (Optimierung)**: Größere Flotten (20, 30, 40 Fahrzeuge) → Maximale Servicequalität
+- **H2 (Minimalversorgung)**: Kleinere Flotten (8, 16, 24, 32 Fahrzeuge) → Minimale Betriebskosten
+
+### 📈 H2 Ergebnisse: Kleinere Flottengrößen
+
+| Szenario | Flottengröße | Bediente Anfragen | Service-Rate | Ø Wartezeit | Ø Gesamtzeit |
+|----------|--------------|-------------------|--------------|-------------|--------------|
+| **H2-Scenario 1** | 8 Shuttles | 41/100 | **41.0%** | 5.34 min | 19.82 min |
+| **H2-Scenario 2** | 16 Shuttles | 70/100 | **70.0%** | 5.05 min | 18.48 min |
+| **H2-Scenario 3** | 24 Shuttles | 92/100 | **92.0%** | 4.67 min | 18.24 min |
+| **H2-Scenario 4** | 32 Shuttles | 95/100 | **95.0%** | 4.09 min | 17.12 min |
+
+### 🔍 H2 Kernerkenntnisse
+
+**Kritischer Schwellenwert identifiziert:**
+- ✅ **8 Shuttles**: Unterversorgung (41% Service-Rate) - nicht wirtschaftlich vertretbar
+- ⚠️ **16 Shuttles**: Kritischer Bereich (70% Service-Rate) - grenzwertig akzeptabel
+- ✅ **24 Shuttles**: **Optimale Minimalflotte** (92% Service-Rate) - erreicht Akzeptanzgrenze
+- ✅ **32 Shuttles**: Komfortzone (95% Service-Rate) - hohe Zuverlässigkeit
+
+**Skalierungsverhalten:**
+- Verdopplung 8→16: +71% Service-Rate Verbesserung (größter Sprung!)
+- Verdopplung 16→32: +36% Service-Rate Verbesserung
+- 24→32 (+8 Shuttles): Nur +3% Verbesserung (Diminishing Returns)
+
+**Wirtschaftliche Implikation:**
+- **Minimale Flotte**: 24 Shuttles für >90% Service-Rate
+- **Kosteneffizienz**: 24 Shuttles = 60% der Kosten von 40 Shuttles bei 92% vs 98% Service
+- **Sweet Spot**: 24-32 Shuttles balancieren Kosten und Qualität optimal
+
+### 📊 H1 vs H2 Vergleich
+
+```
+Flottenspektrum:
+H2 ←─────────────────────────────────→ H1
+8 ─── 16 ─── 24 ─── 32 ─── 20 ─── 30 ─── 40
+
+Service-Raten:
+41%   70%   92%   95%   84%   95%   98%
+├─────────────┬─────────┬─────────────┤
+Unterversorgung  Optimal   Überkapazität
+```
+
+**H2 Simulation ausführen:**
+
+```bash
+# H2 Minimal-Flotten-Simulation
+python run_klagenfurt_h2_spitzenzeiten.py
+
+# H2 Analyse
+python klagenfurt_h2_spitzenzeiten_analysis.py
+```
+
+**H2 Outputs:**
+- ✅ `klagenfurt_h2_spitzenzeiten_scenarios_comparison.csv`
+- ✅ `h2_temporal_analysis.png`
+- ✅ `h2_performance_comparison.png`
+
+### 💡 Strategische H2 Empfehlung
+
+**Für kostenoptimierte Betriebsführung:**
+1. **Start-up Phase**: 24 Shuttles (92% Service-Rate, niedrige Investition)
+2. **Wachstumsphase**: 32 Shuttles bei steigender Nachfrage
+3. **Reife Phase**: H1-Szenarien (30-40 Shuttles) für Premium-Service
+
+**Kritische Grenze:** Niemals unter 16 Shuttles (70% Service unakzeptabel für Nutzer)
+
+---
+
+## �🛠️ Technische Details
 
 ### Setup und Reproduzierbarkeit
 
