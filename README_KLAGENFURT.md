@@ -22,7 +22,7 @@ Diese Studie analysiert die Machbarkeit und Performance eines Ridepooling-Dienst
 
 ### 📈 Performance-Analyse
 
-![Klagenfurt Performance Analysis](studies/klagenfurt_case_study/results/analysis/klagenfurt_performance_analysis.png)
+![Klagenfurt Performance Analysis](studies/klagenfurt_h1_spitzenzeiten_case_study/results/analysis/klagenfurt_h1_spitzenzeiten_performance_analysis.png)
 
 **Zentrale Erkenntnisse:**
 - ✅ **Hohe Service-Raten**: 84-98% der Anfragen werden bedient
@@ -231,11 +231,11 @@ pip install -r requirements.txt
 **Simulation ausführen:**
 
 ```bash
-# Klagenfurt-Simulation starten
-python run_klagenfurt.py
+# Klagenfurt H1 Spitzenzeiten-Simulation starten
+python run_klagenfurt_h1_spitzenzeiten.py
 
 # Analyse-Notebook öffnen
-jupyter notebook studies/klagenfurt_case_study/analysis/klagenfurt_analysis.ipynb
+jupyter notebook studies/klagenfurt_h1_spitzenzeiten_case_study/analysis/klagenfurt_h1_spitzenzeiten_analysis.ipynb
 ```
 
 ### Projektstruktur
@@ -243,33 +243,33 @@ jupyter notebook studies/klagenfurt_case_study/analysis/klagenfurt_analysis.ipyn
 ```
 FleetPy/
 ├── data/
-│   ├── networks/klagenfurt/          # Straßennetzwerk (2.099 Knoten)
-│   ├── zones/klagenfurt/             # 12-Zonen-System
-│   ├── demand/klagenfurt/            # 100 Anfragen (7-9 Uhr)
-│   └── vehicles/                     # Fahrzeugkonfiguration
-├── studies/klagenfurt_case_study/
-│   ├── scenarios/                    # Szenario-Konfigurationen
-│   ├── results/                      # Simulationsergebnisse
-│   │   ├── klagenfurt_scenario_1/   # 20 Fahrzeuge
-│   │   ├── klagenfurt_scenario_2/   # 30 Fahrzeuge
-│   │   ├── klagenfurt_scenario_3/   # 40 Fahrzeuge
-│   │   └── analysis/                # Visualisierungen & CSVs
+│   ├── networks/klagenfurt_h1_spitzenzeiten/          # Straßennetzwerk (2.099 Knoten)
+│   ├── zones/klagenfurt_h1_spitzenzeiten/             # 12-Zonen-System
+│   ├── demand/klagenfurt_h1_spitzenzeiten/            # 100 Anfragen (7-9 Uhr)
+│   └── vehicles/klagenfurt_peak_morning.csv           # Fahrzeugparameter
+├── studies/klagenfurt_h1_spitzenzeiten_case_study/
+│   ├── scenarios/                                     # Konfigurationsdateien
+│   ├── results/
+│   │   ├── klagenfurt_h1_spitzenzeiten_scenario_1/   # 20 Fahrzeuge
+│   │   ├── klagenfurt_h1_spitzenzeiten_scenario_2/   # 30 Fahrzeuge
+│   │   ├── klagenfurt_h1_spitzenzeiten_scenario_3/   # 40 Fahrzeuge
 │   └── analysis/
-│       └── klagenfurt_analysis.ipynb # Hauptanalyse-Notebook
-├── run_klagenfurt.py                 # Simulation-Runner
-├── filter_klagenfurt.ipynb           # Zonenerstellung
-└── klagenfurt_zones_map.png          # Zonenkarte
+│       ├── visualizations/                            # Alle Plots
+│       └── klagenfurt_h1_spitzenzeiten_analysis.ipynb # Hauptanalyse-Notebook
+├── run_klagenfurt_h1_spitzenzeiten.py                 # Simulation-Runner
+├── filter_klagenfurt_h1_spitzenzeiten.ipynb           # Zonenerstellung
+└── klagenfurt_zones_map.png                           # Zonenkarte
 ```
 
 ### Konfigurationsdateien
 
-**Hauptkonfiguration:** `studies/klagenfurt_case_study/scenarios/const_cfg_klagenfurt_case_study.yaml`
+**Hauptkonfiguration:** `studies/klagenfurt_h1_spitzenzeiten_case_study/scenarios/const_cfg_klagenfurt_h1_spitzenzeiten_case_study.yaml`
 
 ```yaml
 sim_env: BatchOfferSimulation
 network_type: NetworkBasic
-network_name: klagenfurt
-demand_name: klagenfurt
+network_name: klagenfurt_h1_spitzenzeiten
+demand_name: klagenfurt_h1_spitzenzeiten
 start_time: 25200  # 7:00 Uhr
 end_time: 32400    # 9:00 Uhr
 time_step: 30
@@ -277,16 +277,16 @@ op_module: RidePoolingBatchAssignmentFleetcontrol
 op_rp_batch_optimizer: AlonsoMora
 op_max_wait_time: 480  # 8 Minuten
 op_max_detour_time_factor: 40
-op_zone_system: klagenfurt
+op_zone_system: klagenfurt_h1_spitzenzeiten
 ```
 
-**Szenario-Konfiguration:** `studies/klagenfurt_case_study/scenarios/scenario_cfg_klagenfurt_case_study.csv`
+**Szenario-Konfiguration:** `studies/klagenfurt_h1_spitzenzeiten_case_study/scenarios/scenario_cfg_klagenfurt_h1_spitzenzeiten_case_study.csv`
 
 ```csv
 scenario_name,op_fleet_composition
-klagenfurt_scenario_1,data/vehicles/1.csv:20
-klagenfurt_scenario_2,data/vehicles/1.csv:30
-klagenfurt_scenario_3,data/vehicles/1.csv:40
+klagenfurt_h1_spitzenzeiten_scenario_1,default_vehtype:20
+klagenfurt_h1_spitzenzeiten_scenario_2,default_vehtype:30
+klagenfurt_h1_spitzenzeiten_scenario_3,default_vehtype:40
 ```
 
 ---
@@ -341,7 +341,7 @@ klagenfurt_scenario_3,data/vehicles/1.csv:40
 
 ## 👥 Autoren und Kontakt
 
-**Projekt:** Klagenfurt Ridepooling Feasibility Study
+**Projekt:** Klagenfurt H1 Spitzenzeiten Ridepooling Feasibility Study
 **Framework:** FleetPy (TUM-VT)
 **Repository:** https://github.com/Createdd/fleet_hypothesistests
 **Datum:** Oktober 2025

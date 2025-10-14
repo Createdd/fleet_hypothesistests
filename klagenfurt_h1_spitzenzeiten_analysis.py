@@ -4,9 +4,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from typing import Dict, List, Tuple
 
-class KlagenfurtAnalysis:
-    def __init__(self, results_dir: str):
-        """Initialize analysis with results directory."""
+class KlagenfurtH1SpitzenzeitenAnalysis:
+    def __init__(self, results_dir):
+        """Initialize with the path to results directory"""
         self.results_dir = results_dir
         self.scenarios = {}
         self._load_results()
@@ -74,7 +74,7 @@ class KlagenfurtAnalysis:
     def plot_temporal_analysis(self, interval_minutes: int = 15) -> plt.Figure:
         """Create temporal analysis plots."""
         fig, axes = plt.subplots(2, 2, figsize=(15, 10))
-        fig.suptitle('Temporal Analysis - Klagenfurt Study')
+        fig.suptitle('Temporal Analysis - Klagenfurt H1 Spitzenzeiten Study')
 
         for scenario, data in self.scenarios.items():
             users_df = data['users']
@@ -146,17 +146,17 @@ class KlagenfurtAnalysis:
 
 def main():
     """Main analysis function."""
-    # Set up paths
-    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    results_dir = os.path.join(base_dir, "studies", "klagenfurt_case_study", "results")
+        # Set up paths
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    results_dir = os.path.join(base_dir, "studies", "klagenfurt_h1_spitzenzeiten_case_study", "results")
 
-    # Create analysis object
-    analysis = KlagenfurtAnalysis(results_dir)
+    # Create analysis instance
+    analysis = KlagenfurtH1SpitzenzeitenAnalysis(results_dir)
 
     # Calculate and save metrics
     metrics_df = analysis.calculate_metrics()
-    metrics_df.to_csv(os.path.join(results_dir, "klagenfurt_scenarios_comparison.csv"), index=False)
-    print("\n=== KLAGENFURT SCENARIOS COMPARISON ===")
+    metrics_df.to_csv(os.path.join(results_dir, "klagenfurt_h1_spitzenzeiten_scenarios_comparison.csv"), index=False)
+    print("\n=== KLAGENFURT H1 SPITZENZEITEN SCENARIOS COMPARISON ===")
     print(metrics_df.to_string(index=False))
 
     # Create and save plots
@@ -184,7 +184,7 @@ from IPython.display import display, HTML
 def find_result_dir(scenario_name, base_dirs=None):
     """Find the correct result directory"""
     if base_dirs is None:
-        base_dirs = ['studies/klagenfurt/results', 'results', 'studies/studies/results']
+        base_dirs = ['studies/klagenfurt_h1_spitzenzeiten/results', 'results', 'studies/studies/results']
 
     for base in base_dirs:
         path = os.path.join(base, scenario_name)
@@ -411,12 +411,12 @@ def main():
     plt.style.use('seaborn-v0_8')
 
     # Find result directories
-    scenario1_dir = find_result_dir('klagenfurt_peak_morning')
-    scenario2_dir = find_result_dir('klagenfurt_peak_afternoon')
+    scenario1_dir = find_result_dir('klagenfurt_h1_spitzenzeiten_peak_morning')
+    scenario2_dir = find_result_dir('klagenfurt_h1_spitzenzeiten_peak_afternoon')
 
     if not scenario1_dir or not scenario2_dir:
         print("Could not find result directories. Please verify the simulation completed successfully.")
-        print("Checked directories: studies/klagenfurt/results, results, studies/studies/results")
+        print("Checked directories: studies/klagenfurt_h1_spitzenzeiten/results, results, studies/studies/results")
         return
 
     try:
@@ -433,9 +433,9 @@ def main():
 
         # Display temporal analysis
         print("\n=== TEMPORAL ANALYSIS ===")
-        plot_temporal(df1, 'Klagenfurt Morning Peak')
+        plot_temporal(df1, 'Klagenfurt H1 Spitzenzeiten Morning Peak')
         plt.show()
-        plot_temporal(df2, 'Klagenfurt Afternoon Peak')
+        plot_temporal(df2, 'Klagenfurt H1 Spitzenzeiten Afternoon Peak')
         plt.show()
 
         # Create comparison plots
@@ -521,7 +521,7 @@ def plot_temporal(df, scenario_name):
 # %%
 def main():
     # Define result directories - check both possible locations
-    base_dirs = ['studies/klagenfurt/results', 'results', 'studies/studies/results']
+    base_dirs = ['studies/klagenfurt_h1_spitzenzeiten/results', 'results', 'studies/studies/results']
 
     def find_result_dir(scenario_name):
         """Find the correct result directory"""
@@ -531,8 +531,8 @@ def main():
                 return path
         return None
 
-    scenario1_dir = find_result_dir('klagenfurt_peak_morning')
-    scenario2_dir = find_result_dir('klagenfurt_peak_afternoon')
+    scenario1_dir = find_result_dir('klagenfurt_h1_spitzenzeiten_peak_morning')
+    scenario2_dir = find_result_dir('klagenfurt_h1_spitzenzeiten_peak_afternoon')
 
     if not scenario1_dir or not scenario2_dir:
         print("Could not find result directories. Please verify the simulation completed successfully.")
@@ -555,9 +555,9 @@ def main():
 
     # Display temporal analysis
     print("=== TEMPORAL ANALYSIS ===")
-    plot_temporal(df1, 'Klagenfurt Morning Peak')
+    plot_temporal(df1, 'Klagenfurt H1 Spitzenzeiten Morning Peak')
     plt.show()
-    plot_temporal(df2, 'Klagenfurt Afternoon Peak')
+    plot_temporal(df2, 'Klagenfurt H1 Spitzenzeiten Afternoon Peak')
     plt.show()
 
 if __name__ == "__main__":

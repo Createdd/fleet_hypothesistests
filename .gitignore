@@ -33,9 +33,9 @@ data/zones/*
 
 data/FleetPy_Munich
 data/gip_network_ogd.gpkg
-!data/networks/klagenfurt
-!data/zones/klagenfurt
-!data/demand/klagenfurt
+!data/networks/klagenfurt_h1_spitzenzeiten
+!data/zones/klagenfurt_h1_spitzenzeiten
+!data/demand/klagenfurt_h1_spitzenzeiten
 !data/vehicles/klagenfurt_peak_morning.csv
 
 # study directories except for example and example case studies
@@ -53,7 +53,7 @@ studies/manhattan_case_study/results/*
 studies/chicago_case_study/results/*
 !studies/munich_case_study
 studies/munich_case_study/results/*
-!studies/klagenfurt
+!studies/klagenfurt_h1_spitzenzeiten
 
 # system dependent C++ Router files
 src/routing/cpp_router/*.pyd
@@ -198,4 +198,4 @@ dmypy.json
 .pyre/
 
 # Analysis notebooks
-!studies/klagenfurt_case_study
+!studies/klagenfurt_h1_spitzenzeiten_case_study

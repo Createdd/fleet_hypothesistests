@@ -1,6 +1,6 @@
 # %% [markdown]
-# Klagenfurt Zone & Data Preparation Notebook
-# This notebook creates a multi-zone system for Klagenfurt, generates network nodes/edges, demand requests, and computes fleet distribution.
+# Klagenfurt H1 Spitzenzeiten Zone & Data Preparation Notebook
+# This notebook creates a multi-zone system for Klagenfurt H1 Spitzenzeiten, generates network nodes/edges, demand requests, and computes fleet distribution.
 
 # %%
 import geopandas as gpd
@@ -11,7 +11,7 @@ from sklearn.cluster import KMeans
 import networkx as nx
 
 # %%
-# 1. Load Klagenfurt network geometry
+# 1. Load Klagenfurt H1 Spitzenzeiten network geometry
 network = gpd.read_file("klagenfurt_network.gpkg")
 
 # %%
@@ -60,8 +60,8 @@ edges_df = pd.DataFrame(edges_list, columns=[
     'from_node','to_node','distance','travel_time','source_edge_id'
 ])
 
-nodes_df.to_csv('data/networks/klagenfurt/base/nodes.csv', index=False)
-edges_df.to_csv('data/networks/klagenfurt/base/edges.csv', index=False)
+nodes_df.to_csv('data/networks/klagenfurt_h1_spitzenzeiten/base/nodes.csv', index=False)
+edges_df.to_csv('data/networks/klagenfurt_h1_spitzenzeiten/base/edges.csv', index=False)
 
 print(f"Nodes: {len(nodes_df)}, Edges: {len(edges_df)}")
 
@@ -74,7 +74,7 @@ nodes_df['is_centroid'] = 0
 nodes_df['is_boarding_node'] = 1
 
 zone_mapping = nodes_df[['node_index','zone_id','is_centroid','is_boarding_node']]
-zone_mapping.to_csv('data/zones/klagenfurt/base/node_zone_info.csv', index=False)
+zone_mapping.to_csv('data/zones/klagenfurt_h1_spitzenzeiten/base/node_zone_info.csv', index=False)
 print(f"Created zone mapping with {zone_mapping.zone_id.nunique()} zones")
 
 # %%
@@ -96,15 +96,15 @@ for i in range(100):
 
 demand_df = pd.DataFrame(demand_data)
 demand_df.to_csv(
-    'data/demand/klagenfurt/matched/klagenfurt/demand_requests.csv',
+    'data/demand/klagenfurt_h1_spitzenzeiten/matched/klagenfurt_h1_spitzenzeiten/demand_requests.csv',
     index=False
 )
 print(f"Created {len(demand_df)} demand requests")
 
 # %%
 # 5. Verify connectivity and drop unreachable zones
-edges = pd.read_csv('data/networks/klagenfurt/base/edges.csv')
-zones  = pd.read_csv('data/zones/klagenfurt/base/node_zone_info.csv')
+edges = pd.read_csv('data/networks/klagenfurt_h1_spitzenzeiten/base/edges.csv')
+zones  = pd.read_csv('data/zones/klagenfurt_h1_spitzenzeiten/base/node_zone_info.csv')
 
 G = nx.DiGraph()
 for _, r in edges.iterrows():
@@ -115,13 +115,13 @@ unreachable = set(zones.node_index) - set(lengths.keys())
 if unreachable:
     print("Dropping unreachable zones:", unreachable)
     zones = zones[~zones.node_index.isin(unreachable)]
-    zones.to_csv('data/zones/klagenfurt/base/node_zone_info.csv', index=False)
+    zones.to_csv('data/zones/klagenfurt_h1_spitzenzeiten/base/node_zone_info.csv', index=False)
 else:
     print("All zones reachable.")
 
 # %%
 # 6. Compute and print vehicle distribution per zone (200 vehicles)
-zones_ids = pd.read_csv('data/zones/klagenfurt/base/node_zone_info.csv')['zone_id'].unique()
+zones_ids = pd.read_csv('data/zones/klagenfurt_h1_spitzenzeiten/base/node_zone_info.csv')['zone_id'].unique()
 n_zones = len(zones_ids)
 vehicles_per_zone = 200 // n_zones
 extra = 200 % n_zones

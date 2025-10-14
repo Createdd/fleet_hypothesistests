@@ -2,8 +2,8 @@
 sim_env: BatchOfferSimulation
 log_level: info
 network_type: NetworkBasic
-network_name: klagenfurt
-demand_name: klagenfurt
+network_name: klagenfurt_h1_spitzenzeiten
+demand_name: klagenfurt_h1_spitzenzeiten
 rq_file: demand_requests.csv
 random_seed: 0
 start_time: 25200
@@ -45,4 +45,4 @@ op_max_VR_con: 10
 op_repo_method: None
 
 # Zone System
-op_zone_system: klagenfurt
+op_zone_system: klagenfurt_h1_spitzenzeiten

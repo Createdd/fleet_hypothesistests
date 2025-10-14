@@ -12,7 +12,7 @@ import src.misc.config as config
 from src.misc.globals import *
 
 # Set up case study path
-CASE_STUDY_PATH = os.path.join(ROOT_DIR, "studies", "klagenfurt_case_study")
+CASE_STUDY_PATH = os.path.join(ROOT_DIR, "studies", "klagenfurt_h1_spitzenzeiten_case_study")
 SC_PATH = os.path.join(CASE_STUDY_PATH, "scenarios")
 
 if __name__ == "__main__":
@@ -34,12 +34,12 @@ if __name__ == "__main__":
 
         # Run simulation
         log_level = "info"
-        cc = os.path.join(SC_PATH, "const_cfg_klagenfurt_case_study.yaml")
-        sc = os.path.join(SC_PATH, "scenario_cfg_klagenfurt_case_study.csv")
+        cc = os.path.join(SC_PATH, "const_cfg_klagenfurt_h1_spitzenzeiten_case_study.yaml")
+        sc = os.path.join(SC_PATH, "scenario_cfg_klagenfurt_h1_spitzenzeiten_case_study.csv")
         run_scenarios(cc, sc, log_level=log_level, n_cpu_per_sim=1, n_parallel_sim=1)
 
         # Run analysis notebook
         print("\nSimulation complete. To analyze results, open:")
-        print(f"studies/klagenfurt_case_study/analysis/klagenfurt_analysis.ipynb")
+        print(f"studies/klagenfurt_h1_spitzenzeiten_case_study/analysis/klagenfurt_h1_spitzenzeiten_analysis.ipynb")
     except Exception as e:
         traceback.print_exc()

@@ -1,0 +1,4 @@
+scenario_name,op_fleet_composition
+klagenfurt_h1_spitzenzeiten_scenario_1,default_vehtype:20
+klagenfurt_h1_spitzenzeiten_scenario_2,default_vehtype:30
+klagenfurt_h1_spitzenzeiten_scenario_3,default_vehtype:40

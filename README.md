@@ -9,7 +9,7 @@ FleetPy is an open-source **fleet simulation framework** for modeling and contro
 
 ---
 
-## 🚌 **Klagenfurt Fallstudie**
+## 🚌 **Klagenfurt H1 Spitzenzeiten Fallstudie**
 
 📊 **Neue Ridepooling-Analyse für Klagenfurt am Wörthersee verfügbar!**
 
@@ -19,7 +19,7 @@ Diese Repository enthält eine umfassende Fallstudie zur Machbarkeit eines Ridep
 - 🗺️ **12-Zonen-System** via K-Means Clustering
 - 📈 **Vollständige Performance-Analyse** mit Visualisierungen
 
-👉 **[Zur vollständigen Klagenfurt-Studie](README_KLAGENFURT.md)** 👈
+👉 **[Zur vollständigen Klagenfurt H1 Spitzenzeiten-Studie](README_KLAGENFURT.md)** 👈
 
 ![Klagenfurt Zones](klagenfurt_zones_map.png)
 
