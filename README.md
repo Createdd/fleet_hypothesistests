@@ -379,7 +379,7 @@ python -c "import os; print('Data:', os.path.exists('data')); print('Studies:', 
 | **Szenario 2** | 30 Fahrzeuge | 95/100 | **95.0%** | 4.2 min | ~17 min | 100% |
 | **Szenario 3** | 40 Fahrzeuge | 98/100 | **98.0%** | 3.6 min | ~16 min | 92.5% |
 
-**Datenquelle:** Direkte Simulationsergebnisse aus `studies/klagenfurt_h1_spitzenzeiten_case_study/results/`  
+**Datenquelle:** Direkte Simulationsergebnisse aus `studies/klagenfurt_h1_spitzenzeiten_case_study/results/`
 **Konfidenz:** Hoch (reproduzierbare Simulationsergebnisse)
 
 #### Performance-Analyse Visualisierung
@@ -691,7 +691,7 @@ python -c "import os; print('Data:', os.path.exists('data')); print('Studies:', 
 | **H2-Scenario 3** | 24 Shuttles | 92/100 | **92.0%** | 4.67 min | 18.24 min | ~100% |
 | **H2-Scenario 4** | 32 Shuttles | 95/100 | **95.0%** | 4.09 min | 17.12 min | ~100% |
 
-**Datenquelle:** Direkte Simulationsergebnisse aus `studies/klagenfurt_h2_spitzenzeiten_case_study/results/`  
+**Datenquelle:** Direkte Simulationsergebnisse aus `studies/klagenfurt_h2_spitzenzeiten_case_study/results/`
 **Konfidenz:** Hoch (reproduzierbare Simulationsergebnisse)
 
 #### Skalierungsverhalten-Analyse
@@ -821,7 +821,7 @@ Steigung 24→40: flach (Diminishing Returns)
 - **Service-Rate:** 95-98%
 - **Ziel:** Etablierung als Premium-Service
 
-**Kritische Grenze:** 
+**Kritische Grenze:**
 ⚠️ **NIEMALS unter 16 Shuttles** (70% Service unakzeptabel für Nutzerakzeptanz)
 
 **Konfidenz:** Mittel-Hoch (Phasenmodell basiert auf Simulationsdaten, aber ohne reale Marktdaten)
@@ -988,8 +988,8 @@ klagenfurt_h1_spitzenzeiten_scenario_3,default_vehtype:40
 | **H2** | Scenario 4 | 32 | 95/100 | **95.0%** | 4.09 min | 17.12 min | ~100% | 3.0 |
 | **H1** | Scenario 3 | 40 | 98/100 | **98.0%** | 3.60 min | ~16 min | 92.5% | 2.6 |
 
-**Sortierung:** Nach Flottengröße (aufsteigend)  
-**Datenquelle:** Kombination aus H1 und H2 Simulationsergebnissen  
+**Sortierung:** Nach Flottengröße (aufsteigend)
+**Datenquelle:** Kombination aus H1 und H2 Simulationsergebnissen
 **Konfidenz:** Hoch (alle Werte direkt aus Simulationen)
 
 ### Flottenspektrum-Visualisierung
@@ -1002,10 +1002,10 @@ Service-Rate nach Flottengröße (H1 + H2 kombiniert):
  90% ┤                                    ●
      │                               ●
  80% ┤                          ●
-     │                     
+     │
  70% ┤                ●
-     │           
- 60% ┤      
+     │
+ 60% ┤
      │
  50% ┤
      │
@@ -1062,7 +1062,7 @@ Phasen:
 | 32 | 95% | 80% | 0.84% | ⚖️ Akzeptabel |
 | 40 | 98% | 100% | 1.02% | ⚠️ Diminishing Returns |
 
-**Berechnung:** `Kosten pro % Service = (Relative Kosten) / (Service-Rate)`  
+**Berechnung:** `Kosten pro % Service = (Relative Kosten) / (Service-Rate)`
 **Interpretation:**
 - **24 Shuttles:** Beste Kosteneffizienz (0.65% Kosten pro % Service)
 - **20 Shuttles:** Nahezu so effizient wie 24, aber niedrigere Service-Rate
@@ -1131,7 +1131,7 @@ Phasen:
 - 85% Grenze: Industriestandard für Ridepooling (Uber, Via)
 - 95% Grenze: Premium-Niveau für kommerzielle Dienste
 
-**Quellen:** 
+**Quellen:**
 - Allgemeine Verkehrsforschung (keine spezifischen Klagenfurt-Daten)
 - Vergleichbare Ridepooling-Studien (München, Berlin)
 
@@ -1141,7 +1141,7 @@ Phasen:
 
 #### 1. Nicht-lineare Skalierung bestätigt
 
-**Hypothese:** Es existiert ein kritischer Schwellenwert, unterhalb dessen Service-Rate drastisch einbricht  
+**Hypothese:** Es existiert ein kritischer Schwellenwert, unterhalb dessen Service-Rate drastisch einbricht
 **Ergebnis:** ✅ **BESTÄTIGT**
 
 - **8-16 Shuttles:** Kritische Phase (+71% relativer Sprung)
@@ -1152,8 +1152,8 @@ Phasen:
 
 #### 2. Optimaler Bereich identifiziert
 
-**Kostenoptimum:** 24 Shuttles (beste Effizienz, 92% Service)  
-**Service-Optimum:** 30 Shuttles (95% Service, 100% Auslastung)  
+**Kostenoptimum:** 24 Shuttles (beste Effizienz, 92% Service)
+**Service-Optimum:** 30 Shuttles (95% Service, 100% Auslastung)
 **Premium-Optimum:** 40 Shuttles (98% Service, kürzeste Wartezeiten)
 
 **Konfidenz:** Hoch (konsistente Ergebnisse über alle Metriken)
@@ -1170,7 +1170,7 @@ Phasen:
 
 #### 4. Kritische Untergrenze bei 16 Shuttles
 
-**Ergebnis:** Unter 16 Shuttles kollabiert Service-Rate auf inakzeptable Niveaus (<70%)  
+**Ergebnis:** Unter 16 Shuttles kollabiert Service-Rate auf inakzeptable Niveaus (<70%)
 **Empfehlung:** **NIEMALS unter 16 Shuttles operieren** (außer in Notfällen)
 
 **Konfidenz:** Hoch (klare Schwelle in Daten sichtbar)
@@ -1209,7 +1209,7 @@ Phasen:
 - **Algorithmus:** Alonso-Mora (identisch) ✅
 - **Zonensystem:** K-Means Clustering (identisch) ✅
 - **Constraints:** 8 min Wartezeit, 40% Umweg (identisch) ✅
-- **Unterschiede:** 
+- **Unterschiede:**
   - Netzwerkgröße: München größer (~280 Knoten/Zone vs. ~175 in Klagenfurt)
   - Nachfrage: München mehr Anfragen
 
@@ -1317,7 +1317,7 @@ python klagenfurt_h2_spitzenzeiten_analysis.py
    - **Konfidenz:** Nachfrage ist vordefiniert, keine Feedback-Effekte (z.B. induzierte Nachfrage)
    - **Mitigation:** Realistische Annahme für kurze Simulationszeiträume (2 Stunden)
 
-**Gesamtkonfidenz unter Berücksichtigung aller Limitationen:** Mittel-Hoch  
+**Gesamtkonfidenz unter Berücksichtigung aller Limitationen:** Mittel-Hoch
 (Simulationsergebnisse sind robust, aber wirtschaftliche Aussagen mit Vorsicht zu interpretieren)
 
 ### Unsicherheiten und Confidence-Levels
@@ -1432,9 +1432,9 @@ python klagenfurt_h2_spitzenzeiten_analysis.py
 
 ## 👥 Autoren und Kontakt
 
-**Projekt:** Klagenfurt Ridepooling Feasibility Study (H1 + H2)  
-**Framework:** FleetPy (TUM-VT)  
-**Repository:** https://github.com/Createdd/fleet_hypothesistests  
+**Projekt:** Klagenfurt Ridepooling Feasibility Study (H1 + H2)
+**Framework:** FleetPy (TUM-VT)
+**Repository:** https://github.com/Createdd/fleet_hypothesistests
 **Datum:** Oktober 2025
 
 **Hypothesen:**
@@ -1449,7 +1449,7 @@ python klagenfurt_h2_spitzenzeiten_analysis.py
 
 ## 📄 Lizenz
 
-Dieses Projekt verwendet das FleetPy Framework unter dessen Lizenz.  
+Dieses Projekt verwendet das FleetPy Framework unter dessen Lizenz.
 **FleetPy © Technical University of Munich, Chair of Traffic Engineering and Control**
 
 ---
