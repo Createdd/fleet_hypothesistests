@@ -1,30 +1,46 @@
-# 🚖 FleetPy – Open-Source Fleet Simulation Framework  
+# 🚖 FleetPy – Open-Source Fleet Simulation Framework
 
-[![GitHub stars](https://img.shields.io/github/stars/TUM-VT/FleetPy?style=social)](https://github.com/TUM-VT/FleetPy)  
-FleetPy is an open-source **fleet simulation framework** for modeling and controlling vehicle fleets in **ride-sharing, autonomous mobility, and on-demand transport** applications.  
+[![GitHub stars](https://img.shields.io/github/stars/TUM-VT/FleetPy?style=social)](https://github.com/TUM-VT/FleetPy)
+FleetPy is an open-source **fleet simulation framework** for modeling and controlling vehicle fleets in **ride-sharing, autonomous mobility, and on-demand transport** applications.
 
 > Whether you're a **researcher**, **transportation engineer**, or **mobility innovator**, FleetPy helps you analyze and optimize **fleet operations, routing strategies, and demand-responsive services**.
 
-😶‍🌫️ **[Fleetpy for dummies](https://github.com/TUM-VT/FleetPy/wiki](https://github.com/TUM-VT/FleetPy/wiki/0_Fleetpy_for_dummies))** 📖 **[Read the Wiki](https://github.com/TUM-VT/FleetPy/wiki)** | 🛠 **[Installation Guide](#-installation)** | 🚀 **[Quickstart](#-quickstart)**  
+😶‍🌫️ **[Fleetpy for dummies](https://github.com/TUM-VT/FleetPy/wiki](https://github.com/TUM-VT/FleetPy/wiki/0_Fleetpy_for_dummies))** 📖 **[Read the Wiki](https://github.com/TUM-VT/FleetPy/wiki)** | 🛠 **[Installation Guide](#-installation)** | 🚀 **[Quickstart](#-quickstart)**
+
+---
+
+## 🚌 **Klagenfurt Fallstudie**
+
+📊 **Neue Ridepooling-Analyse für Klagenfurt am Wörthersee verfügbar!**
+
+Diese Repository enthält eine umfassende Fallstudie zur Machbarkeit eines Ridepooling-Dienstes in Klagenfurt mit:
+- ✅ **84-98% Service-Rate** über 3 Flottenszenarien (20, 30, 40 Fahrzeuge)
+- ⏱️ **3.6-5.0 min durchschnittliche Wartezeit**
+- 🗺️ **12-Zonen-System** via K-Means Clustering
+- 📈 **Vollständige Performance-Analyse** mit Visualisierungen
+
+👉 **[Zur vollständigen Klagenfurt-Studie](README_KLAGENFURT.md)** 👈
+
+![Klagenfurt Zones](klagenfurt_zones_map.png)
 
 <img src="https://github.com/user-attachments/assets/ea839af5-3465-4bd1-8ed4-79c8fe0fd524" alt="Fleetpy Logo" height="400">
 
 ---
 
-## 🎯 Key Features  
+## 🎯 Key Features
 
-✅ **Agent-Based Simulation** – Models individual vehicles, passengers, and operators.  
-✅ **Flexible User-Operator Interaction** – Supports multiple request-acceptance models.  
-✅ **Multi-Fleet Management** – Simulates **ride-pooling, dispatching, and EV charging**.  
-✅ **Customizable Routing Algorithms** – Choose between memory-efficient and fast methods.  
-✅ **Modular & Extensible Design** – Easily integrate **new demand models, routing strategies, or data sources**.  
-✅ **Optimized for Large-Scale Scenarios** – Handles thousands of vehicles and requests efficiently.  
+✅ **Agent-Based Simulation** – Models individual vehicles, passengers, and operators.
+✅ **Flexible User-Operator Interaction** – Supports multiple request-acceptance models.
+✅ **Multi-Fleet Management** – Simulates **ride-pooling, dispatching, and EV charging**.
+✅ **Customizable Routing Algorithms** – Choose between memory-efficient and fast methods.
+✅ **Modular & Extensible Design** – Easily integrate **new demand models, routing strategies, or data sources**.
+✅ **Optimized for Large-Scale Scenarios** – Handles thousands of vehicles and requests efficiently.
 
 ---
 
-## 🚀 Quickstart  
+## 🚀 Quickstart
 
-Get up and running in just a few commands!  
+Get up and running in just a few commands!
 
 ```bash
 # Clone the repository
@@ -39,8 +55,8 @@ conda activate fleetpy
 python run_examples.py
 ```
 
-✔ The results will be saved in `FleetPy/studies/example_study/results/`  
-✔ To visualize the results, run:  
+✔ The results will be saved in `FleetPy/studies/example_study/results/`
+✔ To visualize the results, run:
 
 ```bash
 python replay_pyplot.py scenario_result_directory
@@ -48,7 +64,7 @@ python replay_pyplot.py scenario_result_directory
 
 ---
 
-## 🛠 Installation  
+## 🛠 Installation
 
 ### 1️⃣ Install with Conda (Recommended)
 
@@ -118,16 +134,16 @@ In general, you can **save your data and study definitions** in the mentioned di
 
 ---
 
-## 📊 Running a Simulation  
+## 📊 Running a Simulation
 
-To test an example scenario:  
+To test an example scenario:
 
 ```bash
 python run_examples.py
 ```
 
-✔ The output will be stored in:  
-📂 `FleetPy/studies/example_study/results/`  
+✔ The output will be stored in:
+📂 `FleetPy/studies/example_study/results/`
 
 ### 📊 Output Files
 
@@ -145,9 +161,9 @@ python FleetPy/src/evaluation/temporal.py scenario_result_directory
 
 ---
 
-## 🎥 Watch a Replay  
+## 🎥 Watch a Replay
 
-To visualize a **previously simulated scenario**, run:  
+To visualize a **previously simulated scenario**, run:
 
 ```bash
 python replay_pyplot.py scenario_result_directory <sim_seconds_per_real_second>
@@ -167,37 +183,37 @@ Input data and corresponding example scenario files are available for large-scal
 
 ---
 
-## 🤝 Contributing  
+## 🤝 Contributing
 
-We welcome contributions from the community! 🚀  
-📌 **How to contribute:**  
+We welcome contributions from the community! 🚀
+📌 **How to contribute:**
 
-1. Fork the repo & create a feature branch (`git checkout -b new-feature`).  
-2. Commit your changes (`git commit -m "Added a cool feature"`).  
-3. Push to your branch (`git push origin new-feature`).  
+1. Fork the repo & create a feature branch (`git checkout -b new-feature`).
+2. Commit your changes (`git commit -m "Added a cool feature"`).
+3. Push to your branch (`git push origin new-feature`).
 4. Make sure that the module tests are running (`\studies\module_tests\run_module_tests.py`).
-5. Open a Pull Request!  
+5. Open a Pull Request!
 
-<!-- ... TODO: contributing.md 
-🔍 Check out [CONTRIBUTING.md](link) for guidelines.  
+<!-- ... TODO: contributing.md
+🔍 Check out [CONTRIBUTING.md](link) for guidelines.
 -->
 
 ---
 
-## 📢 Get Involved  
+## 📢 Get Involved
 
-💬 **Join the discussion:** [GitHub Discussions](https://github.com/TUM-VT/FleetPy/discussions)  
-💻 **Contribute:** Open an issue or PR!  
-⭐ **Support FleetPy:** Give us a **star ⭐** on GitHub!  
-🚀 **Stay updated:** Follow us on [Homepage](https://www.mos.ed.tum.de/en/vt/home/) & [LinkedIn](https://www.linkedin.com/school/tum-chair-of-traffic-engineering-and-control/)  
+💬 **Join the discussion:** [GitHub Discussions](https://github.com/TUM-VT/FleetPy/discussions)
+💻 **Contribute:** Open an issue or PR!
+⭐ **Support FleetPy:** Give us a **star ⭐** on GitHub!
+🚀 **Stay updated:** Follow us on [Homepage](https://www.mos.ed.tum.de/en/vt/home/) & [LinkedIn](https://www.linkedin.com/school/tum-chair-of-traffic-engineering-and-control/)
 
 ---
 
-## 📌 Tested on  
+## 📌 Tested on
 
-✔ **Windows 10 Pro x64**  
-✔ **Chrome 79.0.3945**  
-✔ **Python 3.10**  
+✔ **Windows 10 Pro x64**
+✔ **Chrome 79.0.3945**
+✔ **Python 3.10**
 
 ---
 
@@ -230,12 +246,12 @@ Engelhardt, R., Dandl, F., Syed, A., Zhang, Y., Fehn, F., Wolf, F., Bogenberger,
 
 ```
 @misc{engelhardt2022fleetpymodularopensourcesimulation,
-      title={FleetPy: A Modular Open-Source Simulation Tool for Mobility On-Demand Services}, 
+      title={FleetPy: A Modular Open-Source Simulation Tool for Mobility On-Demand Services},
       author={Roman Engelhardt and Florian Dandl and Arslan-Ali Syed and Yunfei Zhang and Fabian Fehn and Fynn Wolf and Klaus Bogenberger},
       year={2022},
       eprint={2207.14246},
       archivePrefix={arXiv},
       primaryClass={cs.MA},
-      url={https://arxiv.org/abs/2207.14246}, 
+      url={https://arxiv.org/abs/2207.14246},
 }
 ```
