@@ -110,23 +110,24 @@ python run_klagenfurt_h2_spitzenzeiten.py
 python klagenfurt_h2_spitzenzeiten_analysis.py
 ```
 
-## Konfidenzlevel
+## Kategorisierung der Erkenntnisse
 
-### Hohe Konfidenz (>80%)
-- Kritischer Schwellenwert existiert bei 16 Fahrzeugen
-- Nicht-lineares Skalierungsverhalten
-- Service-Einbruch unter 16 Fahrzeugen
-- 24 Fahrzeuge als tragfähiges Minimum
+### Direkte Simulationsergebnisse
+- Kritischer Schwellenwert bei 16 Fahrzeugen nachgewiesen
+- Nicht-lineares Skalierungsverhalten gemessen
+- Service-Einbruch unter 16 Fahrzeugen dokumentiert
+- Leistungsdaten für 24 Fahrzeuge als Mindestflotte
 
-### Mittlere Konfidenz (50-80%)
-- Phasenmodell-Empfehlungen
-- Nutzerakzeptanz-Schwellenwerte
+### Abgeleitete Schlussfolgerungen
+- Empfehlungen für Betriebsphasen
+- Servicequalitäts-Schwellenwerte
 - Wachstumsstrategie-Timing
 
-### Niedrige Konfidenz (<50%)
-- Reale Betriebskosten
-- Langfristige Nachhaltigkeit
-- Tatsächliche Marktakzeptanz
+### Hypothesen für weitere Untersuchungen
+- Reale Betriebskosten im Praxisbetrieb
+- Langfristige wirtschaftliche Nachhaltigkeit
+- Tatsächliche Marktakzeptanz und Nachfrage
+- Skalierbarkeit in verschiedenen Marktphasen
 
 ## Bekannte Einschränkungen
 

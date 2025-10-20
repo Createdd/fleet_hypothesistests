@@ -95,23 +95,24 @@ python run_klagenfurt_h2_spitzenzeiten.py
 python klagenfurt_h2_spitzenzeiten_analysis.py
 \`\`\`
 
-## Konfidenzlevel
+## Kategorisierung der Erkenntnisse
 
-### Hohe Konfidenz (>80%)
+### Direkte Simulationsergebnisse
 - Serviceraten steigen mit Flottengröße
 - Nicht-lineare Skalierung existiert (kritischer Schwellenwert bei 16 Fahrzeugen)
 - Abnehmender Grenznutzen über 24 Fahrzeuge
 - Zonensystem ist kritisch für Algorithmuserfolg
 
-### Mittlere Konfidenz (50-80%)
+### Abgeleitete Schlussfolgerungen
 - 24 Fahrzeuge als optimale Mindestflotte
 - Kosteneffizienz-Vergleiche
-- Nutzerakzeptanz-Schwellenwerte
+- Kurz- bis mittelfristige Betriebsempfehlungen
 
-### Niedrige Konfidenz (<50%)
-- Absolute Kostenschätzungen (keine realen CAPEX/OPEX-Daten)
+### Hypothesen für weitere Untersuchungen
+- Absolute Kostenschätzungen (keine realen CAPEX/OPEX-Daten verfügbar)
 - Reale Nutzerakzeptanz in Klagenfurt
 - Langfristige betriebliche Auswirkungen
+- Übertragbarkeit auf andere Städte
 
 ## Datenquellen
 - Netzwerkdaten: OpenStreetMap (verifiziert)
