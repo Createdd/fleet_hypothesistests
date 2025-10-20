@@ -24,7 +24,6 @@
 | **H2-Szenario 4** | 32 Fahrzeuge | 95/100 | **95,0%** | 4,09 min | 17,12 min | ~100% |
 
 **Datenquelle:** Direkte Simulationsergebnisse aus `studies/klagenfurt_h2_spitzenzeiten_case_study/results/`
-**Konfidenz:** Hoch (reproduzierbare Simulationsergebnisse)
 
 ### Skalierungsverhalten-Analyse
 
