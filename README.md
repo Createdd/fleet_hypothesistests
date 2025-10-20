@@ -1,59 +1,59 @@
-# 🚌 FleetPy Klagenfurt Case Study
+# 🚌 FleetPy Klagenfurt Fallstudie
 
 [![FleetPy](https://img.shields.io/badge/Framework-FleetPy-blue)](https://github.com/TUM-VT/FleetPy)
 [![Python 3.10](https://img.shields.io/badge/Python-3.10-green.svg)](https://www.python.org/downloads/)
 
-## Overview
+## Überblick
 
-This study analyzes the feasibility and performance of a ridepooling service in Klagenfurt using the FleetPy simulation framework. The analysis is split into two main hypothesis tests:
+Diese Studie analysiert die Machbarkeit und Leistung eines Ridepooling-Dienstes in Klagenfurt unter Verwendung des FleetPy-Simulationsframeworks. Die Analyse gliedert sich in zwei Haupthypothesentests:
 
-### [Hypothesis 1 (H1): Service Quality Optimization](H1_service_quality.md)
-- Focus on optimizing service quality with larger fleets
-- Testing fleets of 20, 30, and 40 vehicles
-- Emphasis on maximizing service rate and minimizing wait times
+### [Hypothese 1 (H1): Servicequalität-Optimierung](H1_service_quality.md)
+- Fokus auf Optimierung der Servicequalität mit größeren Flotten
+- Test von Flotten mit 20, 30 und 40 Fahrzeugen
+- Schwerpunkt auf Maximierung der Servicerate und Minimierung der Wartezeiten
 
-### [Hypothesis 2 (H2): Minimum Fleet Size](H2_minimum_fleet.md)
-- Focus on determining minimum economically viable fleet size
-- Testing fleets of 8, 16, 24, and 32 vehicles
-- Emphasis on finding critical thresholds and cost efficiency
+### [Hypothese 2 (H2): Minimale Flottengröße](H2_minimum_fleet.md)
+- Fokus auf Bestimmung der minimal wirtschaftlich tragfähigen Flottengröße
+- Test von Flotten mit 8, 16, 24 und 32 Fahrzeugen
+- Schwerpunkt auf Ermittlung kritischer Schwellenwerte und Kosteneffizienz
 
-## Key Findings
+## Zentrale Ergebnisse
 
-### Service Rate Comparison
-| Fleet Size | Service Rate | Wait Time | Vehicle Utilization |
-|------------|--------------|-----------|-------------------|
-| 8 vehicles | 41.0% | 5.34 min | ~100% |
-| 16 vehicles | 70.0% | 5.05 min | ~100% |
-| 20 vehicles | 84.0% | 5.00 min | 100% |
-| 24 vehicles | 92.0% | 4.67 min | ~100% |
-| 30 vehicles | 95.0% | 4.20 min | 100% |
-| 32 vehicles | 95.0% | 4.09 min | ~100% |
-| 40 vehicles | 98.0% | 3.60 min | 92.5% |
+### Serviceraten-Vergleich
+| Flottengröße | Servicerate | Wartezeit | Fahrzeugauslastung |
+|--------------|-------------|------------|-------------------|
+| 8 Fahrzeuge | 41,0% | 5,34 min | ~100% |
+| 16 Fahrzeuge | 70,0% | 5,05 min | ~100% |
+| 20 Fahrzeuge | 84,0% | 5,00 min | 100% |
+| 24 Fahrzeuge | 92,0% | 4,67 min | ~100% |
+| 30 Fahrzeuge | 95,0% | 4,20 min | 100% |
+| 32 Fahrzeuge | 95,0% | 4,09 min | ~100% |
+| 40 Fahrzeuge | 98,0% | 3,60 min | 92,5% |
 
-**Critical Thresholds:**
-- Below 16 vehicles: Service collapses (<70% service rate)
-- 24 vehicles: Optimal minimum fleet (92% service rate)
-- 30-32 vehicles: Sweet spot for service quality (95% service rate)
-- Above 40 vehicles: Diminishing returns (minimal gain for higher cost)
+**Kritische Schwellenwerte:**
+- Unter 16 Fahrzeuge: Service bricht ein (<70% Servicerate)
+- 24 Fahrzeuge: Optimale Mindestflotte (92% Servicerate)
+- 30-32 Fahrzeuge: Optimaler Bereich für Servicequalität (95% Servicerate)
+- Über 40 Fahrzeuge: Abnehmender Grenznutzen (minimaler Gewinn bei höheren Kosten)
 
-## System Configuration
+## Systemkonfiguration
 
-### Network Parameters
-- **Nodes:** 2,099 (street intersections and stops)
-- **Edges:** 5,658 (street connections)
-- **Zones:** 12 (K-means clustering)
-- **Centroids:** 103 (strategic pickup/drop-off points)
+### Netzwerkparameter
+- **Knoten:** 2.099 (Straßenkreuzungen und Haltestellen)
+- **Kanten:** 5.658 (Straßenverbindungen)
+- **Zonen:** 12 (K-Means-Clustering)
+- **Zentroiden:** 103 (strategische Ein-/Ausstiegspunkte)
 
-### Service Constraints
-- **Maximum wait time:** 8 minutes
-- **Maximum detour factor:** 40% of direct travel time
-- **Boarding time:** 30 seconds (constant)
-- **Vehicle capacity:** 4 passengers
+### Service-Beschränkungen
+- **Maximale Wartezeit:** 8 Minuten
+- **Maximaler Umwegfaktor:** 40% der direkten Fahrzeit
+- **Einstiegszeit:** 30 Sekunden (konstant)
+- **Fahrzeugkapazität:** 4 Passagiere
 
-### Time Parameters
-- **Simulation period:** 7:00-9:00 (morning peak)
-- **Reoptimization interval:** 30 seconds
-- **Demand:** 100 mobility requests
+### Zeitparameter
+- **Simulationszeitraum:** 7:00-9:00 (Morgenspitze)
+- **Reoptimierungsintervall:** 30 Sekunden
+- **Nachfrage:** 100 Mobilitätsanfragen
 
 ## Project Setup
 
@@ -95,29 +95,29 @@ python run_klagenfurt_h2_spitzenzeiten.py
 python klagenfurt_h2_spitzenzeiten_analysis.py
 \`\`\`
 
-## Confidence Levels
+## Konfidenzlevel
 
-### High Confidence (>80%)
-- Service rates increase with fleet size
-- Non-linear scaling exists (critical threshold at 16 vehicles)
-- Diminishing returns above 24 vehicles
-- Zone system is critical for algorithm success
+### Hohe Konfidenz (>80%)
+- Serviceraten steigen mit Flottengröße
+- Nicht-lineare Skalierung existiert (kritischer Schwellenwert bei 16 Fahrzeugen)
+- Abnehmender Grenznutzen über 24 Fahrzeuge
+- Zonensystem ist kritisch für Algorithmuserfolg
 
-### Medium Confidence (50-80%)
-- 24 vehicles as optimal minimum fleet
-- Cost efficiency comparisons
-- User acceptance thresholds
+### Mittlere Konfidenz (50-80%)
+- 24 Fahrzeuge als optimale Mindestflotte
+- Kosteneffizienz-Vergleiche
+- Nutzerakzeptanz-Schwellenwerte
 
-### Low Confidence (<50%)
-- Absolute cost estimates (no real CAPEX/OPEX data)
-- Real user acceptance in Klagenfurt
-- Long-term operational effects
+### Niedrige Konfidenz (<50%)
+- Absolute Kostenschätzungen (keine realen CAPEX/OPEX-Daten)
+- Reale Nutzerakzeptanz in Klagenfurt
+- Langfristige betriebliche Auswirkungen
 
-## Data Sources
-- Network data: OpenStreetMap (verified)
-- Algorithm: Alonso-Mora et al. (2017) PNAS 114(3): 462-467
+## Datenquellen
+- Netzwerkdaten: OpenStreetMap (verifiziert)
+- Algorithmus: Alonso-Mora et al. (2017) PNAS 114(3): 462-467
 - Framework: FleetPy (TUM-VT)
 
-## License
-This project uses the FleetPy framework under its license.
-© Technical University of Munich, Chair of Traffic Engineering and Control
+## Lizenz
+Dieses Projekt verwendet das FleetPy-Framework unter dessen Lizenz.
+© Technische Universität München, Lehrstuhl für Verkehrstechnik

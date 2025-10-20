@@ -1,149 +1,149 @@
-# 🔬 Hypothesis 2 (H2): Minimum Fleet Size
+# 🔬 Hypothese 2 (H2): Minimale Flottengröße
 
-## Research Question
+## Forschungsfrage
 
-**Goal:** Determine the **minimum economically viable fleet size** for acceptable service quality (>85% service rate target)
+**Ziel:** Bestimmung der **minimal wirtschaftlich vertretbaren Flottengröße** für akzeptable Servicequalität (>85% Servicerate als Zielwert)
 
-**Test Scenarios:**
-1. **Scenario 1 - Micro Fleet:** 8 vehicles (absolute minimum)
-2. **Scenario 2 - Small Fleet:** 16 vehicles (double micro fleet)
-3. **Scenario 3 - Base Fleet:** 24 vehicles (critical threshold)
-4. **Scenario 4 - Standard Fleet:** 32 vehicles (comfort zone)
+**Testszenarien:**
+1. **Szenario 1 - Mikroflotte:** 8 Fahrzeuge (absolute Untergrenze)
+2. **Szenario 2 - Kleine Flotte:** 16 Fahrzeuge (doppelte Mikroflotte)
+3. **Szenario 3 - Basisflotte:** 24 Fahrzeuge (kritischer Schwellenwert)
+4. **Szenario 4 - Standardflotte:** 32 Fahrzeuge (Komfortzone)
 
-**Hypothesis:** There exists a critical threshold below which service rate drastically collapses (non-linear scaling)
+**Hypothese:** Es existiert ein kritischer Schwellenwert, unterhalb dessen die Servicerate drastisch einbricht (nicht-lineare Skalierung)
 
-## Key Results
+## Zentrale Ergebnisse
 
-### Service Rates by Fleet Size (Small Fleets)
+### Serviceraten nach Flottengröße (kleine Flotten)
 
-| Scenario | Fleet Size | Served Requests | Service Rate | Avg Wait Time | Total Time | Vehicle Utilization |
-|----------|------------|-----------------|--------------|---------------|------------|-------------------|
-| **H2-Scenario 1** | 8 vehicles | 41/100 | **41.0%** | 5.34 min | 19.82 min | ~100% |
-| **H2-Scenario 2** | 16 vehicles | 70/100 | **70.0%** | 5.05 min | 18.48 min | ~100% |
-| **H2-Scenario 3** | 24 vehicles | 92/100 | **92.0%** | 4.67 min | 18.24 min | ~100% |
-| **H2-Scenario 4** | 32 vehicles | 95/100 | **95.0%** | 4.09 min | 17.12 min | ~100% |
+| Szenario | Flottengröße | Bediente Anfragen | Servicerate | Ø Wartezeit | Gesamtzeit | Fahrzeugauslastung |
+|----------|--------------|-------------------|-------------|-------------|-------------|-------------------|
+| **H2-Szenario 1** | 8 Fahrzeuge | 41/100 | **41,0%** | 5,34 min | 19,82 min | ~100% |
+| **H2-Szenario 2** | 16 Fahrzeuge | 70/100 | **70,0%** | 5,05 min | 18,48 min | ~100% |
+| **H2-Szenario 3** | 24 Fahrzeuge | 92/100 | **92,0%** | 4,67 min | 18,24 min | ~100% |
+| **H2-Szenario 4** | 32 Fahrzeuge | 95/100 | **95,0%** | 4,09 min | 17,12 min | ~100% |
 
-**Data Source:** Direct simulation results from `studies/klagenfurt_h2_spitzenzeiten_case_study/results/`
-**Confidence:** High (reproducible simulation results)
+**Datenquelle:** Direkte Simulationsergebnisse aus `studies/klagenfurt_h2_spitzenzeiten_case_study/results/`
+**Konfidenz:** Hoch (reproduzierbare Simulationsergebnisse)
 
-### Scaling Behavior Analysis
+### Skalierungsverhalten-Analyse
 
-**Critical Threshold Identified:**
-- ❌ **8 vehicles**: Undersupply (41% service rate) - **not viable**
-- ⚠️ **16 vehicles**: Critical range (70% service rate) - **marginally acceptable**
-- ✅ **24 vehicles**: **Optimal minimum fleet** (92% service rate) - **meets acceptance threshold**
-- ✅ **32 vehicles**: Comfort zone (95% service rate) - **high reliability**
+**Kritischer Schwellenwert identifiziert:**
+- ❌ **8 Fahrzeuge**: Unterversorgung (41% Servicerate) - **nicht vertretbar**
+- ⚠️ **16 Fahrzeuge**: Kritischer Bereich (70% Servicerate) - **grenzwertig akzeptabel**
+- ✅ **24 Fahrzeuge**: **Optimale Minimalflotte** (92% Servicerate) - **erreicht Akzeptanzgrenze**
+- ✅ **32 Fahrzeuge**: Komfortzone (95% Servicerate) - **hohe Zuverlässigkeit**
 
-**Scaling Jumps (Service Rate Improvement):**
-- **8→16 vehicles** (+100% fleet): +29% service rate (+71% relative jump) → **Largest effect!**
-- **16→24 vehicles** (+50% fleet): +22% service rate (+31% relative jump)
-- **24→32 vehicles** (+33% fleet): +3% service rate (+3% relative jump) → **Diminishing Returns**
+**Skalierungssprünge (Servicerate-Verbesserung):**
+- **8→16 Fahrzeuge** (+100% Flotte): +29% Servicerate (+71% relativer Sprung) → **Größter Effekt!**
+- **16→24 Fahrzeuge** (+50% Flotte): +22% Servicerate (+31% relativer Sprung)
+- **24→32 Fahrzeuge** (+33% Flotte): +3% Servicerate (+3% relativer Sprung) → **Abnehmender Grenznutzen**
 
-### Wait Time Comparison
+### Wartezeitenvergleich
 
-| Fleet Size | Avg Wait Time | Total Time | Max Wait Time | Improvement vs Previous |
-|------------|--------------|------------|---------------|------------------------|
-| 8 vehicles | 5.34 min | 19.82 min | ~8 min | - (Baseline) |
-| 16 vehicles | 5.05 min | 18.48 min | ~8 min | -5.4% wait time |
-| 24 vehicles | 4.67 min | 18.24 min | ~8 min | -7.5% wait time |
-| 32 vehicles | 4.09 min | 17.12 min | ~8 min | -12.4% wait time |
+| Flottengröße | Ø Wartezeit | Gesamtzeit | Max. Wartezeit | Verbesserung vs. vorherige Stufe |
+|--------------|-------------|-------------|----------------|----------------------------------|
+| 8 Fahrzeuge | 5,34 min | 19,82 min | ~8 min | - (Baseline) |
+| 16 Fahrzeuge | 5,05 min | 18,48 min | ~8 min | -5,4% Wartezeit |
+| 24 Fahrzeuge | 4,67 min | 18,24 min | ~8 min | -7,5% Wartezeit |
+| 32 Fahrzeuge | 4,09 min | 17,12 min | ~8 min | -12,4% Wartezeit |
 
-## Strategic Recommendations
+## Strategische Empfehlungen
 
-### Cost-Optimized Operations
+### Kostenoptimierte Betriebsführung
 
-**Phase 1 - Startup/Pilot (3-6 months):**
-- **Recommendation:** 24 vehicles
-- **Service Rate:** 92% (above 85% minimum target)
-- **Advantages:**
-  - ✅ Low initial investment (60% vs. 40 vehicles)
-  - ✅ Acceptable service quality for early adopters
-  - ✅ Test phase for demand validation
-  - ✅ 4.67 min average wait time
-- **Risks:**
-  - ⚠️ 8% unserved requests (reputation risk)
-  - ⚠️ Limited buffer for demand spikes
+**Phase 1 - Start-up/Pilot (3-6 Monate):**
+- **Empfehlung:** 24 Fahrzeuge
+- **Servicerate:** 92% (über Mindestziel von 85%)
+- **Vorteile:**
+  - ✅ Niedrige Anfangsinvestition (60% vs. 40 Fahrzeuge)
+  - ✅ Akzeptable Servicequalität für Early Adopters
+  - ✅ Testphase für Nachfragevalidierung
+  - ✅ 4,67 min durchschnittliche Wartezeit
+- **Risiken:**
+  - ⚠️ 8% unbediente Anfragen (Reputationsrisiko)
+  - ⚠️ Wenig Puffer bei Nachfragespitzen
 
-**Phase 2 - Growth (6-12 months):**
-- **Recommendation:** 32 vehicles
-- **Service Rate:** 95% (excellent)
-- **Advantages:**
-  - ✅ High reliability (only 5% rejection)
-  - ✅ 4.09 min wait time (premium level)
-  - ✅ Buffer for demand fluctuations
-  - ✅ Competitive with public transport
+**Phase 2 - Wachstum (6-12 Monate):**
+- **Empfehlung:** 32 Fahrzeuge
+- **Servicerate:** 95% (hervorragend)
+- **Vorteile:**
+  - ✅ Hohe Zuverlässigkeit (nur 5% Ablehnung)
+  - ✅ 4,09 min Wartezeit (Premium-Niveau)
+  - ✅ Puffer für Nachfrageschwankungen
+  - ✅ Wettbewerbsfähig mit ÖPNV
 
-**Phase 3 - Maturity (>12 months):**
-- **Recommendation:** H1 scenarios (30-40 vehicles)
-- **Service Rate:** 95-98%
-- **Goal:** Establishment as premium service
+**Phase 3 - Reife (>12 Monate):**
+- **Empfehlung:** H1-Szenarien (30-40 Fahrzeuge)
+- **Servicerate:** 95-98%
+- **Ziel:** Etablierung als Premium-Service
 
-**Critical Boundary:**
-⚠️ **NEVER operate below 16 vehicles** (70% service unacceptable for user acceptance)
+**Kritische Grenze:**
+⚠️ **NIEMALS unter 16 Fahrzeuge** (70% Service unakzeptabel für Nutzerakzeptanz)
 
-## Service Quality Categories
+## Servicequalitäts-Kategorien
 
-| Category | Service Rate | Fleet Size | Rating | Use Case |
-|----------|--------------|------------|---------|----------|
-| **Undersupply** | <70% | <16 vehicles | ❌ Not viable | None |
-| **Critical** | 70-85% | 16-20 vehicles | ⚠️ Marginal | Emergency only |
-| **Acceptable** | 85-95% | 24-32 vehicles | ✅ Operable | **Minimum operation recommended** |
-| **Optimal** | >95% | >30 vehicles | ✅ Excellent | Premium service |
+| Kategorie | Servicerate | Flottengröße | Bewertung | Anwendungsfall |
+|-----------|-------------|--------------|-----------|----------------|
+| **Unterversorgung** | <70% | <16 Fahrzeuge | ❌ Nicht vertretbar | Keine |
+| **Kritisch** | 70-85% | 16-20 Fahrzeuge | ⚠️ Grenzwertig | Nur im Notfall |
+| **Akzeptabel** | 85-95% | 24-32 Fahrzeuge | ✅ Betreibbar | **Minimalbetrieb empfohlen** |
+| **Optimal** | >95% | >30 Fahrzeuge | ✅ Hervorragend | Premium-Service |
 
-## Technical Details
+## Technische Details
 
-### Simulation Parameters
-- **Time Window**: 7:00-9:00 AM (morning peak)
-- **Demand**: 100 mobility requests
-- **Algorithm**: Alonso-Mora Batch Assignment
-- **Reoptimization**: Every 30 seconds
-- **Vehicle Capacity**: 4 passengers
-- **Max Wait Time**: 8 minutes
+### Simulationsparameter
+- **Zeitfenster**: 7:00-9:00 Uhr (Morgenspitze)
+- **Nachfrage**: 100 Mobilitätsanfragen
+- **Algorithmus**: Alonso-Mora Batch Assignment
+- **Reoptimierung**: Alle 30 Sekunden
+- **Fahrzeugkapazität**: 4 Passagiere
+- **Max. Wartezeit**: 8 Minuten
 
-### Running the Simulation
+### Simulation ausführen
 
 ```bash
-# Start H2 simulation
+# H2-Simulation starten
 python run_klagenfurt_h2_spitzenzeiten.py
 
-# Run analysis
+# Analyse durchführen
 python klagenfurt_h2_spitzenzeiten_analysis.py
 ```
 
-## Confidence Levels
+## Konfidenzlevel
 
-### High Confidence (>80%)
-- Critical threshold exists at 16 vehicles
-- Non-linear scaling behavior
-- Service collapse below 16 vehicles
-- 24 vehicles as viable minimum
+### Hohe Konfidenz (>80%)
+- Kritischer Schwellenwert existiert bei 16 Fahrzeugen
+- Nicht-lineares Skalierungsverhalten
+- Service-Einbruch unter 16 Fahrzeugen
+- 24 Fahrzeuge als tragfähiges Minimum
 
-### Medium Confidence (50-80%)
-- Phase model recommendations
-- User acceptance thresholds
-- Growth strategy timing
+### Mittlere Konfidenz (50-80%)
+- Phasenmodell-Empfehlungen
+- Nutzerakzeptanz-Schwellenwerte
+- Wachstumsstrategie-Timing
 
-### Low Confidence (<50%)
-- Real operational costs
-- Long-term sustainability
-- Actual market acceptance
+### Niedrige Konfidenz (<50%)
+- Reale Betriebskosten
+- Langfristige Nachhaltigkeit
+- Tatsächliche Marktakzeptanz
 
-## Known Limitations
+## Bekannte Einschränkungen
 
-1. **Synthetic Demand (no real data)**
-   - **Impact:** Medium
-   - **Mitigation:** Spatial distribution across zones, realistic temporal modeling
+1. **Synthetische Nachfrage (keine realen Daten)**
+   - **Auswirkung:** Mittel
+   - **Abschwächung:** Räumliche Verteilung über Zonen, realistische zeitliche Modellierung
 
-2. **No Cost Data (theoretical estimates)**
-   - **Impact:** High
-   - **Mitigation:** Focus on service quality and efficiency metrics
+2. **Keine Kostendaten (theoretische Schätzungen)**
+   - **Auswirkung:** Hoch
+   - **Abschwächung:** Fokus auf Servicequalität und Effizienzmetriken
 
-3. **Morning Peak Only (no daily variations)**
-   - **Impact:** Medium
-   - **Mitigation:** Morning peak is dimensioning-critical (conservative estimate)
+3. **Nur Morgenspitze (keine Tagesvariationen)**
+   - **Auswirkung:** Mittel
+   - **Abschwächung:** Morgenspitze ist dimensionierungs-kritisch (konservative Schätzung)
 
-## References
+## Referenzen
 
 - Alonso-Mora et al. (2017) PNAS 114(3): 462-467
 - FleetPy Framework (TUM-VT)
-- OpenStreetMap Network Data
+- OpenStreetMap Netzwerkdaten
