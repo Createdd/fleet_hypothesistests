@@ -57,33 +57,28 @@ Diese Studie analysiert die Machbarkeit und Leistung eines Ridepooling-Dienstes 
 
 ## Project Setup
 
-### Requirements
+## Projekt-Setup
 - Python 3.10+
-- FleetPy Framework
+### Voraussetzungen
 - Conda Environment
 
 ### Installation
 
-1. Clone repository:
+### Installation
 \`\`\`bash
 git clone https://github.com/Createdd/fleet_hypothesistests.git
-cd FleetPy
-\`\`\`
-
-2. Create environment:
+```bash
+git clone https://github.com/Createdd/fleet_hypothesistests.git
+cd fleet_hypothesistests
+```
 \`\`\`bash
 conda env create -f environment.yml
 conda activate fleetpy
 \`\`\`
 
 3. Install dependencies:
-\`\`\`bash
-pip install -r requirements.txt
-\`\`\`
 
-### Running Simulations
-
-For H1 (Service Quality):
+### Simulationen ausführen
 \`\`\`bash
 python run_klagenfurt_h1_spitzenzeiten.py
 python klagenfurt_h1_spitzenzeiten_analysis.py
@@ -96,6 +91,13 @@ python klagenfurt_h2_spitzenzeiten_analysis.py
 \`\`\`
 
 ## Kategorisierung der Erkenntnisse
+
+## Glossar
+
+- Servicerate: Anteil bedienter Anfragen an allen Anfragen (bedient/gesamt)
+- Wartezeit: Zeit zwischen Anfrage und Abholung (Durchschnitt über alle bedienten Anfragen)
+- Gesamtzeit: Summe aus Wartezeit und Fahrzeit bis Ziel (Durchschnitt)
+- Fahrzeugauslastung: Anteil der Zeit, in der Fahrzeuge mit Fahrgästen unterwegs sind bzw. operativ genutzt werden
 
 ### Direkte Simulationsergebnisse
 - Serviceraten steigen mit Flottengröße

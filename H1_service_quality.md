@@ -16,17 +16,20 @@ Ziel: Optimierung der Servicequalität bei akzeptabler Kosteneffizienz.
 | 30 Fzg   | 30           | 95/100            | 95,0%       | 4,2 min     | 100%               |
 | 40 Fzg   | 40           | 98/100            | 98,0%       | 3,6 min     | 92,5%              |
 
-### Kategorisierung der Erkenntnisse
-- Direkte Simulationsergebnisse
-	- Servicerate steigt mit Flottengröße; nicht-linear mit abnehmendem Grenznutzen >30 Fahrzeuge
-	- Wartezeiten reduzieren sich von 5,0 auf 3,6 Minuten (20 → 40 Fzg)
-	- Alle Szenarien erfüllen die 8-Minuten-Grenze
-- Abgeleitete Schlussfolgerungen
-	- 30 Fahrzeuge als beste Kosten-Nutzen-Balance
-	- 40 Fahrzeuge nur bei Premium-Anspruch sinnvoll
-- Hypothesen für weitere Untersuchungen
-	- Dynamische Repositionierung in Randlagen
-	- Einfluss unterschiedlicher Zonen-/Zentroiden-Layouts
+## Kategorisierung der Erkenntnisse
+
+### Direkte Simulationsergebnisse
+- Servicerate steigt mit Flottengröße; nicht-linear mit abnehmendem Grenznutzen >30 Fahrzeuge
+- Wartezeiten reduzieren sich von 5,0 auf 3,6 Minuten (20 → 40 Fzg)
+- Alle Szenarien erfüllen die 8-Minuten-Grenze
+
+### Abgeleitete Schlussfolgerungen
+- 30 Fahrzeuge als beste Kosten-Nutzen-Balance
+- 40 Fahrzeuge nur bei Premium-Anspruch sinnvoll
+
+### Hypothesen für weitere Untersuchungen
+- Dynamische Repositionierung in Randlagen
+- Einfluss unterschiedlicher Zonen-/Zentroiden-Layouts
 
 ## Strategische Empfehlungen
 - 30 Fahrzeuge empfohlen für >95% Servicerate bei guter Effizienz
