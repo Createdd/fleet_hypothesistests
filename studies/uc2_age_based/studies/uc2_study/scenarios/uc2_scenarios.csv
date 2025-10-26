@@ -1,0 +1,5 @@
+scenario_name,rq_type,user_max_decision_time,user_max_wait_time,user_max_wait_time_2,walking_speed,max_walking_dist,op_const_boarding_time
+baseline,WaitingTimeSensitiveLinearDeclineRequest,60,180,300,1.0,200,60
+phone_support,WaitingTimeSensitiveLinearDeclineRequest,240,180,300,1.0,200,50
+simple_ui,WaitingTimeSensitiveLinearDeclineRequest,120,240,420,1.0,200,50
+full_support,WaitingTimeSensitiveLinearDeclineRequest,300,300,480,1.0,250,30

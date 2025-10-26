@@ -17,6 +17,14 @@ Diese Studie analysiert die Machbarkeit und Leistung eines Ridepooling-Dienstes 
 - Test von Flotten mit 8, 16, 24 und 32 Fahrzeugen
 - Schwerpunkt auf Ermittlung kritischer Schwellenwerte und Kosteneffizienz
 
+
+### [Use Case 2 (UC2): Altersbasierte digitale Kompetenz](UC2_age_based.md)
+- Zielgruppe: Ältere Personen mit geringerer digitaler Kompetenz
+- Frage: Welche Begleitmaßnahmen (Telefon-Support, vereinfachte App, volle Unterstützung) erhöhen die Nutzbarkeit?
+- Abbildung im Modell: Entscheidungsfenster, Wartezeit-Akzeptanzkurve, Boarding-/Assistenzzeiten, Gehfähigkeit
+
+**Details zur Parametrisierung und Evaluationsmetriken siehe [UC2_age_based.md](UC2_age_based.md).**
+
 ## Zentrale Ergebnisse
 
 ### Serviceraten-Vergleich
@@ -89,6 +97,32 @@ For H2 (Minimum Fleet):
 python run_klagenfurt_h2_spitzenzeiten.py
 python klagenfurt_h2_spitzenzeiten_analysis.py
 \`\`\`
+
+### Simulationen ausführen
+
+#### H1 (Servicequalität)
+```bash
+python run_klagenfurt_h1_spitzenzeiten.py
+python klagenfurt_h1_spitzenzeiten_analysis.py
+```
+
+#### H2 (Minimale Flotte)
+```bash
+python run_klagenfurt_h2_spitzenzeiten.py
+python klagenfurt_h2_spitzenzeiten_analysis.py
+```
+
+#### UC2 (Digitale Kompetenz & Support-Maßnahmen)
+```bash
+python studies/uc2_age_based/studies/uc2_study/run_uc2_age_based.py
+```
+Die Simulation erzeugt Ergebnisdateien für alle vier Szenarien (baseline, phone_support, simple_ui, full_support).
+
+Für die Analyse und Visualisierung:
+```bash
+jupyter notebook studies/uc2_age_based/studies/uc2_study/analysis/uc2_analysis.ipynb
+```
+Das Notebook aggregiert die Ergebnisse und zeigt die wichtigsten Kennzahlen und Vergleiche an.
 
 ## Kategorisierung der Erkenntnisse
 
