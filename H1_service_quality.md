@@ -1,4 +1,4 @@
-## 🎯 Hypothese 1 (H1): Servicequalität-Optimierung
+## Hypothese 1 (H1): Servicequalität-Optimierung
 
 Ziel: Optimierung der Servicequalität bei akzeptabler Kosteneffizienz.
 
@@ -46,6 +46,12 @@ Ziel: Optimierung der Servicequalität bei akzeptabler Kosteneffizienz.
 python run_klagenfurt_h1_spitzenzeiten.py
 python klagenfurt_h1_spitzenzeiten_analysis.py
 ```
+
+## Hinweis zu Kostenanalyse
+
+Diese Studie fokussiert auf **Servicequalität und Kapazitätsplanung**. Detaillierte Kostenanalysen werden in [UC3 (Barrierefreiheit)](UC3_accessibility.md) behandelt, da dort unterschiedliche Fahrzeugtypen mit verschiedenen Kostenstrukturen verglichen werden.
+
+**Für H1 gilt:** Kosten skalieren **linear mit Flottengröße** (identische Fahrzeuge), daher ist die Kostenoptimierung implizit durch Minimierung der Flottengröße bei Zielvorgabe (z.B. >95% Servicerate) gegeben.
 
 ## Datenquelle
 - Direkte Simulationsergebnisse aus `studies/klagenfurt_h1_spitzenzeiten_case_study/results/`

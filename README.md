@@ -35,22 +35,44 @@ Diese Studie analysiert die Machbarkeit und Leistung eines Ridepooling-Dienstes 
 
 ## Zentrale Ergebnisse
 
-### Serviceraten-Vergleich
-| Flottengröße | Servicerate | Wartezeit | Fahrzeugauslastung |
-|--------------|-------------|------------|-------------------|
-| 8 Fahrzeuge | 41,0% | 5,34 min | ~100% |
-| 16 Fahrzeuge | 70,0% | 5,05 min | ~100% |
-| 20 Fahrzeuge | 84,0% | 5,00 min | 100% |
-| 24 Fahrzeuge | 92,0% | 4,67 min | ~100% |
-| 30 Fahrzeuge | 95,0% | 4,20 min | 100% |
-| 32 Fahrzeuge | 95,0% | 4,09 min | ~100% |
-| 40 Fahrzeuge | 98,0% | 3,60 min | 92,5% |
+### H1/H2: Serviceraten-Vergleich (Flottengrößen-Variation)
+| Flottengröße | Servicerate | Wartezeit | Fahrzeugauslastung | Studie |
+|--------------|-------------|-----------|-------------------|--------|
+| 8 Fahrzeuge | 41,0% | 5,34 min | ~100% | H2 |
+| 16 Fahrzeuge | 70,0% | 5,05 min | ~100% | H2 |
+| 20 Fahrzeuge | 84,0% | 5,00 min | 100% | H1 |
+| 24 Fahrzeuge | 92,0% | 4,67 min | ~100% | H2 |
+| 30 Fahrzeuge | 95,0% | 4,20 min | 100% | H1 |
+| 32 Fahrzeuge | 95,0% | 4,09 min | ~100% | H2 |
+| 40 Fahrzeuge | 98,0% | 3,60 min | 92,5% | H1 |
 
 **Kritische Schwellenwerte:**
 - Unter 16 Fahrzeuge: Service bricht ein (<70% Servicerate)
 - 24 Fahrzeuge: Optimale Mindestflotte (92% Servicerate)
 - 30-32 Fahrzeuge: Optimaler Bereich für Servicequalität (95% Servicerate)
 - Über 40 Fahrzeuge: Abnehmender Grenznutzen (minimaler Gewinn bei höheren Kosten)
+
+### UC2: Digitale Kompetenz (20 Fahrzeuge, Variable Support-Maßnahmen)
+
+| Szenario | Maßnahme | Servicerate | Ø Wartezeit | Interpretation |
+|----------|----------|-------------|-------------|----------------|
+| baseline | Keine Unterstützung | TBD* | TBD* | Niedrige digitale Kompetenz |
+| phone_support | Telefon-Hotline | TBD* | TBD* | Mehr Entscheidungszeit |
+| simple_ui | Vereinfachte App | TBD* | TBD* | Höhere Toleranz |
+| full_support | Volle Unterstützung | TBD* | TBD* | Kombination aller Maßnahmen |
+
+*TBD: Simulation ausführen für Ergebnisse
+
+### UC3: Barrierefreiheit (20 Fahrzeuge, Variable Flottenzusammensetzung)
+
+| Szenario | Standard-Fzg. | Gelenkbusse | Anteil Barrierefrei | Servicerate | Kosten |
+|----------|---------------|-------------|---------------------|-------------|---------|
+| baseline | 20 | 0 | 0% | TBD* | Niedrig |
+| mixed_20 | 16 | 4 | 20% | TBD* | Moderat |
+| mixed_30 | 14 | 6 | 30% | TBD* | Gut (empfohlen) |
+| mixed_50 | 10 | 10 | 50% | TBD* | Hoch |
+
+*TBD: Simulation ausführen für Ergebnisse
 
 ## Systemkonfiguration
 

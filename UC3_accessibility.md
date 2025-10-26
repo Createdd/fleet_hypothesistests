@@ -1,4 +1,4 @@
-# 🦽 UC3: Barrierefreiheit – Rollstuhl und Kinderwagen-Nutzer
+# UC3: Barrierefreiheit – Rollstuhl und Kinderwagen-Nutzer
 
 ## Fragestellung
 

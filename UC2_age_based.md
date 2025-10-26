@@ -1,4 +1,4 @@
-## 🧓 UC2: Altersbasierte digitale Kompetenz und Begleitmaßnahmen
+## UC2: Altersbasierte digitale Kompetenz und Begleitmaßnahmen
 
 Fragestellung: Ältere Personen haben geringere digitale Kompetenz. Welche Begleitmaßnahmen helfen, damit sie von einem On-Demand-Algorithmus profitieren?
 

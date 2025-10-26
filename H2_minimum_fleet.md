@@ -1,4 +1,4 @@
-# 🔬 Hypothese 2 (H2): Minimale Flottengröße
+# Hypothese 2 (H2): Minimale Flottengröße
 
 ## Forschungsfrage
 
@@ -141,6 +141,12 @@ python klagenfurt_h2_spitzenzeiten_analysis.py
 3. **Nur Morgenspitze (keine Tagesvariationen)**
    - **Auswirkung:** Mittel
    - **Abschwächung:** Morgenspitze ist dimensionierungs-kritisch (konservative Schätzung)
+
+## Hinweis zu Kostenanalyse
+
+Diese Studie fokussiert auf **Mindestkapazität und kritische Schwellenwerte**. Detaillierte Kostenanalysen werden in [UC3 (Barrierefreiheit)](UC3_accessibility.md) behandelt, da dort unterschiedliche Fahrzeugtypen mit verschiedenen Kostenstrukturen verglichen werden.
+
+**Für H2 gilt:** Kosten skalieren **linear mit Flottengröße** (identische Fahrzeuge). Die Kostenoptimierung erfolgt implizit durch Bestimmung der **minimalen Flottengröße**, die noch akzeptable Servicequalität (>85% Servicerate) liefert. Ergebnis: **24 Fahrzeuge** als kostenoptimales Minimum.
 
 ## Referenzen
 
