@@ -1,0 +1,7 @@
+vtype_name_full,standard_4seat
+maximum_passengers,4
+daily_fix_cost [cent],2000
+per_km_cost [cent],25
+battery_size [kWh],40
+range [km],10000
+source,

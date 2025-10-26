@@ -27,6 +27,8 @@ data/vehicles/*
 !data/vehicles/low_range_vehtype.csv
 !data/vehicles/default_parcel_veh.csv
 !data/vehicles/veh_20.csv
+!data/vehicles/standard_4seat.csv
+!data/vehicles/accessible_8seat.csv
 data/zones/*
 !data/zones/example_zones
 !data/infra/example_infra
@@ -42,6 +44,7 @@ data/gip_network_ogd.gpkg
 studies/*
 !studies/uc1_peak_demand/
 !studies/uc2_age_based/
+!studies/uc3_accessibility/
 !studies/example_study
 studies/example_study/results/*
 !studies/module_tests/*

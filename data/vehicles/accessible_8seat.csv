@@ -1,0 +1,7 @@
+vtype_name_full,accessible_8seat
+maximum_passengers,8
+daily_fix_cost [cent],3500
+per_km_cost [cent],35
+battery_size [kWh],60
+range [km],10000
+source,

@@ -25,6 +25,14 @@ Diese Studie analysiert die Machbarkeit und Leistung eines Ridepooling-Dienstes 
 
 **Details zur Parametrisierung und Evaluationsmetriken siehe [UC2_age_based.md](UC2_age_based.md).**
 
+### [Use Case 3 (UC3): Barrierefreiheit – Rollstuhl und Kinderwagen](UC3_accessibility.md)
+- Zielgruppe: Personen mit Kindern/Kinderwagen und mobilitätseingeschränkte Personen (Rollstuhl)
+- Frage: Welche Flottenzusammensetzung (Standard vs. barrierefreie Gelenkbusse) gewährleistet ausreichende Servicerate?
+- Abbildung im Modell: Zwei Fahrzeugtypen (4-Sitzer vs. 8-Sitzer Gelenkbus), erhöhte Kapazitätsnutzung für Rollstuhl/Kinderwagen
+- Szenarien: 0%, 20%, 30%, 50% barrierefreie Fahrzeuge
+
+**Details zu Kostenanalyse und Trade-offs siehe [UC3_accessibility.md](UC3_accessibility.md).**
+
 ## Zentrale Ergebnisse
 
 ### Serviceraten-Vergleich
@@ -114,7 +122,8 @@ python klagenfurt_h2_spitzenzeiten_analysis.py
 
 #### UC2 (Digitale Kompetenz & Support-Maßnahmen)
 ```bash
-python studies/uc2_age_based/studies/uc2_study/run_uc2_age_based.py
+conda activate fleetpy
+python run_uc2_age_based.py
 ```
 Die Simulation erzeugt Ergebnisdateien für alle vier Szenarien (baseline, phone_support, simple_ui, full_support).
 
@@ -123,6 +132,19 @@ Für die Analyse und Visualisierung:
 jupyter notebook studies/uc2_age_based/studies/uc2_study/analysis/uc2_analysis.ipynb
 ```
 Das Notebook aggregiert die Ergebnisse und zeigt die wichtigsten Kennzahlen und Vergleiche an.
+
+#### UC3 (Barrierefreiheit – Flottenzusammensetzung)
+```bash
+conda activate fleetpy
+python run_uc3_accessibility.py
+```
+Die Simulation testet 4 Flottenzusammensetzungen (baseline: 0% Gelenkbusse, mixed_20: 20%, mixed_30: 30%, mixed_50: 50%).
+
+Für die Analyse und Visualisierung:
+```bash
+jupyter notebook studies/uc3_accessibility/studies/uc3_study/analysis/uc3_analysis.ipynb
+```
+Das Notebook zeigt Trade-offs zwischen Kosten und Servicerate für verschiedene Anteile barrierefreier Fahrzeuge.
 
 ## Kategorisierung der Erkenntnisse
 
