@@ -83,6 +83,10 @@ Falls dein existierendes Studien-Setup YAML nutzt (wie H1/H2), kannst du die Par
 
 ## Nächste Schritte (optional)
 
-- Metrik „Fairness“: Gap zwischen älteren vs. gesamten Nutzern (Servicerate, Wartezeit)
+- Metrik „Fairness": Gap zwischen älteren vs. gesamten Nutzern (Servicerate, Wartezeit)
 - Reservierungslogik testen: Vorbestellungen/Hotline als Alternative zur Sofortbuchung
 - Preis-/Tarifkommunikation: Preis-Sensitivität der Zielgruppe variieren
+
+---
+
+**Hinweis:** Diese Dokumentation wurde mithilfe von KI-Tools erstellt und unterstützt.

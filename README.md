@@ -202,3 +202,7 @@ Das Notebook zeigt Trade-offs zwischen Kosten und Servicerate für verschiedene 
 ## Lizenz
 Dieses Projekt verwendet das FleetPy-Framework unter dessen Lizenz.
 © Technische Universität München, Lehrstuhl für Verkehrstechnik
+
+---
+
+**Hinweis:** Diese Dokumentation wurde mithilfe von KI-Tools erstellt und unterstützt.

@@ -180,3 +180,7 @@ Das Notebook:
 2. **Reservierungsmodul testen**: Vorabplanung für Nutzer mit Bedarf
 3. **Dynamische Flottensteuerung**: Tageszeitabhängige Anpassung der Flottenzusammensetzung
 4. **Kostenoptimierung**: Detaillierte TCO-Analyse (Total Cost of Ownership) für verschiedene Fahrzeugtypen
+
+---
+
+**Hinweis:** Diese Dokumentation wurde mithilfe von KI-Tools erstellt und unterstützt.

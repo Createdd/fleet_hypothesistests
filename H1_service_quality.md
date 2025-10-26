@@ -60,3 +60,7 @@ Diese Studie fokussiert auf **Servicequalität und Kapazitätsplanung**. Detaill
 - Alonso-Mora et al. (2017) PNAS 114(3): 462–467
 - FleetPy Framework (TUM-VT)
 - OpenStreetMap Netzwerkdaten
+
+---
+
+**Hinweis:** Diese Dokumentation wurde mithilfe von KI-Tools erstellt und unterstützt.
