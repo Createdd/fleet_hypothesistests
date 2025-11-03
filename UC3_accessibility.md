@@ -19,15 +19,11 @@ Wir definieren zwei Fahrzeugtypen:
 | **Standard (4 Sitze)** | 4 Passagiere | 20 € | 0,25 € | Normale PKW/Kleinbusse |
 | **Gelenkbus (8 Sitze)** | 8 Passagiere | 35 € | 0,35 € | Barrierefreier Zugang, Rollstuhl-/Kinderwagenplatz |
 
-**Confidence Level: Medium** – Die Kostenunterschiede basieren auf plausiblen Annahmen für Fahrzeugbetrieb. Echte CAPEX/OPEX-Daten aus Klagenfurt sind nicht verfügbar.
-
 #### **2. Nutzer mit besonderen Bedürfnissen**
 
 - **Annahme**: **15% der Nachfrage** benötigen barrierefreie Fahrzeuge (Rollstuhl, Kinderwagen)
 - **Modellierung**: Diese Nutzer belegen **2 Sitzplätze** statt 1 (repräsentiert Platzbedarf für Rollstuhl/Kinderwagen)
 - **Einschränkung**: FleetPy unterstützt **keine explizite Anforderung "nur Gelenkbus"**. Daher nutzen wir die **erhöhte Kapazitätsnutzung** als Proxy.
-
-**Confidence Level: Low** – Der Anteil von 15% ist eine Schätzung. Echte Daten aus ÖPNV-Studien zu Rollstuhlnutzern in Klagenfurt sind nicht verfügbar.
 
 #### **3. Boarding-Zeit**
 
@@ -73,8 +69,6 @@ Wir definieren zwei Fahrzeugtypen:
 ---
 
 ## Erwartete Ergebnisse (Hypothesen)
-
-**Confidence Level: Medium** – Basierend auf Kapazitäts- und Kostenlogik, nicht auf empirischen Daten.
 
 1. **Baseline (0% Gelenkbusse)**:
    - Servicerate für Nutzer mit Bedarf: **<50%** (viele Anfragen können nicht bedient werden, da Fahrzeuge voll sind)
@@ -137,8 +131,6 @@ Das Notebook:
 ---
 
 ## Interpretation und Handlungsempfehlungen
-
-**Confidence Level: Medium** – Basierend auf Simulationslogik, nicht auf realen Feldstudien.
 
 ### **Kritische Schwellenwerte**
 
