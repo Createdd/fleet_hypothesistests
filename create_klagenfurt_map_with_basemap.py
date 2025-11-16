@@ -78,13 +78,13 @@ lakeside_lon, lakeside_lat = 14.2655, 46.6155  # Actual Lakeside Park coordinate
 lakeside_point = gpd.GeoSeries([Point(lakeside_lon, lakeside_lat)], crs="EPSG:4326").to_crs(epsg=3857)
 
 # Add marker for university area
-ax.plot(lakeside_point.x, lakeside_point.y, 
-        marker='*', markersize=30, color='red', 
+ax.plot(lakeside_point.x, lakeside_point.y,
+        marker='*', markersize=30, color='red',
         markeredgecolor='darkred', markeredgewidth=2.5,
         label='Universität Klagenfurt / Lakeside Park', zorder=10)
 
 # Add annotation with arrow
-ax.annotate('Universität Klagenfurt\n(Lakeside Park)', 
+ax.annotate('Universität Klagenfurt\n(Lakeside Park)',
             xy=(lakeside_point.x.values[0], lakeside_point.y.values[0]),
             xytext=(30, -20), textcoords='offset points',
             fontsize=9, fontweight='bold', color='darkred',
