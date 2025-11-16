@@ -14,12 +14,12 @@ lakeside_lon, lakeside_lat = 14.2655, 46.6155
 print(f"\nLakeside Park: {lakeside_lon}, {lakeside_lat}")
 
 # Check if within bounds
-if (nodes.pos_x.min() <= lakeside_lon <= nodes.pos_x.max() and 
+if (nodes.pos_x.min() <= lakeside_lon <= nodes.pos_x.max() and
     nodes.pos_y.min() <= lakeside_lat <= nodes.pos_y.max()):
     print("✅ Lakeside Park IS within network bounds")
 else:
     print("❌ Lakeside Park is OUTSIDE network bounds")
-    
+
 # Find closest node to Lakeside Park
 distances = ((nodes.pos_x - lakeside_lon)**2 + (nodes.pos_y - lakeside_lat)**2)**0.5
 closest_idx = distances.idxmin()
