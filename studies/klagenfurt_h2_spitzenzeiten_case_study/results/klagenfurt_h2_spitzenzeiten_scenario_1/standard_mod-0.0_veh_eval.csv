@@ -1,9 +1,0 @@
-,type,total km,total kWh,total CO2 [g],fix costs,total variable costs
-0,default_vehtype,0.0,0.0,0.0,2500.0,0.0
-1,default_vehtype,0.0,0.0,0.0,2500.0,0.0
-2,default_vehtype,0.0,0.0,0.0,2500.0,0.0
-3,default_vehtype,5.738206539585435,0.028691032697927176,3.213395662167844,2500.0,143.0
-4,default_vehtype,2.2391266051540426,0.011195633025770214,1.253910898886264,2500.0,56.0
-5,default_vehtype,0.0,0.0,0.0,2500.0,0.0
-6,default_vehtype,0.0,0.0,0.0,2500.0,0.0
-7,default_vehtype,0.0,0.0,0.0,2500.0,0.0

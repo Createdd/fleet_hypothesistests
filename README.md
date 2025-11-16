@@ -335,8 +335,159 @@ Beide Dienste bedienen ähnliche Demografien:
 - **[UC3: Barrierefreiheit](UC3_accessibility.md)** - Flottenzusammensetzung und Inklusivität
 - **[📊 Vergleich 8-Sitzer vs. 4-Sitzer-Studie](comparison_previous_study.md)** - Validierung und neue Erkenntnisse
 
+## 🔧 Kompletter Prozessablauf: Netzwerk → Zonen → Nachfrage → Simulation
+
+Dieser Abschnitt dokumentiert die **vollständige Prozesskette** zum Regenerieren der Klagenfurt-Studie von Grund auf.
+
+### Schritt 1: Netzwerk und Zonen filtern
+
+**Problem:** Das ursprüngliche Netzwerk umfasste 12 Zonen, wovon 6 Zonen (2, 3, 5, 8, 11, 12) zu weit außerhalb des Klagenfurter Kerngebiets lagen und entfernt werden sollten.
+
+**Lösung:** Filterung auf 6 Kernzonen (1, 4, 6, 7, 9, 10), remapped zu IDs 0-5.
+
+```bash
+cd data/networks/klagenfurt_h1_spitzenzeiten
+conda run -n fleetpy python filter_network_zones.py
+```
+
+**Ausgabe:**
+- Backup der Originaldateien: `backup_fullnetwork/`
+- Gefilterte `nodes.csv` (nur Knoten in Kernzonen)
+- Gefilterte `edges.csv` (nur Kanten zwischen Kernknoten)
+- Gefilterte `data/zones/klagenfurt_h1_spitzenzeiten/base/node_zone_info.csv` (Zone IDs 0-5)
+
+### Schritt 2: Zentroiden regenerieren
+
+**Zweck:** Zentroiden sind strategische Ein-/Ausstiegspunkte innerhalb jeder Zone. Nach dem Filtern müssen diese neu berechnet werden.
+
+```bash
+cd data/networks/klagenfurt_h1_spitzenzeiten
+conda run -n fleetpy python regenerate_centroids.py
+```
+
+**Algorithmus:** Spatial K-means-like Verteilung mit ~50 Zentroiden pro Zone für optimale Abdeckung.
+
+**Ausgabe:** Aktualisierte `node_zone_info.csv` mit `is_centroid=1` für ausgewählte Knoten.
+
+### Schritt 3: Nachfrage generieren
+
+**Zweck:** Generierung realistischer Mobilitätsnachfrage über den Tag verteilt mit Spitzenkonzentration 7-9 Uhr.
+
+```bash
+cd data/demand/klagenfurt_h1_spitzenzeiten
+conda run -n fleetpy python generate_fullday_demand.py
+```
+
+**Parameter:**
+- 500 Anfragen gesamt
+- Zeitfenster: 6:00-22:00 Uhr (16 Stunden)
+- 70% Konzentration in Spitzenzeit (7-9 Uhr)
+- Nur Knoten aus gefilterten Zonen
+- Seed: 42 (reproduzierbar)
+
+**Ausgabe:** `matched/klagenfurt_h1_spitzenzeiten/demand_requests.csv`
+
+**Spaltenformat:**
+```csv
+Unnamed: 0,request_id,rq_time,start,end,earliest_pickup_time
+0,0,25200,1234,5678,25200
+```
+
+### Schritt 4: Simulationen ausführen
+
+**Alle Studien laufen:**
+
+```bash
+# H1: Servicequalität (3 Szenarien: 20, 30, 40 Fahrzeuge)
+conda run -n fleetpy python run_klagenfurt_h1_spitzenzeiten.py > h1.log 2>&1 &
+
+# H2: Minimale Flotte (4 Szenarien: 8, 16, 24, 32 Fahrzeuge)
+conda run -n fleetpy python run_klagenfurt_h2_spitzenzeiten.py > h2.log 2>&1 &
+
+# UC2: Altersbasiert (6 Szenarien)
+conda run -n fleetpy python run_uc2_age_based.py > uc2.log 2>&1 &
+
+# UC3: Barrierefreiheit (4 Szenarien: 0%, 20%, 30%, 50% barrierefrei)
+conda run -n fleetpy python run_uc3_accessibility.py > uc3.log 2>&1 &
+```
+
+**Laufzeit:** ~10-20 Sekunden pro Szenario (500 Anfragen, 16 Stunden Simulation)
+
+**Ausgabe-Verzeichnisse:**
+- `studies/klagenfurt_h1_spitzenzeiten_case_study/results/`
+- `studies/klagenfurt_h2_spitzenzeiten_case_study/results/`
+- `studies/uc2_age_based/results/`
+- `studies/uc3_accessibility/results/`
+
+### Schritt 5: Ergebnisse analysieren
+
+**Jupyter Notebooks starten:**
+
+```bash
+# H1 Analyse
+jupyter notebook studies/klagenfurt_h1_spitzenzeiten_case_study/analysis/klagenfurt_h1_spitzenzeiten_analysis.ipynb
+
+# H2 Analyse
+jupyter notebook studies/klagenfurt_h2_spitzenzeiten_case_study/analysis/klagenfurt_h2_spitzenzeiten_analysis.ipynb
+
+# UC2 Analyse
+jupyter notebook studies/uc2_age_based/analysis/uc2_analysis.ipynb
+
+# UC3 Analyse
+jupyter notebook studies/uc3_accessibility/analysis/uc3_analysis.ipynb
+```
+
+**Alternativer Workflow:** Alle Cells in VS Code ausführen (Jupyter Extension).
+
+### 🔄 Vollständige Regenerierung (alle Schritte)
+
+```bash
+#!/bin/bash
+# Komplette Regenerierung von Grund auf
+
+echo "Schritt 1/5: Netzwerk filtern..."
+cd data/networks/klagenfurt_h1_spitzenzeiten
+conda run -n fleetpy python filter_network_zones.py
+
+echo "Schritt 2/5: Zentroiden regenerieren..."
+conda run -n fleetpy python regenerate_centroids.py
+
+echo "Schritt 3/5: Nachfrage generieren..."
+cd ../../demand/klagenfurt_h1_spitzenzeiten
+conda run -n fleetpy python generate_fullday_demand.py
+
+echo "Schritt 4/5: Simulationen ausführen..."
+cd ../../..
+conda run -n fleetpy python run_klagenfurt_h1_spitzenzeiten.py > h1.log 2>&1 &
+conda run -n fleetpy python run_klagenfurt_h2_spitzenzeiten.py > h2.log 2>&1 &
+conda run -n fleetpy python run_uc2_age_based.py > uc2.log 2>&1 &
+conda run -n fleetpy python run_uc3_accessibility.py > uc3.log 2>&1 &
+
+echo "Schritt 5/5: Warten auf Simulation..."
+wait
+echo "✓ Alle Simulationen abgeschlossen!"
+echo "Analysiere Ergebnisse in Jupyter Notebooks."
+```
+
+### ⚠️ Wichtige Hinweise
+
+**Reihenfolge beachten:** Die Schritte müssen sequenziell ausgeführt werden:
+1. Netzwerk filtern ZUERST (definiert gültige Knoten)
+2. Zentroiden regenerieren (benötigt gefilterte Knoten)
+3. Nachfrage generieren (benötigt gültige Knoten + Zentroiden)
+4. Simulationen ausführen (benötigt valide Nachfrage)
+
+**Backups:** Alle Filterskripte erstellen automatisch Backups in `backup_fullnetwork/`.
+
+**Reproduzierbarkeit:** Seed=42 in `generate_fullday_demand.py` garantiert identische Nachfrage.
+
+**Fehlerbehandlung:**
+- Wenn Simulation zu schnell läuft (< 5s): Nachfrage prüfen (ungültige Knoten?)
+- Wenn Service-Rate = 0%: Zone-Mapping prüfen
+- Wenn "Node not found": Netzwerk-Filterung wiederholen
+
 ## Datenquellen
-- **Netzwerkdaten:** OpenStreetMap Klagenfurt (2.099 Knoten, 5.658 Kanten)
+- **Netzwerkdaten:** OpenStreetMap Klagenfurt (gefiltert: 6 Kernzonen, vorher 12 Zonen)
 - **Algorithmus:** Alonso-Mora et al. (2017) PNAS 114(3): 462-467 (1.620+ Zitationen)
 - **Framework:** FleetPy (TUM München, 28+ wissenschaftliche Zitationen)
 - **Vorherige Studie:** 4-Sitzer-Studie (Konsortium AIT Austrian Institute of Technology)
