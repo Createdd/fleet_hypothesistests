@@ -6,8 +6,8 @@ network_name: klagenfurt_h1_spitzenzeiten
 demand_name: klagenfurt_h1_spitzenzeiten
 rq_file: demand_requests.csv
 random_seed: 0
-start_time: 25200
-end_time: 32400
+start_time: 21600
+end_time: 79200
 time_step: 30
 user_max_decision_time: 30
 route_output_flag: True

@@ -101,10 +101,18 @@ Diese Studie analysiert die Machbarkeit und Leistung eines Ridepooling-Dienstes 
 ## Systemkonfiguration
 
 ### Netzwerkparameter
-- **Knoten:** 2.099 (Straßenkreuzungen und Haltestellen)
-- **Kanten:** 5.658 (Straßenverbindungen)
+- **Knoten:** 6.394 (Straßenkreuzungen und Haltestellen)
+- **Kanten:** 8.277 (Straßenverbindungen)
 - **Zonen:** 12 (K-Means-Clustering)
-- **Zentroiden:** 103 (strategische Ein-/Ausstiegspunkte)
+- **Zentroiden:** 314 (strategische Ein-/Ausstiegspunkte)
+- **Netzwerk-Extension:** Erweitert um Lakeside Park/Universität Klagenfurt (Zone 9) für UC2-Studenten-Szenarien
+
+**⚠️ Wichtiger Hinweis zur Netzwerk-Regeneration:**
+Das Netzwerk wurde von 2.099 auf 6.394 Knoten erweitert, um die Universität Klagenfurt/Lakeside Park einzuschließen. Nach jeder Netzwerk-Änderung müssen **Demand-Dateien neu generiert werden**, da alte Knoten-IDs ungültig werden. Dies erfolgt durch Neuausführung von `klagenfurt_h1_spitzenzeiten_map_all.py` oder manuell mit:
+```python
+# Demand regenerieren (100 zufällige O-D-Paare)
+python -c "import pandas as pd; import numpy as np; nodes = pd.read_csv('data/networks/klagenfurt_h1_spitzenzeiten/base/nodes.csv'); np.random.seed(42); demand = pd.DataFrame([{'Unnamed: 0': float(i), 'request_id': float(i), 'rq_time': float(np.random.randint(25200,32400)), 'start': float(np.random.choice(nodes['node_index'])), 'end': float((e:=np.random.choice(nodes['node_index'])) if e != (s:=np.random.choice(nodes['node_index'])) else np.random.choice(nodes['node_index'])), 'earliest_pickup_time': float(np.random.randint(25200,32400))} for i in range(100)]); demand.to_csv('data/demand/klagenfurt_h1_spitzenzeiten/matched/klagenfurt_h1_spitzenzeiten/demand_requests.csv', index=False)"
+```
 
 ### Service-Beschränkungen
 - **Maximale Wartezeit:** 8 Minuten

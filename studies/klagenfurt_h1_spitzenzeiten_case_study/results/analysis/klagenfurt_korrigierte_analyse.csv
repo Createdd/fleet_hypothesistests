@@ -1,4 +1,4 @@
 Szenario,Flottengröße,Gesamtanfragen,Bedient,Service-Rate (%),Ø Wartezeit (min),Median Wartezeit (min),Max. Wartezeit (min),≤5 min Wartezeit (%),≤10 min Wartezeit (%),Eingesetzte Fahrzeuge,Fahrzeug-Auslastung (%)
-Szenario 1,20,100,84,84.0,5.0,5.0,8.0,51.2,100.0,20,100.0
-Szenario 2,30,100,95,95.0,4.2,4.0,8.0,67.4,100.0,30,100.0
-Szenario 3,40,100,98,98.0,3.6,3.5,8.0,74.5,100.0,37,92.5
+klagenfurt_h1_spitzenzeiten_scenario_1,8,500,8,1.6,5.2,6.0,7.5,50.0,100.0,7,87.5
+klagenfurt_h1_spitzenzeiten_scenario_2,16,500,12,2.4,4.8,5.2,7.5,50.0,100.0,9,56.2
+klagenfurt_h1_spitzenzeiten_scenario_3,24,500,15,3.0,5.0,5.4,7.5,46.7,100.0,12,50.0
