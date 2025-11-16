@@ -132,7 +132,11 @@ Diese Studie analysiert die Machbarkeit und Leistung eines Ridepooling-Dienstes 
 - Reduktion von Randlagen-Zonen mit geringer Nachfrage
 - Optimierung für focused Ridepooling Service
 
-**Visualisierung:** Siehe `klagenfurt_filtered_zones_map.png` - OpenStreetMap-Basemap mit Zonengrenzen, Netzwerk-Edges und Lakeside Park Markierung
+**Visualisierung:**
+
+![Klagenfurt Filtered Network Map](klagenfurt_filtered_zones_map.png)
+
+*6 Kernzonen mit OpenStreetMap-Basemap, Zonengrenzen (convex hulls), Netzwerk-Edges und Lakeside Park Markierung (roter Stern)*
 
 ### Netzwerk-Setup ausführen
 ```bash
