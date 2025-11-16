@@ -12,38 +12,38 @@ online users,6.0
 online pax,6.0
 served online users [%],1.7142857142857144
 served online pax [%],1.7142857142857144
-% created offers,2.571428571428571
+% created offers,2.857142857142857
 utility,
-travel time,2038.1025110790895
+travel time,891.8719146661169
 travel distance,
-waiting time,233.47862981728395
-waiting time from ept,233.47862981728395
-waiting time (median),250.43588945185184
-waiting time (90% quantile),375.0
-detour time,1.8189894035458565e-12
-rel detour,1.0537087352250285e-14
-% fleet utilization,6.169353860003321
-rides per veh rev hours,2.4313729347325728
-rides per veh rev hours rq,2.4313729347325728
-total vkm,42.64059257841378
-occupancy,0.8909630151035705
-occupancy rq,0.8909630151035705
-% empty vkm,10.90369848964294
+waiting time,195.0
+waiting time from ept,195.0
+waiting time (median),135.0
+waiting time (90% quantile),330.0
+detour time,-1.2114753644709708e-12
+rel detour,-3.786646751123585e-14
+% fleet utilization,4.632799644442194
+rides per veh rev hours,3.237783014854737
+rides per veh rev hours rq,3.237783014854737
+total vkm,23.11741190693796
+occupancy,0.8220649005619752
+occupancy rq,0.8220649005619752
+% empty vkm,17.793509943802473
 % repositioning vkm,0.0
-customer direct distance [km],37.99119092946648
-saved distance [%],-12.238104505803122
-trip distance per fleet distance,0.8909630151035706
-trip distance per fleet distance (no reloc),0.8909630151035706
-avg driving velocity [km/h],11.413530869026442
-avg trip velocity [km/h],0.011184282652010005
-vehicle revenue hours [Fzg h],2.467741544001328
+customer direct distance [km],19.004012920527174
+saved distance [%],-21.644896810019006
+trip distance per fleet distance,0.8220649005619751
+trip distance per fleet distance (no reloc),0.8220649005619751
+avg driving velocity [km/h],13.1240569000688
+avg trip velocity [km/h],0.012784804145991
+vehicle revenue hours [Fzg h],1.8531198577768777
 total toll,0.0
 mod revenue,600.0
 mod fix costs,50000.0
-mod var costs,1066.0
-total CO2 emissions [t],2.387873184391172e-05
+mod var costs,578.0
+total CO2 emissions [t],1.2945750667885258e-05
 total external emission costs,0.0
 parking cost,
 toll,0.0
-customer in vehicle distance,6331.865154911079
+customer in vehicle distance,3167.3354867545295
 shared rides [%],0.0

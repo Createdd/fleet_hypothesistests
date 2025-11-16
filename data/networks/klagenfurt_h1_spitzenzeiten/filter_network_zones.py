@@ -56,6 +56,12 @@ print(f"   Original: {len(nodes_df)} nodes, {len(edges_df)} edges")
 # Filter nodes
 print("\n4. Filtering network nodes...")
 filtered_nodes = nodes_df[nodes_df['node_index'].isin(kept_nodes)].copy()
+
+# Remap zone IDs in nodes.csv to match new zone assignments (0-5)
+if 'zone_id' in filtered_nodes.columns:
+    filtered_nodes['zone_id'] = filtered_nodes['zone_id'].map(zone_mapping)
+    print(f"   Remapped zone IDs in nodes.csv")
+
 print(f"   Kept: {len(filtered_nodes)} nodes")
 
 # Filter edges - keep only if both from_node and to_node are in kept_nodes

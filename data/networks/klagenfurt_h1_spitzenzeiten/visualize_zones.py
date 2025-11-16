@@ -146,7 +146,7 @@ lakeside_x = lakeside_point.geometry.x.iloc[0]
 lakeside_y = lakeside_point.geometry.y.iloc[0]
 
 # Add marker for Lakeside Park
-ax.scatter(lakeside_x, lakeside_y, c='red', s=300, marker='*', 
+ax.scatter(lakeside_x, lakeside_y, c='red', s=300, marker='*',
           edgecolors='black', linewidths=2, alpha=1.0, zorder=10)
 
 # Add text annotation
