@@ -14,12 +14,10 @@ Personen mit Kindern/Kinderwagen und mobilitätseingeschränkte Personen (Rollst
 
 Wir definieren zwei Fahrzeugtypen:
 
-| Fahrzeugtyp | Kapazität | Fixkosten/Tag | Kosten/km | Besonderheit |
-|-------------|-----------|---------------|-----------|--------------|
-| **Standard (4 Sitze)** | 4 Passagiere | 20 € | 0,25 € | Normale PKW/Kleinbusse |
-| **Gelenkbus (8 Sitze)** | 8 Passagiere | 35 € | 0,35 € | Barrierefreier Zugang, Rollstuhl-/Kinderwagenplatz |
-
-#### **2. Nutzer mit besonderen Bedürfnissen**
+| Fahrzeugtyp | Kapazität | Fixkosten/Tag | Kosten/km | Boarding-Zeit | Besonderheit |
+|-------------|-----------|---------------|-----------|---------------|--------------|  
+| **Standard (8 Sitze)** | 8 Passagiere | 20 € | 0,25 € | 30s | Normale Kleinbusse |
+| **Barrierefreier Bus (12 Sitze)** | 12 Passagiere | 35 € | 0,35 € | 60s | Barrierefreier Zugang, Rollstuhl-/Kinderwagenplatz |#### **2. Nutzer mit besonderen Bedürfnissen**
 
 - **Annahme**: **15% der Nachfrage** benötigen barrierefreie Fahrzeuge (Rollstuhl, Kinderwagen)
 - **Modellierung**: Diese Nutzer belegen **2 Sitzplätze** statt 1 (repräsentiert Platzbedarf für Rollstuhl/Kinderwagen)
@@ -34,12 +32,12 @@ Wir definieren zwei Fahrzeugtypen:
 
 ## Szenarien
 
-| Szenario | Flottenzusammensetzung | Standard-Fzg. | Gelenkbusse | Anteil Gelenkbusse | Erwartete Servicerate |
-|----------|------------------------|---------------|-------------|--------------------|-----------------------|
-| **baseline** | Nur Standard | 20 | 0 | 0% | Niedrig für Rollstuhl/Kinderwagen |
-| **mixed_20** | Gemischte Flotte | 16 | 4 | 20% | Moderat |
-| **mixed_30** | Gemischte Flotte | 14 | 6 | 30% | Gut |
-| **mixed_50** | Gemischte Flotte | 10 | 10 | 50% | Optimal, aber teuer |
+| Szenario | Standard (8 Sitze) | Barrierefrei (12 Sitze) | Anteil Barrierefrei | Gesamtkapazität | Erwartete Servicerate |
+|----------|--------------------|-----------------------|---------------------|-----------------|----------------------|
+| **baseline** | 20 | 0 | 0% | 160 Sitze | Niedrig für Rollstuhl/Kinderwagen |
+| **mixed_20** | 16 | 4 | 20% | 176 Sitze | Moderat |
+| **mixed_30** | 14 | 6 | 30% | 184 Sitze | Gut (empfohlen) |
+| **mixed_50** | 10 | 10 | 50% | 200 Sitze | Optimal, aber teuer |
 
 **Parameter-Konstanten:**
 - Simulationszeitraum: 7:00–9:00 Uhr (Morgenspitze)
@@ -70,22 +68,26 @@ Wir definieren zwei Fahrzeugtypen:
 
 ## Erwartete Ergebnisse (Hypothesen)
 
-1. **Baseline (0% Gelenkbusse)**:
-   - Servicerate für Nutzer mit Bedarf: **<50%** (viele Anfragen können nicht bedient werden, da Fahrzeuge voll sind)
-   - Gesamtservicerate: **~70%** (Standard-Nutzer werden priorisiert)
+**Wichtig:** Mit der neuen Konfiguration (8/12 Sitze statt 4/8) hat sich die Gesamtkapazität fast verdoppelt:
 
-2. **mixed_20 (20% Gelenkbusse)**:
-   - Servicerate für Nutzer mit Bedarf: **~65-75%**
-   - Gesamtservicerate: **~75-80%**
+1. **Baseline (0% Barrierefreie, 160 Sitzplätze)**:
+   - Gesamtkapazität deutlich höher als mit 4-Sitzern (160 statt 80 Sitze)
+   - Servicerate für Nutzer mit Bedarf: **Niedrig** (keine barrierefreien Fahrzeuge)
+   - Gesamtservicerate: **Hoch** (durch große Gesamtkapazität)
 
-3. **mixed_30 (30% Gelenkbusse)**:
-   - Servicerate für Nutzer mit Bedarf: **~80-85%**
-   - Gesamtservicerate: **~85-90%**
+2. **mixed_20 (20% Barrierefreie, 176 Sitzplätze)**:
+   - 4 Fahrzeuge mit je 12 Sitzen für Barrierefreiheit
+   - Servicerate für Nutzer mit Bedarf: **Moderat verbessert**
+   - Gesamtservicerate: **Sehr gut** (durch kombinierte Kapazität)
+
+3. **mixed_30 (30% Barrierefreie, 184 Sitzplätze)**:
+   - 6 Fahrzeuge mit je 12 Sitzen für Barrierefreiheit
    - **Empfohlenes Minimum** für inklusiven Service
+   - Balance zwischen Kosten und Barrierefreiheit
 
-4. **mixed_50 (50% Gelenkbusse)**:
-   - Servicerate für Nutzer mit Bedarf: **>90%**
-   - Gesamtservicerate: **~95%**
+4. **mixed_50 (50% Barrierefreie, 200 Sitzplätze)**:
+   - 10 Fahrzeuge mit je 12 Sitzen für Barrierefreiheit
+   - Höchste Kapazität (200 Sitze)
    - Aber: **Kosten steigen um ~30-40%** gegenüber Baseline
 
 ---
@@ -157,10 +159,11 @@ Das Notebook:
 
 ## Einschränkungen und Unsicherheiten
 
-**Ich kann KEINE echten Quellen für folgende Annahmen liefern:**
+**Wichtige Annahmen und Einschränkungen:**
 1. **15% Anteil Nutzer mit Barrierefreiheitsbedarf** – Schätzwert, keine Klagenfurt-spezifischen Daten
-2. **Kostenunterschiede Standard vs. Gelenkbus** – Plausible Annahmen, keine realen CAPEX/OPEX-Daten
+2. **Kostenunterschiede Standard (8 Sitze) vs. Barrierefreier Bus (12 Sitze)** – Plausible Annahmen, keine realen CAPEX/OPEX-Daten
 3. **Platzbedarf = 2 Sitzplätze** – Vereinfachung; echte Rollstühle/Kinderwagen variieren
+4. **Fahrzeugkapazitäten (8/12 Sitze)** – Aktualisiert von vorherigen 4/8 Sitzen für realistischere Kleinbus-Größen
 
 **Diese Simulation dient der Sensitivitätsanalyse**, nicht der exakten Vorhersage. Für operative Entscheidungen sollten echte Nachfragedaten und Kosten aus Klagenfurt verwendet werden.
 

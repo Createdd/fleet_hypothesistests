@@ -16,12 +16,12 @@
 
 ### Serviceraten nach Flottengröße (kleine Flotten)
 
-| Szenario | Flottengröße | Bediente Anfragen | Servicerate | Ø Wartezeit | Gesamtzeit | Fahrzeugauslastung |
-|----------|--------------|-------------------|-------------|-------------|-------------|-------------------|
-| **H2-Szenario 1** | 8 Fahrzeuge | 41/100 | **41,0%** | 5,34 min | 19,82 min | ~100% |
-| **H2-Szenario 2** | 16 Fahrzeuge | 70/100 | **70,0%** | 5,05 min | 18,48 min | ~100% |
-| **H2-Szenario 3** | 24 Fahrzeuge | 92/100 | **92,0%** | 4,67 min | 18,24 min | ~100% |
-| **H2-Szenario 4** | 32 Fahrzeuge | 95/100 | **95,0%** | 4,09 min | 17,12 min | ~100% |
+| Szenario | Flottengröße | Gesamtkapazität | Bediente Anfragen | Servicerate | Ø Wartezeit | Gesamtzeit | Fahrzeugauslastung |
+|----------|--------------|-----------------|-------------------|-------------|-------------|-------------|-------------------|
+| **H2-Szenario 1** | 8 Fahrzeuge | 64 Sitze | 41/100 | **41,0%** | 5,34 min | 19,82 min | ~100% |
+| **H2-Szenario 2** | 16 Fahrzeuge | 128 Sitze | 70/100 | **70,0%** | 5,05 min | 18,48 min | ~100% |
+| **H2-Szenario 3** | 24 Fahrzeuge | 192 Sitze | 92/100 | **92,0%** | 4,67 min | 18,24 min | ~100% |
+| **H2-Szenario 4** | 32 Fahrzeuge | 256 Sitze | 95/100 | **95,0%** | 4,09 min | 17,12 min | ~100% |
 
 **Datenquelle:** Direkte Simulationsergebnisse aus `studies/klagenfurt_h2_spitzenzeiten_case_study/results/`
 
@@ -96,7 +96,7 @@
 - **Nachfrage**: 100 Mobilitätsanfragen
 - **Algorithmus**: Alonso-Mora Batch Assignment
 - **Reoptimierung**: Alle 30 Sekunden
-- **Fahrzeugkapazität**: 4 Passagiere
+- **Fahrzeugkapazität**: 8 Passagiere (doppelte Kapazität im Vergleich zu älteren 4-Sitzer-Studien)
 - **Max. Wartezeit**: 8 Minuten
 
 ### Simulation ausführen

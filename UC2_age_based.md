@@ -53,6 +53,8 @@ Optional erweiterbar:
 | simple_ui | WaitingTimeSensitiveLinearDeclineRequest | 120 | 240 | 420 | 1.0 | 200 | 50 |
 | full_support | WaitingTimeSensitiveLinearDeclineRequest | 300 | 300 | 480 | 1.0 | 250 | 30 |
 
+**Flottenkonfiguration:** 20 Fahrzeuge mit je **8 Sitzplätzen** (Gesamtkapazität: 160 Sitzplätze)
+
 Hinweis: Die exakt sinnvollen Werte hängen vom Kontext (Stadt, Demografie, Hardware) ab. Obige Werte sind konservative Defaults für Sensitivitätsanalysen.
 
 ## Evaluationsmetriken (Ältere Zielgruppe)
