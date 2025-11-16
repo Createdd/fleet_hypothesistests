@@ -38,6 +38,15 @@
 - **16→24 Fahrzeuge** (+50% Flotte): +22% Servicerate (+31% relativer Sprung)
 - **24→32 Fahrzeuge** (+33% Flotte): +3% Servicerate (+3% relativer Sprung) → **Abnehmender Grenznutzen**
 
+**Wichtige Erkenntnis: Kapazität vs. Räumliche Abdeckung**
+
+Trotz Verdopplung der Sitzplatzkapazität (4→8 Sitze in dieser Studie) bleiben die kritischen Schwellenwerte bei **gleichen Fahrzeuganzahlen**:
+- Warum? **Räumliche Verteilung** ist der Hauptlimitierungsfaktor, nicht Sitzplatzanzahl
+- Bei 100 Anfragen über 2h auf 12 Zonen: Zu wenig simultane, kompatible Anfragen für konsistentes Pooling
+- Zeitliche Constraints (8 min Wartezeit, 40% Umweg) verhindern "Warten bis Fahrzeug voll ist"
+- **Bottleneck**: Anzahl Fahrzeuge für räumliche Abdeckung, nicht Sitze pro Fahrzeug
+- **Vorteil 8-Sitzer**: Geringere Kosten pro Sitzplatz; Flexibilität für gelegentliches Pooling; Skalierbar bei steigender Nachfrage
+
 ### Wartezeitenvergleich
 
 | Flottengröße | Ø Wartezeit | Gesamtzeit | Max. Wartezeit | Verbesserung vs. vorherige Stufe |
@@ -46,6 +55,85 @@
 | 16 Fahrzeuge | 5,05 min | 18,48 min | ~8 min | -5,4% Wartezeit |
 | 24 Fahrzeuge | 4,67 min | 18,24 min | ~8 min | -7,5% Wartezeit |
 | 32 Fahrzeuge | 4,09 min | 17,12 min | ~8 min | -12,4% Wartezeit |
+
+## Strategische Empfehlungen
+
+### Wichtige Erkenntnis: Kapazität vs. Räumliche Abdeckung
+
+**Überraschender Befund:**
+Trotz **Verdopplung der Fahrzeugkapazität** (4→8 Sitze) bleiben die **Serviceraten identisch** bei gleicher Fahrzeuganzahl:
+
+- 16 Fahrzeuge × 8 Sitze (128 Gesamtkapazität) = 70% Servicerate
+- 24 Fahrzeuge × 8 Sitze (192 Gesamtkapazität) = 92% Servicerate
+
+**Warum ist das so?**
+
+Im On-Demand-Ridepooling ist **räumliche Abdeckung wichtiger als Sitzplatzkapazität**:
+
+1. **Räumliche Verteilung**: Ein Fahrzeug in Zone A kann Anfrage in Zone F nicht bedienen (unabhängig von freien Sitzen)
+2. **Zeitliche Constraints**: Max. 8 min Wartezeit und 40% Umweg → Fahrzeuge können nicht "warten bis sie voll sind"
+3. **Niedrige Nachfragedichte**: 100 Anfragen über 2h auf 12 Zonen = zu wenig simultane, kompatible Anfragen für konsistentes Pooling
+4. **Alonso-Mora Optimierung**: Findet unter gegebenen Constraints oft keine Pool-Partner, auch wenn Sitze frei sind
+
+**Echter Vorteil der 8-Sitzer:**
+- ✅ Niedrigere **Kosten pro Sitzplatz** (Anschaffung/Wartung)
+- ✅ **Flexibilität** für gelegentliche Pooling-Gelegenheiten
+- ✅ **Skalierbar** bei zukünftig höherer Nachfrage
+
+**KEIN Vorteil:**
+- ❌ Weniger Fahrzeuge nötig (brauchen immer noch 24 für 92% Service)
+- ❌ Drastisch höhere Servicerate bei gleicher Flottengröße
+
+**Konsequenz:** Die minimale Flottengröße wird durch **räumliche Abdeckung** bestimmt, nicht durch Gesamtkapazität.
+
+---
+
+## Zentrale Erkenntnis: Warum doppelte Sitzplatzkapazität nicht die Fahrzeuganzahl halbiert
+
+**Wichtige Beobachtung:** Obwohl die Fahrzeuge jetzt 8 statt 4 Sitze haben (doppelte Kapazität), brauchen wir **gleich viele Fahrzeuge** für die gleiche Servicerate.
+
+### Warum ist räumliche Abdeckung wichtiger als Sitzplatzkapazität?
+
+**Im On-Demand-Ridepooling bestimmt die räumliche Verteilung der Fahrzeuge die Servicerate:**
+
+1. **Räumliches Matching-Problem**
+   - 12 Zonen × ~8 Anfragen pro Zone
+   - Fahrzeug in Zone A kann Anfrage in Zone F nicht bedienen
+   - → Mindestens 1-2 Fahrzeuge pro Zone nötig = 12-24 Fahrzeuge minimum
+
+2. **Zeitliche Constraints**
+   - Max. Wartezeit: 8 Minuten (harte Grenze)
+   - Max. Umweg: 40% der direkten Fahrzeit
+   - → Fahrzeuge können nicht "warten bis voll" ohne Constraints zu verletzen
+
+3. **Niedrige Nachfragedichte**
+   - 100 Anfragen über 2 Stunden = 0,83 Anfragen/Minute
+   - Räumlich verteilt über 12 Zonen
+   - → Geringe Wahrscheinlichkeit für simultane, kompatible Pool-Anfragen
+   - → Fahrzeuge fahren oft mit 1-3 Passagieren (nicht voll ausgelastet)
+
+4. **Alonso-Mora Optimierung unter Constraints**
+   - Sucht beste Zuordnung unter gegebenen Zeit-/Umweg-Limits
+   - Mehr Sitze helfen NUR wenn Anfragen kompatibel sind (gleiche Richtung, Zeitfenster)
+   - Bei aktueller Nachfrage: findet oft keine Pool-Partner trotz freier Sitze
+
+### Was bedeutet das konkret?
+
+**Bottleneck ist NICHT Sitzplatzkapazität, sondern:**
+- ❌ Zu wenige Fahrzeuge → schlechte räumliche Abdeckung → lange Wartezeiten → niedrige Servicerate
+- ✅ Genug Fahrzeuge → gute räumliche Abdeckung → kurze Wartezeiten → hohe Servicerate
+
+**Vorteil der 8-Sitzer liegt woanders:**
+- ✅ **Kosteneffizienz**: Geringere Fixkosten pro Sitzplatz
+- ✅ **Flexibilität**: Kann gelegentliche Pool-Möglichkeiten nutzen
+- ✅ **Skalierbarkeit**: Bei höherer Nachfrage (>200 Anfragen/2h) würden 8-Sitzer deutliche Vorteile bringen
+
+**Praktische Konsequenz:**
+- Mit 4-Sitzern: ~24 Fahrzeuge für 92% Servicerate
+- Mit 8-Sitzern: ~24 Fahrzeuge für 92% Servicerate
+- Unterschied: Niedrigere Kosten/Sitzplatz, nicht weniger Fahrzeuge!
+
+---
 
 ## Strategische Empfehlungen
 

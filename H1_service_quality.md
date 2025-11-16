@@ -11,7 +11,7 @@ Ziel: Optimierung der Servicequalität bei akzeptabler Kosteneffizienz.
 
 ### Serviceraten nach Flottengröße
 | Szenario | Flottengröße | Kapazität | Bediente Anfragen | Servicerate | Ø Wartezeit | Fahrzeugauslastung |
-|----------|--------------|-----------|-------------------|-------------|-------------|--------------------|  
+|----------|--------------|-----------|-------------------|-------------|-------------|--------------------|
 | Szenario 1 | 8  | 64 Sitze  | 41/100            | 41,0%       | 5,3 min     | 100%               |
 | Szenario 2 | 16 | 128 Sitze | 70/100            | 70,0%       | 5,0 min     | 100%               |
 | Szenario 3 | 24 | 192 Sitze | 92/100            | 92,0%       | 4,7 min     | 100%               |## Kategorisierung der Erkenntnisse
@@ -22,10 +22,33 @@ Ziel: Optimierung der Servicequalität bei akzeptabler Kosteneffizienz.
 - Alle Szenarien erfüllen die 8-Minuten-Grenze
 - **Kritischer Sprung**: 8→16 Fahrzeuge (+29% Servicerate), 16→24 Fahrzeuge (+22% Servicerate)
 
+### Zentrale Erkenntnis: Räumliche Abdeckung wichtiger als Sitzplatzkapazität
+
+**Überraschung:** Trotz doppelter Fahrzeugkapazität (8 statt 4 Sitze) brauchen wir **gleich viele Fahrzeuge** für gleiche Servicerate!
+
+**Warum?** Im On-Demand-Ridepooling ist die räumliche Verteilung der Fahrzeuge entscheidend:
+- Ein Fahrzeug in Zone A kann Anfrage in Zone F nicht bedienen - egal ob 4 oder 8 Sitze
+- Zeitliche Constraints (max. 8 min Wartezeit, 40% Umweg) verhindern "Warten auf volle Fahrzeuge"
+- Nachfragedichte zu niedrig (100 Anfragen / 2h / 12 Zonen) für konsistentes Vollauslastungs-Pooling
+- Alonso-Mora findet unter den Constraints oft keine kompatiblen Pool-Partner
+
+**Echter Vorteil der 8-Sitzer:**
+- ✅ Geringere Kosten pro Sitzplatz (Anschaffung, Wartung)
+- ✅ Flexibilität für gelegentliche Pooling-Gelegenheiten
+- ✅ Skalierbar bei steigender Nachfrage
+
+**Kein Vorteil bei:**
+- ❌ Reduktion der Fahrzeuganzahl (räumliche Abdeckung bleibt Bottleneck)
+- ❌ Drastische Servicerate-Verbesserung bei gleicher Flottengröße
+
 ### Abgeleitete Schlussfolgerungen
 - 24 Fahrzeuge (je 8 Sitze) erreichen 92% Servicerate - empfohlenes Minimum
 - 16 Fahrzeuge nur für kostenoptimierte Pilotphasen (70% Servicerate)
-- Mit 8-Sitzplatz-Fahrzeugen brauchen wir **weniger Fahrzeuge** als mit 4-Sitzern für gleiche Servicerate
+- **Wichtige Erkenntnis**: Verdopplung der Sitzplatzkapazität (4→8 Sitze) führt NICHT zu Halbierung der benötigten Fahrzeuge
+  - Grund: **Räumliche Abdeckung** ist kritischer als Sitzplatzanzahl
+  - Bei niedriger Nachfragedichte (100 Anfragen/2h/12 Zonen) fahren Fahrzeuge oft nicht voll
+  - Zeitliche Constraints (8 min Wartezeit, 40% Umweg) verhindern "Warten auf volle Fahrzeuge"
+  - Vorteil der 8-Sitzer: Geringere Kosten pro Sitzplatz, Flexibilität für gelegentliches Pooling
 
 ### Hypothesen für weitere Untersuchungen
 - Dynamische Repositionierung in Randlagen

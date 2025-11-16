@@ -15,7 +15,7 @@ Personen mit Kindern/Kinderwagen und mobilitätseingeschränkte Personen (Rollst
 Wir definieren zwei Fahrzeugtypen:
 
 | Fahrzeugtyp | Kapazität | Fixkosten/Tag | Kosten/km | Boarding-Zeit | Besonderheit |
-|-------------|-----------|---------------|-----------|---------------|--------------|  
+|-------------|-----------|---------------|-----------|---------------|--------------|
 | **Standard (8 Sitze)** | 8 Passagiere | 20 € | 0,25 € | 30s | Normale Kleinbusse |
 | **Barrierefreier Bus (12 Sitze)** | 12 Passagiere | 35 € | 0,35 € | 60s | Barrierefreier Zugang, Rollstuhl-/Kinderwagenplatz |#### **2. Nutzer mit besonderen Bedürfnissen**
 
@@ -66,9 +66,60 @@ Wir definieren zwei Fahrzeugtypen:
 
 ---
 
+## Kritische Erkenntnis: Kapazität vs. Räumliche Verfügbarkeit
+
+**Wichtiger Befund aus H2-Studie:**
+Trotz Verdopplung der Fahrzeugkapazität (4→8 Sitze) bleiben Serviceraten bei gleicher Fahrzeuganzahl identisch. **Grund:** Im On-Demand-Ridepooling ist **räumliche Verfügbarkeit wichtiger als absolute Sitzplatzanzahl**.
+
+**Konsequenz für UC3 (Barrierefreiheit):**
+- Nicht nur wichtig: "Genug Sitze für Rollstuhl/Kinderwagen insgesamt"
+- **Kritisch:** "Sind barrierefreie Fahrzeuge räumlich verteilt verfügbar?"
+- Ein barrierefreies 12-Sitzer-Fahrzeug in Zone A hilft nicht bei Anfrage in Zone F
+- → **Verteilung** der barrierefreien Fahrzeuge über Zonen ist entscheidend, nicht nur deren Anzahl
+
+**Implikation für Szenarien:**
+- **mixed_30 (30% barrierefrei = 6 Fahrzeuge)**: Besser als mixed_20, weil mehr Zonen abgedeckt werden können
+- **mixed_50 (50% barrierefrei = 10 Fahrzeuge)**: Optimal für räumliche Verfügbarkeit, aber teurer
+
+---
+
+## Zentrale Erkenntnis: Räumliche Verteilung wichtiger als Gesamtkapazität
+
+**Kritische Beobachtung:** Die fast verdoppelte Gesamtkapazität (160-200 statt 80-120 Sitze) führt NICHT automatisch zu besserer Servicerate für Nutzer mit Barrierefreiheitsbedarf!
+
+### Warum ist räumliche Verfügbarkeit entscheidend?
+
+**Im Barrierefreiheits-Kontext gilt:**
+- Ein barrierefreier 12-Sitzer in Zone A hilft Rollstuhlnutzer in Zone F nicht
+- Entscheidend ist: **Sind genug barrierefreie Fahrzeuge VERTEILT** (nicht nur: gibt es genug Sitze INSGESAMT)
+- 10% barrierefreie Fahrzeuge bedeutet: nur ~2 Fahrzeuge für 12 Zonen → viele Zonen ohne barrierefreies Fahrzeug
+
+**Konsequenz für UC3-Szenarien:**
+
+| Szenario | Barrierefreie Fzg. | Durchschn. pro Zone | Verfügbarkeit |
+|----------|-------------------|-------------------|---------------|
+| baseline | 0 | 0,0 | ❌ Keine |
+| mixed_20 | 4 | 0,3 | ⚠️ Sehr lückenhaft |
+| mixed_30 | 6 | 0,5 | ⚠️ Lückenhaft |
+| mixed_50 | 10 | 0,8 | ✅ Akzeptabel |
+
+**Warum 30% empfohlen (nicht 20%)?**
+- 4 barrierefreie Fahrzeuge auf 12 Zonen = zu geringe räumliche Abdeckung
+- 6 barrierefreie Fahrzeuge = bessere Chance, dass eins in der Nähe ist
+- Zusätzlich: Zeitliche Verfügbarkeit (Fahrzeug könnte bereits unterwegs sein)
+
+**Der Vorteil der 12-Sitzer liegt woanders:**
+- ✅ Wenn ein barrierefreies Fahrzeug verfügbar ist, kann es mehr Nutzer aufnehmen
+- ✅ Geringere Kosten pro Sitzplatz im Vergleich zu kleineren Fahrzeugen
+- ✅ Flexibilität für simultane Anfragen in gleicher Zone
+
+**Kein Vorteil bei:**
+- ❌ Reduktion der Anzahl barrierefreier Fahrzeuge (räumliche Abdeckung bleibt kritisch)
+- ❌ Garantie, dass Nutzer in jeder Zone Zugang haben
+
 ## Erwartete Ergebnisse (Hypothesen)
 
-**Wichtig:** Mit der neuen Konfiguration (8/12 Sitze statt 4/8) hat sich die Gesamtkapazität fast verdoppelt:
+**Wichtig:** Mit der neuen Konfiguration (8/12 Sitze statt 4/8) hat sich die Gesamtkapazität fast verdoppelt, aber die räumliche Verteilung bleibt der entscheidende Faktor:
 
 1. **Baseline (0% Barrierefreie, 160 Sitzplätze)**:
    - Gesamtkapazität deutlich höher als mit 4-Sitzern (160 statt 80 Sitze)
@@ -164,6 +215,15 @@ Das Notebook:
 2. **Kostenunterschiede Standard (8 Sitze) vs. Barrierefreier Bus (12 Sitze)** – Plausible Annahmen, keine realen CAPEX/OPEX-Daten
 3. **Platzbedarf = 2 Sitzplätze** – Vereinfachung; echte Rollstühle/Kinderwagen variieren
 4. **Fahrzeugkapazitäten (8/12 Sitze)** – Aktualisiert von vorherigen 4/8 Sitzen für realistischere Kleinbus-Größen
+
+**Kritische Erkenntnis: Gesamtkapazität vs. Räumliche Verfügbarkeit**
+
+Die verdoppelte Gesamtkapazität (160-200 Sitze statt 80-120) bedeutet NICHT automatisch doppelte Servicerate:
+- **Räumliche Verteilung** barrierefreier Fahrzeuge ist kritischer als absolute Sitzplatzanzahl
+- Ein 12-Sitzer in Zone A hilft nicht bei Anfrage in Zone F (trotz freier Plätze)
+- Bei niedriger Nachfragedichte: Fahrzeuge fahren oft nicht voll ausgelastet
+- **Wichtig für UC3**: Anzahl und Verteilung barrierefreier Fahrzeuge (z.B. 6 Fahrzeuge bei mixed_30) bestimmt Barrierefreiheits-Servicerate, nicht nur Gesamtsitzplätze
+- **Vorteil größerer Fahrzeuge**: Geringere Kosten pro Sitzplatz; höhere Flexibilität bei Nachfragespitzen
 
 **Diese Simulation dient der Sensitivitätsanalyse**, nicht der exakten Vorhersage. Für operative Entscheidungen sollten echte Nachfragedaten und Kosten aus Klagenfurt verwendet werden.
 

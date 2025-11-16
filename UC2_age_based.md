@@ -55,6 +55,8 @@ Optional erweiterbar:
 
 **Flottenkonfiguration:** 20 Fahrzeuge mit je **8 Sitzplätzen** (Gesamtkapazität: 160 Sitzplätze)
 
+**Wichtiger Hinweis zur Fahrzeugkapazität:** Die 8-Sitzer (statt 4-Sitzer in älteren Studien) bedeuten NICHT automatisch, dass man mit weniger Fahrzeugen auskommt. Im On-Demand-Ridepooling ist die **räumliche Abdeckung** wichtiger als die absolute Sitzplatzanzahl. 20 Fahrzeuge sind nötig, um alle 12 Zonen gut abzudecken - unabhängig ob 4 oder 8 Sitze pro Fahrzeug. Der Vorteil liegt in den geringeren Kosten pro Sitzplatz und der Flexibilität für gelegentliches Pooling.
+
 Hinweis: Die exakt sinnvollen Werte hängen vom Kontext (Stadt, Demografie, Hardware) ab. Obige Werte sind konservative Defaults für Sensitivitätsanalysen.
 
 ## Evaluationsmetriken (Ältere Zielgruppe)
