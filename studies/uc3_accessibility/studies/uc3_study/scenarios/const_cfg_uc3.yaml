@@ -19,7 +19,7 @@ rq_type: WaitingTimeSensitiveLinearDeclineRequest
 op_module: RidePoolingBatchAssignmentFleetcontrol
 op_rp_batch_optimizer: AlonsoMora
 op_fleet_composition:
-  standard_4seat: 20
+  standard_8seat: 20
 op_vr_control_func_dict:
   func_key: distance_and_user_times_man
   vot: 0.45833

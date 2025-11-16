@@ -1,5 +1,5 @@
 scenario_name,op_fleet_composition,user_max_wait_time,user_max_wait_time_2
-baseline,standard_4seat:20,180,300
-mixed_20,standard_4seat:16;accessible_8seat:4,180,300
-mixed_30,standard_4seat:14;accessible_8seat:6,180,300
-mixed_50,standard_4seat:10;accessible_8seat:10,180,300
+baseline,standard_8seat:20,180,300
+mixed_20,standard_8seat:16;accessible_12seat:4,180,300
+mixed_30,standard_8seat:14;accessible_12seat:6,180,300
+mixed_50,standard_8seat:10;accessible_12seat:10,180,300

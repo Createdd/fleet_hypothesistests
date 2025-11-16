@@ -1,2 +1,0 @@
-scenario_id,scenario_name,start_time,end_time,time_step,rq_file_dir,rq_file,veh_file,op_fleet_composition,op_max_wait_time,op_max_detour_time
-1,klagenfurt_peak_morning,25200,32400,30,data/demand/klagenfurt/matched/klagenfurt,demand_requests.csv,veh_200.csv,default_vehtype:200,600,900
