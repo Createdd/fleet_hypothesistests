@@ -18,6 +18,13 @@ KEYS = {
     "vehicle utilization [%]": "veh_util_%",
 }
 
+# Categorize scenarios by age group
+AGE_GROUPS = {
+    "elderly_65plus": ["baseline", "phone_support", "simple_ui", "full_support"],
+    "students_15_20": ["students_15_20"],
+    "students_21_30": ["students_21_30"]
+}
+
 rows = []
 for scen_dir in sorted(glob.glob(os.path.join(RESULTS_DIR, "*"))):
     scen_name = os.path.basename(scen_dir)
@@ -26,6 +33,15 @@ for scen_dir in sorted(glob.glob(os.path.join(RESULTS_DIR, "*"))):
         continue
     df = pd.read_csv(eval_path, index_col=0)
     row = {"scenario": scen_name}
+
+    # Determine age group
+    age_group = "unknown"
+    for group, scenarios in AGE_GROUPS.items():
+        if scen_name in scenarios:
+            age_group = group
+            break
+    row["age_group"] = age_group
+
     for k, newk in KEYS.items():
         if k in df.index:
             row[newk] = df.loc[k].values[0]
@@ -35,5 +51,18 @@ summary = pd.DataFrame(rows).sort_values("scenario")
 summary_path = os.path.join(OUT_DIR, "uc2_summary.csv")
 summary.to_csv(summary_path, index=False)
 
-print("Saved:", summary_path)
-print(summary)
+print("=" * 70)
+print("UC2 Analyse: Altersbasierte digitale Kompetenz und Nutzungsverhalten")
+print("=" * 70)
+print("\nErgebnisse nach Altersgruppe:\n")
+
+for group, scenarios in AGE_GROUPS.items():
+    group_data = summary[summary["age_group"] == group]
+    if not group_data.empty:
+        print(f"\n{group.upper().replace('_', ' ')}:")
+        print("-" * 70)
+        print(group_data.to_string(index=False))
+
+print("\n" + "=" * 70)
+print(f"Vollständige Ergebnisse gespeichert: {summary_path}")
+print("=" * 70)

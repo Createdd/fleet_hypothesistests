@@ -22,10 +22,13 @@ if __name__ == "__main__":
         cc = os.path.join(SC_PATH, "const_cfg_uc2.yaml")
         sc = os.path.join(SC_PATH, "uc2_scenarios.csv")
 
-        print("\n" + "="*60)
-        print("UC2: Altersbasierte digitale Kompetenz – Unterstützungsmaßnahmen")
-        print("Szenarien: baseline, phone_support, simple_ui, full_support")
-        print("="*60 + "\n")
+        print("\n" + "="*70)
+        print("UC2: Altersbasierte digitale Kompetenz und Nutzungsverhalten")
+        print("="*70)
+        print("Teil A - Ältere (65+): baseline, phone_support, simple_ui, full_support")
+        print("Teil B - Schüler (15-20): students_15_20")
+        print("Teil B - Studenten (21-30): students_21_30")
+        print("="*70 + "\n")
 
         run_scenarios(cc, sc, log_level=log_level, n_cpu_per_sim=1, n_parallel_sim=1)
 

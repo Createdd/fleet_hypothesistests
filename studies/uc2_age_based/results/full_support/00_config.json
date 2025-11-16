@@ -44,7 +44,7 @@
         "op_zone_system": "klagenfurt_h1_spitzenzeiten",
         "walking_speed": 1.0,
         "max_walking_dist": 250,
-        "study_name": "uc2_study",
+        "study_name": "uc2_age_based",
         "n_cpu_per_sim": 1,
         "evaluate": 1,
         "keep_old": false,
@@ -86,7 +86,7 @@
     "directories": {
         "main": "/Users/danieldeutsch/Desktop/code_projects/FleetPy",
         "data": "/Users/danieldeutsch/Desktop/code_projects/FleetPy/data",
-        "output": "/Users/danieldeutsch/Desktop/code_projects/FleetPy/studies/uc2_study/results/full_support",
+        "output": "/Users/danieldeutsch/Desktop/code_projects/FleetPy/studies/uc2_age_based/results/full_support",
         "network": "/Users/danieldeutsch/Desktop/code_projects/FleetPy/data/networks/klagenfurt_h1_spitzenzeiten",
         "vehicles": "/Users/danieldeutsch/Desktop/code_projects/FleetPy/data/vehicles",
         "fleetctrl": "/Users/danieldeutsch/Desktop/code_projects/FleetPy/data/fleetctrl",

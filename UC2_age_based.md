@@ -1,6 +1,13 @@
-## UC2: Altersbasierte digitale Kompetenz und Begleitmaßnahmen
+## UC2: Altersbasierte digitale Kompetenz und Nutzungsverhalten
 
-Fragestellung: Ältere Personen haben geringere digitale Kompetenz. Welche Begleitmaßnahmen helfen, damit sie von einem On-Demand-Algorithmus profitieren?
+**Erweiterte Fragestellung:**
+1. **Ältere Nutzer (65+)**: Welche Begleitmaßnahmen helfen bei geringer digitaler Kompetenz?
+2. **Schüler (15-20 Jahre)**: Welche Anreize steigern die Nutzung trotz hoher digitaler Kompetenz?
+3. **Studenten (21-30 Jahre)**: Wie unterscheidet sich das Nutzungsverhalten von Schülern?
+
+---
+
+## Teil A: Ältere Zielgruppe (65+ Jahre)
 
 ## Simulation: Abbildung der digitalen Kompetenz
 
@@ -85,11 +92,129 @@ Falls dein existierendes Studien-Setup YAML nutzt (wie H1/H2), kannst du die Par
 - Vereinfachte App verschiebt Akzeptanzkurve → höhere Toleranz für moderate Wartezeiten, steigert effektive Servicerate
 - Vollständige Unterstützung kombiniert Effekte und senkt zusätzlich Boarding-Reibung → beste Nutzbarkeit für die Zielgruppe
 
-## Nächste Schritte (optional)
+---
 
-- Metrik „Fairness": Gap zwischen älteren vs. gesamten Nutzern (Servicerate, Wartezeit)
-- Reservierungslogik testen: Vorbestellungen/Hotline als Alternative zur Sofortbuchung
-- Preis-/Tarifkommunikation: Preis-Sensitivität der Zielgruppe variieren
+## Teil B: Junge Zielgruppen (15-20 und 21-30 Jahre)
+
+### Forschungsfrage
+
+**Zentrale Beobachtung:** Junge Menschen (15-30 Jahre) haben **hohe digitale Kompetenz**, nutzen On-Demand-Ridepooling aber **unterproportional**.
+
+**Fragen:**
+1. **Schüler (15-20 Jahre)**: Wie unterscheidet sich das Nutzungsverhalten von älteren Nutzern?
+2. **Studenten (21-30 Jahre)**: Unterscheidet sich das Nutzungsverhalten von Schülern?
+
+### Hypothesen
+
+**H1 - Unterrepräsentation junger Nutzer:**
+- Digital-affine Gruppen brauchen **keine** technische Unterstützung
+- **Frage**: Wie unterscheidet sich das Nutzungsverhalten von jungen vs. älteren Nutzern?
+
+**H2 - Unterschiede Schüler (15-20) vs. Studenten (21-30):**
+- **Schüler**: Geringere Mobilität (1.4 m/s, 400m Laufdistanz)
+- **Studenten**: Höhere Mobilität (1.5 m/s, 500m Laufdistanz)
+- **Erwartung**: Studenten nutzen Service flexibler als Schüler
+
+**H3 - 24/7-Betrieb für Universitätsviertel:**
+- **Zielgruppe**: Studenten am Lakeside Park Klagenfurt (~2.500 Studierende)
+- **Nachfrageprofil**: Morgen-Peak (7-9 Uhr), Mittag (12-14 Uhr), Abend (17-19 Uhr)
+- **Frage**: Unterscheidet sich das Nutzungsverhalten junger Nutzer vom Gesamtdurchschnitt?
+
+### Simulation: Abbildung junger Nutzer
+
+**Parameter-Philosophie:**
+- **Hohe digitale Kompetenz** → Sehr kurze Entscheidungszeit (15-30s statt 60-300s bei Älteren)
+- **Schnelle Mobilität** → Höhere Gehgeschwindigkeit (1.4-1.5 m/s), größere Laufdistanz (400-600m)
+- **Schnelles Boarding** → Kurze Einstiegszeit (12-20s statt 30-60s)
+- **Flexible Wartezeit-Toleranz** → Je nach Anreizen: 300-600s (5-10 min)
+
+**Unterschied zu älteren Nutzern:**
+| Parameter | Ältere (65+) | Schüler (15-20) | Studenten (21-30) |
+|-----------|--------------|-----------------|-------------------|
+| Entscheidungszeit | 60-300s | 15-25s | 20-30s |
+| Wartezeit-Toleranz | 180-480s | 300-480s | 360-600s |
+| Gehgeschwindigkeit | 0.9-1.1 m/s | 1.4 m/s | 1.5 m/s |
+| Max. Laufdistanz | 200-250m | 400m | 500m |
+| Boarding-Zeit | 30-60s | 15s | 12s |
+
+### Szenarien für junge Nutzer
+
+#### Schüler (15-20 Jahre)
+
+**Szenario: students_15_20**
+- Hohe digitale Kompetenz (sehr kurze Entscheidungszeit: 20s)
+- Schnelle Mobilität (1.4 m/s, 400m Laufdistanz)
+- Schnelles Boarding (15s)
+- Moderate Wartezeit-Toleranz (300-420s)
+
+**Parameter:**
+| Szenario | user_max_decision_time | user_max_wait_time | user_max_wait_time_2 | walking_speed | max_walking_dist | op_const_boarding_time |
+|----------|------------------------|---------------------|----------------------|---------------|------------------|------------------------|
+| students_15_20 | 20 | 300 | 420 | 1.4 | 400 | 15 |
+
+#### Studenten (21-30 Jahre)
+
+**Szenario: students_21_30**
+- Sehr hohe digitale Kompetenz (kurze Entscheidungszeit: 25s)
+- Sehr schnelle Mobilität (1.5 m/s, 500m Laufdistanz)
+- Sehr schnelles Boarding (12s)
+- Höhere Wartezeit-Toleranz (360-480s)
+
+**Parameter:**
+| Szenario | user_max_decision_time | user_max_wait_time | user_max_wait_time_2 | walking_speed | max_walking_dist | op_const_boarding_time |
+|----------|------------------------|---------------------|----------------------|---------------|------------------|------------------------|
+| students_21_30 | 25 | 360 | 480 | 1.5 | 500 | 12 |
+
+### 24/7-Betriebsprofil (Studenten/Schüler kombiniert)
+
+**Nachfrageprofil über den Tag:**
+| Zeitfenster | Uhrzeit | Zielgruppe | Erwartete Nachfrage |
+|-------------|---------|------------|---------------------|
+| **Morning Peak** | 7-9 Uhr | Schüler + Studenten | 150 Anfragen |
+| **Midday** | 12-14 Uhr | Schüler (Mensa) | 80 Anfragen |
+| **Evening Peak** | 17-19 Uhr | Studenten Heimfahrt | 120 Anfragen |
+
+**Fokus dieser Studie:** Morgen-Peak (7-9 Uhr) - Vergleich mit H1
+
+### Evaluationsmetriken (junge Zielgruppen)
+
+**Vergleich der Altersgruppen:**
+- Servicerate [%] (nach Altersgruppe)
+- Ø Wartezeit [min] und Median; 90. Perzentil
+- Fahrzeugauslastung [%]
+- Digitale Kompetenz-Indikatoren (Entscheidungszeit, Boarding-Zeit)
+
+### Erwartete Ergebnisse
+
+**Schüler (15-20 Jahre):**
+- Hohe digitale Kompetenz (schnelle Entscheidung, schnelles Boarding)
+- Schnelle Mobilität (höhere Gehgeschwindigkeit, größere Laufdistanz)
+- Vergleich mit älteren Nutzern zeigt Unterschiede in Nutzungsverhalten
+
+**Studenten (21-30 Jahre):**
+- Sehr hohe digitale Kompetenz (noch schneller als Schüler)
+- Sehr hohe Mobilität (längste Laufdistanzen)
+- Höchste Wartezeit-Toleranz unter allen Altersgruppen
+
+**Unterschied 15-20 vs. 21-30:**
+- **Schüler**: Etwas langsamer, kürzere Laufdistanzen
+- **Studenten**: Mobilste Gruppe, höchste Flexibilität
+
+### Interpretation und Handlungsempfehlungen
+
+**Vergleich der Altersgruppen:**
+- **Ältere (65+)**: Niedrige digitale Kompetenz → Unterstützungsmaßnahmen nötig
+- **Schüler (15-20)**: Hohe digitale Kompetenz, moderate Mobilität
+- **Studenten (21-30)**: Höchste digitale Kompetenz, höchste Mobilität
+
+---
+
+## Teil C: Nächste Schritte (optional)
+
+**Erweiterte Analysen:**
+- Metrik „Fairness": Gap zwischen älteren (65+) vs. Schülern (15-20) vs. Studenten (21-30)
+- Vergleich der drei Altersgruppen in Bezug auf Servicerate und Wartezeiten
+- Empirische Validierung der Parameter-Annahmen
 
 ---
 
