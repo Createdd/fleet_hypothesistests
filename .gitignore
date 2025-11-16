@@ -42,9 +42,10 @@ data/gip_network_ogd.gpkg
 
 # study directories except for example and example case studies
 studies/*
-!studies/uc1_peak_demand/
 !studies/uc2_age_based/
 !studies/uc3_accessibility/
+!studies/klagenfurt_h1_spitzenzeiten_case_study/
+!studies/klagenfurt_h2_spitzenzeiten_case_study/
 !studies/example_study
 studies/example_study/results/*
 !studies/module_tests/*
@@ -56,7 +57,7 @@ studies/manhattan_case_study/results/*
 studies/chicago_case_study/results/*
 !studies/munich_case_study
 studies/munich_case_study/results/*
-!studies/klagenfurt_h1_spitzenzeiten
+!studies/batch_example_study/
 
 # system dependent C++ Router files
 src/routing/cpp_router/*.pyd

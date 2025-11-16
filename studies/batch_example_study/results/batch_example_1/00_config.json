@@ -1,0 +1,51 @@
+{
+    "scenario_parameters": {
+        "sim_env": "BatchOfferSimulation",
+        "network_name": "example_network",
+        "demand_name": "example_demand",
+        "start_time": 0,
+        "end_time": 3600,
+        "time_step": 60,
+        "user_max_decision_time": 60,
+        "op_fleet_composition": {
+            "default_vehtype": 10
+        },
+        "op_module": "RidePoolingBatchAssignmentFleetcontrol",
+        "op_rp_batch_optimizer": "AlonsoMora",
+        "rq_type": "BasicRequest",
+        "network_type": "NetworkBasic",
+        "op_max_wait_time": 300,
+        "op_max_detour_time_factor": 1.4,
+        "op_const_boarding_time": 30,
+        "nr_mod_operators": 1,
+        "n_cpu_per_sim": 1,
+        "route_output_flag": false,
+        "replay_flag": false,
+        "log_level": "info",
+        "random_seed": 1,
+        "study_name": "batch_example_study",
+        "scenario_name": "batch_example_1",
+        "rq_file": "example_100.csv"
+    },
+    "list_operator_attributes": [
+        {
+            "op_fleet_composition": {
+                "default_vehtype": 10
+            },
+            "op_module": "RidePoolingBatchAssignmentFleetcontrol",
+            "op_rp_batch_optimizer": "AlonsoMora",
+            "op_max_wait_time": 300,
+            "op_max_detour_time_factor": 1.4,
+            "op_const_boarding_time": 30
+        }
+    ],
+    "directories": {
+        "main": "/Users/danieldeutsch/Desktop/code_projects/FleetPy",
+        "data": "/Users/danieldeutsch/Desktop/code_projects/FleetPy/data",
+        "output": "/Users/danieldeutsch/Desktop/code_projects/FleetPy/studies/batch_example_study/results/batch_example_1",
+        "network": "/Users/danieldeutsch/Desktop/code_projects/FleetPy/data/networks/example_network",
+        "vehicles": "/Users/danieldeutsch/Desktop/code_projects/FleetPy/data/vehicles",
+        "fleetctrl": "/Users/danieldeutsch/Desktop/code_projects/FleetPy/data/fleetctrl",
+        "demand": "/Users/danieldeutsch/Desktop/code_projects/FleetPy/data/demand/example_demand/matched/example_network"
+    }
+}

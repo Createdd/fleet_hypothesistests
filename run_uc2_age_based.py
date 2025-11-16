@@ -8,7 +8,7 @@ sys.path.append(ROOT_DIR)
 
 from run_examples import run_scenarios
 
-CASE_STUDY_PATH = os.path.join(ROOT_DIR, "studies", "uc2_age_based", "studies", "uc2_study")
+CASE_STUDY_PATH = os.path.join(ROOT_DIR, "studies", "uc2_age_based")
 SC_PATH = os.path.join(CASE_STUDY_PATH, "scenarios")
 
 if __name__ == "__main__":
