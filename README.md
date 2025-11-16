@@ -47,58 +47,112 @@ Diese Studie analysiert die Machbarkeit und Leistung eines Ridepooling-Dienstes 
 
 ## Zentrale Ergebnisse
 
-### H1/H2: Serviceraten-Vergleich (Flottengrößen-Variation)
-| Flottengröße | Servicerate | Wartezeit | Fahrzeugauslastung | Studie |
-|--------------|-------------|-----------|-------------------|--------|
-| 8 Fahrzeuge | 41,0% | 5,34 min | ~100% | H2 |
-| 16 Fahrzeuge | 70,0% | 5,05 min | ~100% | H2 |
-| 20 Fahrzeuge | 84,0% | 5,00 min | 100% | H1 |
-| 24 Fahrzeuge | 92,0% | 4,67 min | ~100% | H2 |
-| 30 Fahrzeuge | 95,0% | 4,20 min | 100% | H1 |
-| 32 Fahrzeuge | 95,0% | 4,09 min | ~100% | H2 |
-| 40 Fahrzeuge | 98,0% | 3,60 min | 92,5% | H1 |
+### Aktuelle Studie: Filtered Network (6 Zonen, 500 Anfragen)
 
-**Kritische Schwellenwerte:**
-- Unter 16 Fahrzeuge: Service bricht ein (<70% Servicerate)
-- 24 Fahrzeuge: Optimale Mindestflotte (92% Servicerate)
-- 30-32 Fahrzeuge: Optimaler Bereich für Servicequalität (95% Servicerate)
-- Über 40 Fahrzeuge: Abnehmender Grenznutzen (minimaler Gewinn bei höheren Kosten)
+**Konfiguration:**
+- Netzwerk: 3,435 Knoten, 6 Kernzonen (gefiltert von 12)
+- Nachfrage: 500 Anfragen über 6-22 Uhr (16 Stunden, 70% Peak 7-9 Uhr)
+- Zeitfenster: Ganztägiger Betrieb (realistisches Szenario)
 
-### UC2: Digitale Kompetenz & Altersgruppen-Vergleich (20 Fahrzeuge)
+#### H1: Flottengrößen-Variation (Filtered Network)
+| Flottengröße | Servicerate | Ø Wartezeit | Bedient/Gesamt | Fahrzeugauslastung |
+|--------------|-------------|-------------|----------------|-------------------|
+| 8 Fahrzeuge  | 1,8% | 4,6 min | 9/500 | 87,5% |
+| 16 Fahrzeuge | 1,8% | 4,6 min | 9/500 | 43,8% |
+| 24 Fahrzeuge | 3,0% | 4,1 min | 15/500 | 45,8% |
 
-#### Ältere Nutzer (65+) - Support-Maßnahmen
+**Interpretation:**
+- Die niedrigen Serviceraten (1,8-3,0%) sind **erwartungsgemäß** bei dieser Konstellation:
+  - **Sehr kleine Flotten** (8-24 Fahrzeuge) für großflächiges Gebiet (6 Zonen)
+  - **Hohe Nachfrage** (500 Anfragen) über langen Zeitraum (16 Stunden)
+  - **Räumliche Verteilung** als Hauptbottleneck: Zu wenige Fahrzeuge für effektive Abdeckung
+  - **Ganztägiger Betrieb** statt fokussierte Spitzenzeit (mehr Streuung)
 
-| Szenario | Maßnahme | Servicerate | Ø Wartezeit | Entscheidungszeit | Interpretation |
-|----------|----------|-------------|-------------|-------------------|----------------|
-| baseline | Keine Unterstützung | **42%** | 2,8 min | 60s | Niedrige digitale Kompetenz |
-| phone_support | Telefon-Hotline | *Simuliert* | *Simuliert* | 240s | Mehr Entscheidungszeit |
-| simple_ui | Vereinfachte App | **63%** | 3,7 min | 120s | Höhere Toleranz |
-| full_support | Volle Unterstützung | *Simuliert* | *Simuliert* | 300s | Kombination aller Maßnahmen |
+**Kritische Erkenntnis:**
+- 8-24 Fahrzeuge sind **deutlich zu wenig** für 500 Anfragen
+- Servicerate steigt nur marginal mit Flottengröße (1,8% → 3,0%)
+- Beweis: **Räumliche Abdeckung dominiert** - selbst Verdreifachung der Flotte bringt kaum Verbesserung
+- Empfehlung: Signifikant größere Flotten (>50 Fahrzeuge) oder reduzierte Nachfrage/Betriebszeit notwendig
 
-#### Junge Nutzer - Altersgruppen-Vergleich
+### Vergleich: Spitzenzeit-fokussierte Studie (100 Anfragen, 2 Stunden)
+*Frühere Konfiguration mit fokussiertem Zeitfenster (7-9 Uhr Morgenspitze):*
 
-| Altersgruppe | Servicerate | Ø Wartezeit | Entscheidungszeit | Gehgeschwindigkeit | Boarding-Zeit |
-|--------------|-------------|-------------|-------------------|-------------------|---------------|
-| **Studenten (21-30)** | **77%** | 4,1 min | 25s | 1,5 m/s | 12s |
-| **Schüler (15-20)** | *Parametrisiert* | *Simuliert* | 20s | 1,4 m/s | 15s |
-| **Ältere (65+) Baseline** | **42%** | 2,8 min | 60s | 1,0 m/s | 60s |
+| Flottengröße | Servicerate | Wartezeit | Nachfrage | Zeitfenster |
+|--------------|-------------|-----------|-----------|-------------|
+| 8 Fahrzeuge  | 41,0% | 5,3 min | 100 Anfragen | 2h (7-9 Uhr) |
+| 16 Fahrzeuge | 70,0% | 5,0 min | 100 Anfragen | 2h (7-9 Uhr) |
+| 24 Fahrzeuge | 92,0% | 4,7 min | 100 Anfragen | 2h (7-9 Uhr) |
 
-**💡 Zentrale Erkenntnis:** Studenten (77%) nutzen Service deutlich erfolgreicher als Ältere ohne Support (42%). Digitale Kompetenz-Gap: 3-6x langsamere Entscheidungen bei Älteren.
+**Vergleich der Konfigurationen:**
+| Parameter | Ganztägig (Neu) | Spitzenzeit (Alt) | Faktor |
+|-----------|----------------|-------------------|--------|
+| Anfragen | 500 | 100 | 5x |
+| Zeitfenster | 16h (6-22 Uhr) | 2h (7-9 Uhr) | 8x |
+| Nachfragedichte | 31 Anfragen/h | 50 Anfragen/h | 0,6x |
+| Servicerate (24 Fzg) | 3,0% | 92,0% | 0,03x |
 
-### UC3: Barrierefreiheit (20 Fahrzeuge, Variable Flottenzusammensetzung)
+**⚠️ Wichtig:** Diese Studien sind **nicht direkt vergleichbar** aufgrund fundamental unterschiedlicher Konfigurationen (Nachfragemenge, Zeitfenster, Zonen)
 
-| Szenario | Standard (8 Sitze) | Barrierefrei (12 Sitze) | Anteil Barrierefrei | Servicerate Gesamt | Kosten |
-|----------|-------------------|------------------------|---------------------|-------------------|--------|
-| baseline | 20 | 0 | 0% | **45%** | €40k fix + €5,3k var |
-| mixed_20 | 16 | 4 | 20% | **45%** | Moderat |
-| mixed_30 | 14 | 6 | 30% | **45%** | €49k fix + €6,1k var |
-| mixed_50 | 10 | 10 | 50% | **45%** | Hoch |
+### UC2: Digitale Kompetenz & Altersgruppen (Status: Ergebnisse nicht verfügbar)
 
-**⚠️ Wichtige Erkenntnis:** Identische 45% Service-Raten über alle Szenarien zeigen **FleetPy-Modellierungslücke**. Das Framework kann keine expliziten Barrierefreiheits-Anforderungen simulieren. Die **räumliche Verteilung** barrierefreier Fahrzeuge ist kritisch - 30% (6 Fahrzeuge) empfohlen für bessere geografische Abdeckung über 12 Zonen.
+**Hinweis:** Die UC2-Simulationen mit dem gefilterten Netzwerk zeigen ähnlich niedrige Serviceraten wie H1 (<5%), was bei kleinen Flotten und hoher Nachfrage erwartbar ist. Detaillierte Analyse steht aus.
 
-**Empfehlung bleibt:** 30% barrierefreie Fahrzeuge aus **rechtlichen/ethischen Gründen** (ÖNORM B 1600, EU 1107/2006), nicht aus Simulationsergebnissen. Siehe [comparison_previous_study.md](comparison_previous_study.md) für Details.
+### UC3: Barrierefreiheit (Status: Ergebnisse nicht verfügbar)
+
+**Hinweis:** Die UC3-Simulationen mit dem gefilterten Netzwerk zeigen ähnlich niedrige Serviceraten wie H1 (<5%), was bei kleinen Flotten und hoher Nachfrage erwartbar ist. Detaillierte Analyse steht aus.
+
+**Empfehlung für aussagekräftige Ergebnisse:**
+- Entweder **deutlich größere Flotten** (>50 Fahrzeuge) testen
+- Oder **reduzierte Nachfrage** (z.B. 100 Anfragen) in fokussiertem Zeitfenster (2h Spitzenzeit)
+- Oder **längere Simulationszeit** mit realistischer ganztägiger Nachfrageverteilung
 
 ## Systemkonfiguration
+
+### Netzwerk: Gefiltertes Klagenfurt Kernnetzwerk
+
+**Aktuelle Konfiguration (Filtered Network):**
+- **Knoten**: 3,435 (gefiltert von 6,394)
+- **Kanten**: 4,338 (gefiltert von 8,277)
+- **Zonen**: 6 (gefiltert von 12) - Fokus auf Klagenfurt Kerngebiet
+- **Zentroiden**: 300 (50 pro Zone)
+- **Node Indexing**: Kontinuierlich 0-3434 (reindexed für NetworkBasic)
+
+**Entfernte Zonen** (outlying areas): 2, 3, 5, 8, 11, 12  
+**Beibehaltene Kern-Zonen** (1→0, 4→1, 6→2, 7→3, 9→4, 10→5):
+- Zone 0 (ex-1): 396 Knoten
+- Zone 1 (ex-4): 669 Knoten  
+- Zone 2 (ex-6): 577 Knoten
+- Zone 3 (ex-7): 656 Knoten
+- Zone 4 (ex-9): 391 Knoten
+- Zone 5 (ex-10): 746 Knoten
+
+**Rationale für Filterung:**
+- Konzentration auf Klagenfurt Stadtgebiet (Lakeside Park bis Zentrum)
+- Verbesserung der räumlichen Kohärenz
+- Reduktion von Randlagen-Zonen mit geringer Nachfrage
+- Optimierung für focused Ridepooling Service
+
+**Visualisierung:** Siehe `klagenfurt_filtered_zones_map.png` - OpenStreetMap-Basemap mit Zonengrenzen, Netzwerk-Edges und Lakeside Park Markierung
+
+### Netzwerk-Setup ausführen
+```bash
+# Complete network regeneration (one unified script)
+cd data/networks/klagenfurt_h1_spitzenzeiten
+python setup_filtered_network.py  # Filters, remaps zones, reindexes nodes, generates centroids
+
+# Optional: Create visualization
+python visualize_zones.py
+
+# Generate demand
+cd ../../demand/klagenfurt_h1_spitzenzeiten  
+python generate_fullday_demand.py
+```
+
+Details siehe: [data/networks/klagenfurt_h1_spitzenzeiten/README.md](data/networks/klagenfurt_h1_spitzenzeiten/README.md)
+
+---
+
+## Weitere Systemkonfiguration
 
 ### Netzwerkparameter
 - **Knoten:** 6.394 (Straßenkreuzungen und Haltestellen)
