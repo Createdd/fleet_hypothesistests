@@ -46,21 +46,34 @@ for new_zone in range(6):
     count = (filtered_nodes['zone_id'] == new_zone).sum()
     print(f"  Zone {new_zone}: {count:,} nodes")
 
-# Step 4: Filter edges
-print(f"\n[4/5] Filtering edges...")
-valid_nodes = set(filtered_nodes['node_index'].values)
+# Step 4: Reindex nodes to continuous 0-N range (required by NetworkBasic)
+print(f"\n[4/6] Reindexing nodes to continuous range...")
+old_to_new_index = {old_idx: new_idx for new_idx, old_idx in enumerate(filtered_nodes['node_index'])}
+print(f"  ✓ Created mapping for {len(old_to_new_index):,} nodes")
+print(f"  ✓ New range: 0 - {len(old_to_new_index) - 1}")
+
+# Apply reindexing to nodes
+filtered_nodes['node_index'] = filtered_nodes['node_index'].map(old_to_new_index)
+
+# Step 5: Filter and reindex edges
+print(f"\n[5/6] Filtering and reindexing edges...")
+valid_nodes = set(old_to_new_index.keys())  # Use original indices for filtering
 filtered_edges = edges[
     edges['from_node'].isin(valid_nodes) &
     edges['to_node'].isin(valid_nodes)
 ].copy()
+
+# Apply reindexing to edges
+filtered_edges['from_node'] = filtered_edges['from_node'].map(old_to_new_index)
+filtered_edges['to_node'] = filtered_edges['to_node'].map(old_to_new_index)
 print(f"  ✓ Kept {len(filtered_edges):,} edges (from {len(edges):,})")
 
-# Step 5: Create node_zone_info with centroids
-print(f"\n[5/5] Generating {CENTROIDS_PER_ZONE} centroids per zone...")
+# Step 6: Create node_zone_info with centroids
+print(f"\n[6/6] Generating {CENTROIDS_PER_ZONE} centroids per zone...")
 
-# Initialize node_zone_info
+# Initialize node_zone_info (using NEW reindexed node indices)
 new_zone_info = pd.DataFrame({
-    'node_index': filtered_nodes['node_index'],
+    'node_index': filtered_nodes['node_index'],  # Already reindexed
     'zone_id': filtered_nodes['zone_id'],
     'is_centroid': 0,
     'is_boarding_node': 0
@@ -108,9 +121,9 @@ filtered_edges.to_csv(OUTPUT_DIR / "edges.csv", index=False)
 new_zone_info.to_csv(ZONE_DIR / "node_zone_info.csv", index=False)
 
 print("\n" + "=" * 80)
-print("FILTERING COMPLETE")
+print("FILTERING COMPLETE (WITH AUTOMATIC REINDEXING)")
 print("=" * 80)
-print(f"Nodes:     {len(filtered_nodes):,}")
+print(f"Nodes:     {len(filtered_nodes):,} (reindexed 0 - {len(filtered_nodes) - 1})")
 print(f"Edges:     {len(filtered_edges):,}")
 print(f"Zones:     6 (remapped {ZONES_TO_KEEP} → 0-5)")
 print(f"Centroids: {len(all_centroids)}")
@@ -118,4 +131,5 @@ print(f"\nFiles saved:")
 print(f"  • {OUTPUT_DIR / 'nodes.csv'}")
 print(f"  • {OUTPUT_DIR / 'edges.csv'}")
 print(f"  • {ZONE_DIR / 'node_zone_info.csv'}")
+print(f"\n✓ Node indices automatically reindexed for NetworkBasic compatibility")
 print("=" * 80)
