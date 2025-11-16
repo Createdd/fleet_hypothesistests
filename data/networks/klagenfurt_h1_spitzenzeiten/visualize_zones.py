@@ -130,20 +130,33 @@ except Exception as e:
     print(f"   ⚠ Could not add basemap: {e}")
     print("   Continuing without basemap...")
 
-# Highlight Lakeside/University area (approximate location - Zone 5)
-university_zone = gdf_web[gdf_web['zone_id'] == 5]
-if not university_zone.empty:
-    center_x = university_zone.geometry.x.mean()
-    center_y = university_zone.geometry.y.mean()
+# Mark Lakeside Park / Universität Klagenfurt (Lakeside B11, 9020 Klagenfurt)
+# Coordinates: 46.6158°N, 14.2678°E
+lakeside_lat = 46.6158
+lakeside_lon = 14.2678
 
-    # Add text annotation
-    ax.annotate('Lakeside Park /\nUniversität Klagenfurt',
-               xy=(center_x, center_y),
-               xytext=(center_x + 1000, center_y + 1000),
-               fontsize=12, fontweight='bold',
-               bbox=dict(boxstyle='round,pad=0.5', facecolor='yellow', alpha=0.7),
-               arrowprops=dict(arrowstyle='->', lw=2, color='red'),
-               zorder=6)
+# Convert Lakeside coordinates to Web Mercator
+lakeside_point = gpd.GeoDataFrame(
+    {'name': ['Lakeside']},
+    geometry=[Point(lakeside_lon, lakeside_lat)],
+    crs='EPSG:4326'
+).to_crs(epsg=3857)
+
+lakeside_x = lakeside_point.geometry.x.iloc[0]
+lakeside_y = lakeside_point.geometry.y.iloc[0]
+
+# Add marker for Lakeside Park
+ax.scatter(lakeside_x, lakeside_y, c='red', s=300, marker='*', 
+          edgecolors='black', linewidths=2, alpha=1.0, zorder=10)
+
+# Add text annotation
+ax.annotate('Lakeside Park\nUniversität Klagenfurt\n(B11)',
+           xy=(lakeside_x, lakeside_y),
+           xytext=(lakeside_x + 1500, lakeside_y + 1500),
+           fontsize=11, fontweight='bold',
+           bbox=dict(boxstyle='round,pad=0.5', facecolor='yellow', alpha=0.8, edgecolor='red', linewidth=2),
+           arrowprops=dict(arrowstyle='->', lw=2.5, color='red'),
+           zorder=11)
 
 # Formatting
 ax.set_xlabel('Longitude →', fontsize=14, fontweight='bold')
