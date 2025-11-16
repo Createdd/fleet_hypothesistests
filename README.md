@@ -215,6 +215,86 @@ Das Notebook zeigt Trade-offs zwischen Kosten und Servicerate für verschiedene 
 - 🔬 Langzeit-Studien über gesamten Tagesverlauf (nicht nur 7-9 Uhr Peak)
 - 🔬 Marketing-Strategien für junge Zielgruppen (15-30 Jahre)
 
+## 🌍 Kontext: Ridepooling in der Praxis (Hamburg-Studie)
+
+### Zwei konzeptionell verschiedene Geschäftsmodelle
+
+Empirische Studien aus Hamburg zeigen, dass **Ridepooling-Dienste je nach Geschäftsmodell völlig unterschiedliche Rollen** im Mobilitätssystem einnehmen können:
+
+#### **hvv hop (ehemals ioki Hamburg) – Zubringerdienst zum ÖPNV**
+- **Konzept:** Last-Mile-Lösung für ÖPNV-Anbindung
+- **Finanzierung:** Öffentlich gefördert
+- **Tarif:** 1 € Komfortzuschlag mit gültigem ÖV-Ticket
+- **Betrieb:** 24/7 in kleineren Gebieten am Stadtrand (Osdorf/Lurup)
+- **Nutzerverhalten:**
+  - 39% Arbeitswege, starke Morgenspitze (7-9 Uhr)
+  - **70% intermodale Nutzung** (Kombination mit S-Bahn)
+  - 5.000-25.000 Fahrten zu den vier S-Bahn-Stationen
+  - Samstag-Vormittag: 18% Einkaufswege
+
+#### **MOIA – Direktverkehr als Pkw-Alternative**
+- **Konzept:** Private Pkw-Alternative für Direktverbindungen
+- **Finanzierung:** Eigenwirtschaftlich
+- **Tarif:** Dynamische Preisgestaltung
+- **Betrieb:** Großes innerstädtisches Gebiet (268 km²)
+- **Nutzerverhalten:**
+  - 60% Freizeitwege, Nachfragespitzen um 18 und 22 Uhr
+  - **Nur 14% intermodale Nutzung**
+  - Tagesunabhängig, nicht an klassische Verkehrsspitzen gebunden
+
+### Sozialräumliche Effekte des Tarifwechsels
+
+Nach dem Wechsel von ioki Hamburg zu MOIA (2023) im Gebiet Osdorf/Lurup:
+
+**Nachfragerückgang:**
+- Gesamt: -28% (123.560 → 88.788 Fahrten/Jahr)
+- Gebiete mit sehr niedrigem/niedrigem Statusindex: **massiver Einbruch**
+  - Osdorfer Born, nordwestliches Lurup besonders betroffen
+- MOIA-Binnenfahrten: nur 4,9% (95,1% mit Start/Ziel außerhalb)
+
+**Nachfrageverschiebung:**
+- Gebiete mit höherem sozioökonomischen Status: Nutzung gestiegen
+- Südliches Gebiet (Elbe-Einkaufszentrum-Umland): profitierte
+- Gewerbegebiet: neue Nachfrage durch MOIA
+
+**Vulnerable Gruppen besonders betroffen:**
+- ioki Hamburg: 16% Nutzer mit Mobilitätseinschränkungen
+- MOIA: nur 9% Nutzer mit Mobilitätseinschränkungen
+- Günstiger Tarif war entscheidend für Zugang vulnerabler Gruppen
+
+### Nutzerprofile: Überdurchschnittlich gebildet und multimodal
+
+Beide Dienste bedienen ähnliche Demografien:
+- **Bildung:** 47-61% mit universitärem Abschluss
+- **Führerschein:** 88-90% besitzen einen
+- **ÖPNV-Abo:** 46-58% haben ein Abo
+- → Typische multimodale Mobilitätstypen mit hohem sozioökonomischen Status
+
+### Strategische Erkenntnisse für Klagenfurt
+
+**Zentrale Lehre aus Hamburg:**
+
+✅ **Beide Modelle können parallel existieren** ohne gegenseitige Kannibalisierung:
+- **Peripherie (wie Osdorf/Lurup):** Zubringerfunktion zum ÖPNV mit öffentlicher Förderung
+- **Zentrum:** Direktverkehr als Pkw-Alternative, eigenwirtschaftlich
+
+❌ **Ridepooling allein reicht nicht** für Mobilitätswende:
+- Nötig ist **Gesamtkonzept** mit Push-Maßnahmen (attraktiver ÖPNV)
+- Flexible On-Demand-Services als **strategische Ergänzung**, nicht Ersatz
+
+⚠️ **Sozialräumliche Gerechtigkeit beachten:**
+- Tarifgestaltung hat massive Auswirkung auf vulnerable Gruppen
+- Öffentliche Förderung notwendig für inklusive Mobilität in der Peripherie
+- Rein eigenwirtschaftliche Dienste bedienen eher privilegierte Nutzergruppen
+
+**Übertragung auf Klagenfurt:**
+- Ähnlicher Kontext wie Hamburg Osdorf/Lurup (120 km² Stadtgebiet, 105.000 Einwohner)
+- **UC2 (Ältere 65+) und UC3 (Barrierefreiheit)** adressieren genau diese Inklusivitätsfragen
+- 30% barrierefreie Fahrzeuge + Support-Maßnahmen = Lehre aus Hamburg-Erfahrung
+- Öffentliche Förderung wahrscheinlich notwendig für 24-30 Fahrzeuge bei 95% Servicerate
+
+**Quelle:** Empirische Studie Hamburg (hvv hop/ioki Hamburg vs. MOIA), Gebiet Osdorf/Lurup, 2023
+
 ## Glossar
 
 - Servicerate: Anteil bedienter Anfragen an allen Anfragen (bedient/gesamt)
