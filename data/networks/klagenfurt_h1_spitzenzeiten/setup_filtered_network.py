@@ -1,7 +1,26 @@
 #!/usr/bin/env python3
 """
-Filter Klagenfurt network to 6 core zones and regenerate all derived data.
-Reads original 6,394-node network from git history and creates filtered network.
+Complete setup script for filtered Klagenfurt network.
+
+This unified script performs all necessary steps:
+1. Extracts original network from git history
+2. Filters to 6 core zones (removes outlying zones 2,3,5,8,11,12)
+3. Remaps zone IDs from [1,4,6,7,9,10] → [0,1,2,3,4,5]
+4. Reindexes nodes to continuous 0-N range (required by NetworkBasic)
+5. Filters and reindexes edges accordingly
+6. Generates 50 centroids per zone using spatial distribution
+
+Usage:
+    python setup_filtered_network.py
+
+Prerequisites:
+    - Original network must be in git history (commit 83c701c)
+    - scipy package for spatial distance calculations
+
+Output:
+    - data/networks/klagenfurt_h1_spitzenzeiten/base/nodes.csv (3,435 nodes, reindexed)
+    - data/networks/klagenfurt_h1_spitzenzeiten/base/edges.csv (4,338 edges, reindexed)
+    - data/zones/klagenfurt_h1_spitzenzeiten/base/node_zone_info.csv (with centroids)
 """
 
 import pandas as pd
