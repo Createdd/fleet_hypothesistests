@@ -117,10 +117,10 @@ Diese Studie analysiert die Machbarkeit und Leistung eines Ridepooling-Dienstes 
 - **Zentroiden**: 300 (50 pro Zone)
 - **Node Indexing**: Kontinuierlich 0-3434 (reindexed für NetworkBasic)
 
-**Entfernte Zonen** (outlying areas): 2, 3, 5, 8, 11, 12  
+**Entfernte Zonen** (outlying areas): 2, 3, 5, 8, 11, 12
 **Beibehaltene Kern-Zonen** (1→0, 4→1, 6→2, 7→3, 9→4, 10→5):
 - Zone 0 (ex-1): 396 Knoten
-- Zone 1 (ex-4): 669 Knoten  
+- Zone 1 (ex-4): 669 Knoten
 - Zone 2 (ex-6): 577 Knoten
 - Zone 3 (ex-7): 656 Knoten
 - Zone 4 (ex-9): 391 Knoten
@@ -144,7 +144,7 @@ python setup_filtered_network.py  # Filters, remaps zones, reindexes nodes, gene
 python visualize_zones.py
 
 # Generate demand
-cd ../../demand/klagenfurt_h1_spitzenzeiten  
+cd ../../demand/klagenfurt_h1_spitzenzeiten
 python generate_fullday_demand.py
 ```
 
