@@ -1,7 +1,9 @@
 import os
 import multiprocessing as mp
+import argparse
 import sys
 import traceback
+import pandas as pd
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(ROOT_DIR)
@@ -14,13 +16,32 @@ SC_PATH = os.path.join(CASE_STUDY_PATH, "scenarios")
 if __name__ == "__main__":
     mp.freeze_support()
 
+    parser = argparse.ArgumentParser(description="Run UC3 scenarios")
+    parser.add_argument(
+        "--track",
+        choices=["baseline", "trips"],
+        default="baseline",
+        help="baseline uses demand_requests.csv; trips uses demand_requests_trips.csv",
+    )
+    args = parser.parse_args()
+
     try:
         os.makedirs(os.path.join(CASE_STUDY_PATH, "results"), exist_ok=True)
         os.makedirs(os.path.join(CASE_STUDY_PATH, "analysis"), exist_ok=True)
 
         log_level = "info"
         cc = os.path.join(SC_PATH, "const_cfg_uc3.yaml")
-        sc = os.path.join(SC_PATH, "uc3_scenarios.csv")
+        base_sc = os.path.join(SC_PATH, "uc3_scenarios.csv")
+
+        sc = base_sc
+        temp_sc = None
+        if args.track == "trips":
+            tmp_df = pd.read_csv(base_sc)
+            tmp_df["scenario_name"] = tmp_df["scenario_name"].astype(str) + "__trips"
+            tmp_df["rq_file"] = "demand_requests_trips.csv"
+            temp_sc = os.path.join(SC_PATH, "_autogen_tmp_uc3_trips.csv")
+            tmp_df.to_csv(temp_sc, index=False)
+            sc = temp_sc
 
         print("\n" + "="*70)
         print("UC3: Barrierefreiheit – Flottenzusammensetzung für Rollstuhl/Kinderwagen")
@@ -28,6 +49,9 @@ if __name__ == "__main__":
         print("="*70 + "\n")
 
         run_scenarios(cc, sc, log_level=log_level, n_cpu_per_sim=1, n_parallel_sim=1)
+
+        if temp_sc is not None and os.path.exists(temp_sc):
+            os.remove(temp_sc)
 
         print("\nSimulation abgeschlossen. Siehe Ergebnisse unter:")
         print(os.path.join(CASE_STUDY_PATH, "results"))

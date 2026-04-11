@@ -1,15 +1,15 @@
 import os
 import multiprocessing as mp
+import argparse
 import sys
 import traceback
+import pandas as pd
 
 # Get absolute paths for macOS
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(ROOT_DIR)
 
 from run_examples import run_scenarios
-import src.misc.config as config
-from src.misc.globals import *
 
 # Set up case study path for H2
 CASE_STUDY_PATH = os.path.join(ROOT_DIR, "studies", "klagenfurt_h2_spitzenzeiten_case_study")
@@ -17,6 +17,15 @@ SC_PATH = os.path.join(CASE_STUDY_PATH, "scenarios")
 
 if __name__ == "__main__":
     mp.freeze_support()
+
+    parser = argparse.ArgumentParser(description="Run Klagenfurt H2 scenarios")
+    parser.add_argument(
+        "--track",
+        choices=["baseline", "trips"],
+        default="baseline",
+        help="baseline uses demand_requests.csv; trips uses demand_requests_trips.csv",
+    )
+    args = parser.parse_args()
 
     try:
         # Create necessary directories
@@ -35,7 +44,17 @@ if __name__ == "__main__":
         # Run simulation with H2 configurations
         log_level = "info"
         cc = os.path.join(SC_PATH, "const_cfg_klagenfurt_h2_spitzenzeiten_case_study.yaml")
-        sc = os.path.join(SC_PATH, "scenario_cfg_klagenfurt_h2_spitzenzeiten_case_study.csv")
+        base_sc = os.path.join(SC_PATH, "scenario_cfg_klagenfurt_h2_spitzenzeiten_case_study.csv")
+
+        sc = base_sc
+        temp_sc = None
+        if args.track == "trips":
+            tmp_df = pd.read_csv(base_sc)
+            tmp_df["scenario_name"] = tmp_df["scenario_name"].astype(str) + "__trips"
+            tmp_df["rq_file"] = "demand_requests_trips.csv"
+            temp_sc = os.path.join(SC_PATH, "_autogen_tmp_h2_trips.csv")
+            tmp_df.to_csv(temp_sc, index=False)
+            sc = temp_sc
 
         print("\n" + "="*60)
         print("KLAGENFURT H2 SPITZENZEITEN SIMULATION")
@@ -43,6 +62,9 @@ if __name__ == "__main__":
         print("="*60 + "\n")
 
         run_scenarios(cc, sc, log_level=log_level, n_cpu_per_sim=1, n_parallel_sim=1)
+
+        if temp_sc is not None and os.path.exists(temp_sc):
+            os.remove(temp_sc)
 
         # Run analysis notebook
         print("\nSimulation complete. To analyze results, open:")
