@@ -6,6 +6,9 @@ data/README*
 data/demand/*
 !data/demand/example_demand
 !data/demand/example_parcel_demand
+!data/demand/klagenfurt
+data/demand/klagenfurt/h1_spitzenzeiten/matched
+data/demand/klagenfurt/h1_spitzenzeiten/generate_fullday_demand.py
 data/fleetctrl/initial_vehicle_distribution/*
 data/fleetctrl/elastic_pricing/*
 data/fleetctrl/elastic_fleet_size/*
@@ -37,7 +40,7 @@ data/FleetPy_Munich
 data/gip_network_ogd.gpkg
 !data/networks/klagenfurt_h1_spitzenzeiten
 !data/zones/klagenfurt_h1_spitzenzeiten
-!data/demand/klagenfurt_h1_spitzenzeiten
+
 !data/vehicles/klagenfurt_peak_morning.csv
 
 # study directories except for example and example case studies
