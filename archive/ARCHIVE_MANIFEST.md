@@ -7,6 +7,7 @@ This manifest records post-cleanup archival placement and provenance (evidence t
 - `archive/runs/*`: execution logs grouped by experiment family.
 - `archive/figures/*`: visual outputs grouped by city/experiment family.
 - `archive/docs/readme_superseded`: superseded root README variants.
+- `archive/data/demand/*`: superseded or dormant demand datasets (inputs no longer used by active study runners).
 
 ## Provenance Rules
 - Filename prefix (`h1_`, `h2_`, `uc2_`, `uc3_`, `klagenfurt_`) determines experiment-family assignment.
@@ -40,6 +41,9 @@ This manifest records post-cleanup archival placement and provenance (evidence t
 | `archive/figures/munich/temporal_test_munich_scenario_2.png` | root `temporal_test_munich_scenario_2.png` | munich scenario test | filename prefix | high |
 | `archive/docs/readme_superseded/README_old.md` | root `README_old.md` | superseded root docs | filename semantics | high |
 | `archive/docs/readme_superseded/README_BACKUP_20251014_183943.md` | root `README_BACKUP_20251014_183943.md` | superseded root docs | filename semantics | high |
+| `archive/data/demand/uc1_peaks/` | `data/demand/uc1_peaks/` | dormant demand dataset | no active study const_cfg references | high |
+| `archive/data/demand/SoD_demand/` | `data/demand/SoD_demand/` | dormant demand dataset | no active study const_cfg references | high |
+| `archive/data/demand/route_193_demand/` | `data/demand/route_193_demand/` | legacy example dataset | referenced only by legacy example outputs | medium |
 
 ## Uncertainty
 - Exact simulation run identifiers (timestamp/job-id linkage) are not recoverable from filenames alone. I do not know.
