@@ -50,17 +50,20 @@ studies/*
 !studies/klagenfurt_h1_spitzenzeiten_case_study/
 !studies/klagenfurt_h2_spitzenzeiten_case_study/
 !studies/example_study
-studies/example_study/results/*
-!studies/module_tests/*
-studies/module_tests/results/*
-!studies/module_tests/results/benchmark.csv
+!studies/module_tests/
 !studies/manhattan_case_study
-studies/manhattan_case_study/results/*
 !studies/chicago_case_study
-studies/chicago_case_study/results/*
 !studies/munich_case_study
-studies/munich_case_study/results/*
 !studies/batch_example_study/
+!studies/config_validation.py
+!studies/CROSS_HYPOTHESIS_RESULTS_ANALYSIS.ipynb
+!studies/aggregate_hypothesis_results.py
+
+# Ignore all simulation results (generated output files)
+studies/*/results/*
+studies/*/results/*/
+!studies/*/results/.gitkeep
+!studies/module_tests/results/benchmark.csv
 
 # system dependent C++ Router files
 src/routing/cpp_router/*.pyd
