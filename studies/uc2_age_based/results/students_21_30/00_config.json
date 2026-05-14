@@ -41,7 +41,7 @@
         "op_applied_heuristic": "after_opt_rv_best_v2rb",
         "op_max_VR_con": 10,
         "op_repo_method": "None",
-        "op_zone_system": "klagenfurt_h1_spitzenzeiten",
+        "op_zone_system": "adapted_to_moia_data",
         "walking_speed": 1.5,
         "max_walking_dist": 500,
         "study_name": "uc2_age_based",
@@ -80,7 +80,7 @@
             "op_applied_heuristic": "after_opt_rv_best_v2rb",
             "op_max_VR_con": 10,
             "op_repo_method": "None",
-            "op_zone_system": "klagenfurt_h1_spitzenzeiten"
+            "op_zone_system": "adapted_to_moia_data"
         }
     ],
     "directories": {
@@ -92,7 +92,7 @@
         "fleetctrl": "/Users/danieldeutsch/Desktop/code_projects/FleetPy/data/fleetctrl",
         "demand": "/Users/danieldeutsch/Desktop/code_projects/FleetPy/data/demand/klagenfurt_h1_spitzenzeiten/matched/klagenfurt_h1_spitzenzeiten",
         "op_0": {
-            "zones": "/Users/danieldeutsch/Desktop/code_projects/FleetPy/data/zones/klagenfurt_h1_spitzenzeiten/klagenfurt_h1_spitzenzeiten"
+            "zones": "/Users/danieldeutsch/Desktop/code_projects/FleetPy/data/zones/adapted_to_moia_data/klagenfurt_h1_spitzenzeiten"
         }
     }
 }

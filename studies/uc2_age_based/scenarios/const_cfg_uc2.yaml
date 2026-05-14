@@ -46,7 +46,7 @@ op_max_VR_con: 10
 op_repo_method: None
 
 # Zone System
-op_zone_system: klagenfurt_h1_spitzenzeiten
+op_zone_system: adapted_to_moia_data
 
 # Traveller attributes (defaults; overridden per-scenario if provided)
 walking_speed: 1.0
