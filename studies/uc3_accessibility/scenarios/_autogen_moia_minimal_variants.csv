@@ -1,0 +1,13 @@
+scenario_name,op_fleet_composition,user_max_wait_time,user_max_wait_time_2,rq_file,op_max_wait_time,op_max_detour_time_factor,op_repo_method
+baseline__trips,standard_8seat:20,180,300,demand_requests_trips.csv,,,
+mixed_20__trips,standard_8seat:16;accessible_12seat:4,180,300,demand_requests_trips.csv,,,
+mixed_30__trips,standard_8seat:14;accessible_12seat:6,180,300,demand_requests_trips.csv,,,
+mixed_50__trips,standard_8seat:10;accessible_12seat:10,180,300,demand_requests_trips.csv,,,
+baseline__trips__svc_wait_300,standard_8seat:20,180,300,demand_requests_trips.csv,300.0,40.0,
+mixed_20__trips__svc_wait_300,standard_8seat:16;accessible_12seat:4,180,300,demand_requests_trips.csv,300.0,40.0,
+mixed_30__trips__svc_wait_300,standard_8seat:14;accessible_12seat:6,180,300,demand_requests_trips.csv,300.0,40.0,
+mixed_50__trips__svc_wait_300,standard_8seat:10;accessible_12seat:10,180,300,demand_requests_trips.csv,300.0,40.0,
+baseline__trips__repo_basic,standard_8seat:20,180,300,demand_requests_trips.csv,,,Basic
+mixed_20__trips__repo_basic,standard_8seat:16;accessible_12seat:4,180,300,demand_requests_trips.csv,,,Basic
+mixed_30__trips__repo_basic,standard_8seat:14;accessible_12seat:6,180,300,demand_requests_trips.csv,,,Basic
+mixed_50__trips__repo_basic,standard_8seat:10;accessible_12seat:10,180,300,demand_requests_trips.csv,,,Basic
