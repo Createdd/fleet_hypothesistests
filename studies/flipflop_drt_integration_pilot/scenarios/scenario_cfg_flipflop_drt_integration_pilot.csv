@@ -1,0 +1,4 @@
+scenario_name,op_fleet_composition
+flipflop_neubau_baseline_draw1_all_modes_20,default_vehtype:20
+flipflop_neubau_baseline_draw1_all_modes_30,default_vehtype:30
+flipflop_neubau_baseline_draw1_all_modes_40,default_vehtype:40

@@ -38,6 +38,8 @@ data/zones/*
 
 data/FleetPy_Munich
 data/gip_network_ogd.gpkg
+data/SampleFiles*.zip
+data/SampleFiles_recovered/
 !data/networks/klagenfurt_h1_spitzenzeiten
 !data/zones/klagenfurt_h1_spitzenzeiten
 
@@ -49,6 +51,7 @@ studies/*
 !studies/uc3_accessibility/
 !studies/klagenfurt_h1_spitzenzeiten_case_study/
 !studies/klagenfurt_h2_spitzenzeiten_case_study/
+!studies/flipflop_drt_integration_pilot/
 !studies/example_study
 !studies/module_tests/
 !studies/manhattan_case_study
