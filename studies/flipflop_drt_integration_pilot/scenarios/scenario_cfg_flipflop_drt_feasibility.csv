@@ -1,0 +1,4 @@
+scenario_name,op_fleet_composition
+flipflop_drt_switchers_20,default_vehtype:20
+flipflop_drt_switchers_40,default_vehtype:40
+flipflop_drt_switchers_60,default_vehtype:60
