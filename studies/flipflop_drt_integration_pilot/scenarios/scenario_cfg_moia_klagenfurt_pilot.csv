@@ -1,4 +1,4 @@
 scenario_name,op_fleet_composition
 moia_klagenfurt_baseline_20,default_vehtype:20
-moia_klagenfurt_baseline_30,default_vehtype:30
 moia_klagenfurt_baseline_40,default_vehtype:40
+moia_klagenfurt_baseline_60,default_vehtype:60

@@ -3,10 +3,10 @@ log_level: info
 network_type: NetworkBasic
 network_name: flipflop_neubau_extended
 demand_name: moia_klagenfurt_pilot
-rq_file: moia_baseline_0700_0900.csv
+rq_file: moia_baseline_0600_2200.csv
 random_seed: 0
-start_time: 25200
-end_time: 32400
+start_time: 21600
+end_time: 79200
 time_step: 30
 user_max_decision_time: 30
 route_output_flag: True

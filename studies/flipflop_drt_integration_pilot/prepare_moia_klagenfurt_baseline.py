@@ -21,11 +21,18 @@ OUTPUT_FILE = os.path.join(
     "moia_klagenfurt_pilot",
     "matched",
     "flipflop_neubau_extended",
-    "moia_baseline_0700_0900.csv",
+    "moia_baseline_0600_2200.csv",
 )
 MAX_NEAREST_DISTANCE = 0.005
-START_TIME = 25200
-END_TIME = 32400
+# Full operating day (06:00-22:00), matching the H-A switcher-demand convention.
+# The raw log spans 7 real days (departure_time // 86400 in {0..6}); folding all
+# of them into one simulated day via "% 86400" is the same convention this
+# repo's convert_trips_klagenfurt_to_requests.py already uses elsewhere. It means
+# this demand file represents roughly 7 real days of MOIA trips compressed into
+# a single simulated day, not one real day's volume - see the model-validity
+# notebook for the per-day-average framing of this.
+START_TIME = 21600
+END_TIME = 79200
 
 
 def main() -> None:
@@ -35,7 +42,7 @@ def main() -> None:
     trips["rq_time"] = seconds_of_day.loc[trips.index]
     trips = trips.sort_values("rq_time").reset_index(drop=True)
     if trips.empty:
-        raise ValueError("No MOIA trips found in the 07:00-09:00 window")
+        raise ValueError("No MOIA trips found in the 06:00-22:00 window")
 
     nodes = pd.read_csv(NETWORK_NODES)
     largest_component = pd.read_csv(LARGEST_COMPONENT_FILE)
@@ -48,7 +55,7 @@ def main() -> None:
     start_distances, start_indices = tree.query(start_points)
     end_distances, end_indices = tree.query(end_points)
     in_network = (start_distances <= MAX_NEAREST_DISTANCE) & (end_distances <= MAX_NEAREST_DISTANCE)
-    print(f"MOIA rows in 07:00-09:00 window: {len(trips)}")
+    print(f"MOIA rows in 06:00-22:00 window (pooled across ~7 real days): {len(trips)}")
     print(f"Rows inside network coverage: {int(in_network.sum())}")
 
     trips = trips[in_network].copy()
