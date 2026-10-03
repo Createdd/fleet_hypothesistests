@@ -232,7 +232,7 @@ class KlagenfurtH2SpitzenzeitenAnalysis:
 if __name__ == "__main__":
     # Set up paths
     base_dir = os.path.dirname(os.path.abspath(__file__))
-    results_dir = os.path.join(base_dir, "studies", "klagenfurt_h2_spitzenzeiten_case_study", "results")
+    results_dir = os.path.join(base_dir, "results")
 
     # Create analysis instance
     analysis = KlagenfurtH2SpitzenzeitenAnalysis(results_dir)

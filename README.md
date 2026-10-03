@@ -166,7 +166,7 @@ Details siehe: [data/networks/klagenfurt_h1_spitzenzeiten/README.md](data/networ
 - **Netzwerk-Extension:** Erweitert um Lakeside Park/Universität Klagenfurt (Zone 9) für UC2-Studenten-Szenarien
 
 **⚠️ Wichtiger Hinweis zur Netzwerk-Regeneration:**
-Das Netzwerk wurde von 2.099 auf 6.394 Knoten erweitert, um die Universität Klagenfurt/Lakeside Park einzuschließen. Nach jeder Netzwerk-Änderung müssen **Demand-Dateien neu generiert werden**, da alte Knoten-IDs ungültig werden. Dies erfolgt durch Neuausführung von `klagenfurt_h1_spitzenzeiten_map_all.py` oder manuell mit:
+Das Netzwerk wurde von 2.099 auf 6.394 Knoten erweitert, um die Universität Klagenfurt/Lakeside Park einzuschließen. Nach jeder Netzwerk-Änderung müssen **Demand-Dateien neu generiert werden**, da alte Knoten-IDs ungültig werden. Das einmalige Setup-Skript dafür (`klagenfurt_h1_spitzenzeiten_map_all.py`) ist archiviert (`archive/network_setup_scripts/`), da das Netzwerk bereits erweitert ist und sein Eingabe-Datensatz (`klagenfurt_network.gpkg`) ebenfalls dort liegt. Für eine erneute Demand-Generierung reicht der manuelle Weg:
 ```python
 # Demand regenerieren (100 zufällige O-D-Paare)
 python -c "import pandas as pd; import numpy as np; nodes = pd.read_csv('data/networks/klagenfurt_h1_spitzenzeiten/base/nodes.csv'); np.random.seed(42); demand = pd.DataFrame([{'Unnamed: 0': float(i), 'request_id': float(i), 'rq_time': float(np.random.randint(25200,32400)), 'start': float(np.random.choice(nodes['node_index'])), 'end': float((e:=np.random.choice(nodes['node_index'])) if e != (s:=np.random.choice(nodes['node_index'])) else np.random.choice(nodes['node_index'])), 'earliest_pickup_time': float(np.random.randint(25200,32400))} for i in range(100)]); demand.to_csv('data/demand/klagenfurt_h1_spitzenzeiten/matched/klagenfurt_h1_spitzenzeiten/demand_requests.csv', index=False)"
@@ -186,53 +186,32 @@ python -c "import pandas as pd; import numpy as np; nodes = pd.read_csv('data/ne
 - **Reoptimierungsintervall:** 30 Sekunden
 - **Nachfrage:** 100 Mobilitätsanfragen
 
-## Project Setup
-
 ## Projekt-Setup
-- Python 3.10+
+
 ### Voraussetzungen
+- Python 3.10+
 - Conda Environment
 
 ### Installation
-
-### Installation
-\`\`\`bash
-git clone https://github.com/Createdd/fleet_hypothesistests.git
 ```bash
 git clone https://github.com/Createdd/fleet_hypothesistests.git
 cd fleet_hypothesistests
-```
-\`\`\`bash
 conda env create -f environment.yml
 conda activate fleetpy
-\`\`\`
-
-3. Install dependencies:
-
-### Simulationen ausführen
-\`\`\`bash
-python run_klagenfurt_h1_spitzenzeiten.py
-python klagenfurt_h1_spitzenzeiten_analysis.py
-\`\`\`
-
-For H2 (Minimum Fleet):
-\`\`\`bash
-python run_klagenfurt_h2_spitzenzeiten.py
-python klagenfurt_h2_spitzenzeiten_analysis.py
-\`\`\`
+```
 
 ### Simulationen ausführen
 
 #### H1 (Servicequalität)
 ```bash
 python run_klagenfurt_h1_spitzenzeiten.py
-python klagenfurt_h1_spitzenzeiten_analysis.py
+jupyter notebook studies/klagenfurt_h1_spitzenzeiten_case_study/analysis/klagenfurt_h1_spitzenzeiten_analysis.ipynb
 ```
 
 #### H2 (Minimale Flotte)
 ```bash
 python run_klagenfurt_h2_spitzenzeiten.py
-python klagenfurt_h2_spitzenzeiten_analysis.py
+python studies/klagenfurt_h2_spitzenzeiten_case_study/klagenfurt_h2_spitzenzeiten_analysis.py
 ```
 
 #### UC2 (Digitale Kompetenz & Support-Maßnahmen)
@@ -244,7 +223,7 @@ Die Simulation erzeugt Ergebnisdateien für alle vier Szenarien (baseline, phone
 
 Für die Analyse und Visualisierung:
 ```bash
-jupyter notebook studies/uc2_age_based/studies/uc2_study/analysis/uc2_analysis.ipynb
+jupyter notebook studies/uc2_age_based/analysis/uc2_analysis.ipynb
 ```
 Das Notebook aggregiert die Ergebnisse und zeigt die wichtigsten Kennzahlen und Vergleiche an.
 
@@ -257,7 +236,7 @@ Die Simulation testet 4 Flottenzusammensetzungen (baseline: 0% Gelenkbusse, mixe
 
 Für die Analyse und Visualisierung:
 ```bash
-jupyter notebook studies/uc3_accessibility/studies/uc3_study/analysis/uc3_analysis.ipynb
+jupyter notebook studies/uc3_accessibility/analysis/uc3_analysis.ipynb
 ```
 Das Notebook zeigt Trade-offs zwischen Kosten und Servicerate für verschiedene Anteile barrierefreier Fahrzeuge.
 

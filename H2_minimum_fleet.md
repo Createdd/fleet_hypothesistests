@@ -194,7 +194,7 @@ Im On-Demand-Ridepooling ist **räumliche Abdeckung wichtiger als Sitzplatzkapaz
 python run_klagenfurt_h2_spitzenzeiten.py
 
 # Analyse durchführen
-python klagenfurt_h2_spitzenzeiten_analysis.py
+python studies/klagenfurt_h2_spitzenzeiten_case_study/klagenfurt_h2_spitzenzeiten_analysis.py
 ```
 
 ## Kategorisierung der Erkenntnisse

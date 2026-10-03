@@ -8,6 +8,10 @@ This manifest records post-cleanup archival placement and provenance (evidence t
 - `archive/figures/*`: visual outputs grouped by city/experiment family.
 - `archive/docs/readme_superseded`: superseded root README variants.
 - `archive/data/demand/*`: superseded or dormant demand datasets (inputs no longer used by active study runners).
+- `archive/network_setup_scripts/*`: one-time network/zone preparation scripts and notebooks whose output already exists in `data/` and whose own input files are themselves archived; not meant to be re-run.
+- `archive/legacy_munich_exploration/*`: first-week Munich exploration (Sept 2025), abandoned when the project moved to Klagenfurt. Distinct from `studies/munich_case_study/`, the upstream FleetPy example, which remains active.
+- `archive/legacy_moia_notebooks/*`: May 2026 MOIA exploration notebooks (root `notebooks/` dir), superseded by the properly-homed analysis notebooks in `studies/flipflop_drt_integration_pilot/analysis/`.
+- `archive/superseded_scripts/*`: scripts replaced by a working equivalent elsewhere, kept for provenance only.
 
 ## Provenance Rules
 - Filename prefix (`h1_`, `h2_`, `uc2_`, `uc3_`, `klagenfurt_`) determines experiment-family assignment.
@@ -44,6 +48,29 @@ This manifest records post-cleanup archival placement and provenance (evidence t
 | `archive/data/demand/uc1_peaks/` | `data/demand/uc1_peaks/` | dormant demand dataset | no active study const_cfg references | high |
 | `archive/data/demand/SoD_demand/` | `data/demand/SoD_demand/` | dormant demand dataset | no active study const_cfg references | high |
 | `archive/data/demand/route_193_demand/` | `data/demand/route_193_demand/` | legacy example dataset | referenced only by legacy example outputs | medium |
+
+## 2026-10 Root-Level Cleanup
+
+| Archived path | Pre-cleanup path | Reason | Confidence |
+|---|---|---|---|
+| `archive/legacy_munich_exploration/munich_analysis.ipynb` | root `munich_analysis.ipynb` | abandoned exploration, not referenced anywhere else | high |
+| `archive/legacy_munich_exploration/plot_munich_temporal.py` | root `plot_munich_temporal.py` | same as above | high |
+| `archive/legacy_munich_exploration/munich_scenarios_comparison.csv` | root `munich_scenarios_comparison.csv` | same as above | high |
+| `archive/legacy_moia_notebooks/moia_additional_tests.ipynb` | root `notebooks/moia_additional_tests.ipynb` | superseded by `studies/flipflop_drt_integration_pilot/analysis/`, not referenced anywhere | high |
+| `archive/legacy_moia_notebooks/moia_minimal_variants_results.ipynb` | root `notebooks/moia_minimal_variants_results.ipynb` | same as above | high |
+| `archive/legacy_moia_notebooks/moia_vs_baseline_results.ipynb` | root `notebooks/moia_vs_baseline_results.ipynb` | same as above | high |
+| `archive/network_setup_scripts/klagenfurt_h1_spitzenzeiten_map_all.py` | root `klagenfurt_h1_spitzenzeiten_map_all.py` | reads already-archived `klagenfurt_network.gpkg`; one-time setup, job done | high |
+| `archive/network_setup_scripts/filter_klagenfurt_h1_spitzenzeiten.ipynb` | root `filter_klagenfurt_h1_spitzenzeiten.ipynb` | same as above (produced the now-archived `klagenfurt_network.gpkg`) | high |
+| `archive/network_setup_scripts/klagenfurt_h1_spitzenzeiten_zone_mapping.ipynb` | root `klagenfurt_h1_spitzenzeiten_zone_mapping.ipynb` | same as above | high |
+| `archive/superseded_scripts/klagenfurt_h1_spitzenzeiten_analysis.py` | root `klagenfurt_h1_spitzenzeiten_analysis.py` | internally broken: three concatenated `main()` definitions (only the last ever executes), which reads nonexistent `users.csv`/`vehicles.csv` and stale scenario-name paths; fully superseded by the working `studies/klagenfurt_h1_spitzenzeiten_case_study/analysis/klagenfurt_h1_spitzenzeiten_analysis.ipynb` | high |
+
+Also moved (not archived, still active — relocated into their case study folders for self-containment, paths fixed and verified working):
+- `klagenfurt_h2_spitzenzeiten_analysis.py` → `studies/klagenfurt_h2_spitzenzeiten_case_study/klagenfurt_h2_spitzenzeiten_analysis.py`
+- `create_klagenfurt_map_with_basemap.py` → `studies/klagenfurt_h1_spitzenzeiten_case_study/create_klagenfurt_map_with_basemap.py`
+
+Deleted outright (not archived — empty, untracked, no history to preserve): root `scenarios/` directory.
+
+README.md, H1_service_quality.md, and H2_minimum_fleet.md were updated to reference the new/working locations; README.md's duplicated "Installation"/"Simulationen ausführen" sections (one copy with broken escaped-backtick code fences) were also consolidated into one clean version, and stale `studies/uc2_age_based/studies/uc2_study/...` / `studies/uc3_accessibility/studies/uc3_study/...` notebook paths (left over from a pre-cleanup directory structure) were corrected.
 
 ## Uncertainty
 - Exact simulation run identifiers (timestamp/job-id linkage) are not recoverable from filenames alone. I do not know.

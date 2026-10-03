@@ -3,6 +3,8 @@ Create Klagenfurt zone map with OpenStreetMap basemap
 Shows streets, buildings, and the university area with zone overlays
 """
 
+import os
+
 import geopandas as gpd
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -11,10 +13,13 @@ from matplotlib.patches import Patch
 
 from shapely.geometry import Point
 
+ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+STUDY_DIR = os.path.dirname(os.path.abspath(__file__))
+
 # 1. Load network and nodes
 print("Loading network data...")
-network = gpd.read_file("klagenfurt_network_extended.gpkg")  # Use extended network
-nodes = pd.read_csv("data/networks/klagenfurt_h1_spitzenzeiten/base/nodes.csv")
+network = gpd.read_file(os.path.join(ROOT_DIR, "klagenfurt_network_extended.gpkg"))  # Use extended network
+nodes = pd.read_csv(os.path.join(ROOT_DIR, "data", "networks", "klagenfurt_h1_spitzenzeiten", "base", "nodes.csv"))
 
 # 2. Create GeoDataFrame from nodes (currently in WGS84)
 nodes_gdf = gpd.GeoDataFrame(
@@ -139,7 +144,8 @@ ax.text(
 plt.tight_layout()
 
 # 15. Save
-output_file = 'klagenfurt_zones_map_with_basemap.png'
+os.makedirs(os.path.join(STUDY_DIR, "results"), exist_ok=True)
+output_file = os.path.join(STUDY_DIR, "results", "klagenfurt_zones_map_with_basemap.png")
 plt.savefig(output_file, dpi=200, bbox_inches='tight')
 print(f"\n✅ Karte gespeichert: {output_file}")
 print(f"   - {len(nodes_gdf)} Knoten")
