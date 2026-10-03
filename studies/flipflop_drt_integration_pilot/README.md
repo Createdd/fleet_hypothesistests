@@ -2,6 +2,22 @@
 
 This study is the first bridge between the recovered FlipFlop mode-choice samples and FleetPy's operational ridepooling simulation.
 
+> ## 📌 Start here
+>
+> **[`analysis/consortium_presentation_flipflop_validation.ipynb`](analysis/consortium_presentation_flipflop_validation.ipynb)** is the current, primary deliverable of this study — a short, visualization-led summary for the FLIP-FLOP consortium, written to prepare the "Meeting mit Christian (AIT DRC)" that Konsortial-Meeting 10 (22.09.2026) flagged as the required next step after simulating with realistic MOIA data. Open this one first.
+>
+> It condenses **[`analysis/flipflop_demand_model_validity.ipynb`](analysis/flipflop_demand_model_validity.ipynb)**, the full three-part validity check (spatial, volume, simulated performance) this summary is built on. Everything else in `analysis/` is earlier, superseded, or supporting work kept for traceability — see the table below.
+
+| Notebook | Status |
+|---|---|
+| `consortium_presentation_flipflop_validation.ipynb` | **Current — present this one** |
+| `flipflop_demand_model_validity.ipynb` | Current — full detail behind the summary above |
+| `flipflop_drt_feasibility_results.ipynb` | Current — hypothesis H-A results (feeds into the validity check) |
+| `flipflop_drt_demand_construction.ipynb` | Current — how the H-A demand was built and validated |
+| `flipflop_vs_moia_simulation_comparison.ipynb` | Superseded by the validity check above (old all-modes demand, mismatched time window) |
+| `flipflop_vs_moia_klagenfurt_bounded_comparison.ipynb` | Supporting — spatial-only comparison, pre-dates the simulated checks |
+| `flipflop_vs_moia_bounded_comparison.ipynb` | Historical — Neubau-track version, kept for reference only |
+
 The active track is the **Klagenfurt (whole-region) pilot**: sourced from the full regional model (`full_draws/draws_Baseline.csv`, 471,140 calibrated trips across all Klagenfurt/Ebenthal), restricted to the MOIA spatial frame and network coverage. This gives ~22.8k retained candidate requests after filtering, before the 100-row pilot cap.
 
 An earlier **Neubau pilot** (sourced from the Neubau-specific model, `neubau/draws_Baseline.csv`, ~5,377 trips) is kept in this folder for reference but is not being actively run or extended — it was scoped to a small area and produced very few MOIA-frame-and-network-covered rows, which is why the work moved to the whole-region model instead.

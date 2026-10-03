@@ -9,6 +9,8 @@ Diese Studie analysiert die Machbarkeit und Leistung eines Ridepooling-Dienstes 
 
 **💡 Wichtige Erkenntnis:** Diese Studie verwendet realistische Fahrzeugkonfigurationen (8/12 Sitze) und validiert Erkenntnisse der vorherigen [4-Sitzer-Studie](comparison_previous_study.md). Trotz **Verdopplung der Sitzplatzkapazität** bleiben Service-Raten identisch - dies beweist, dass **räumliche Abdeckung wichtiger ist als absolute Kapazität**.
 
+> **📌 Separates, aktuell laufendes Vorhaben:** Das FFG-Konsortialprojekt FLIP-FLOP (AIT, DatenVorsprung, KMG Klagenfurt Mobil, pdcp/SURAAA, Stadt Klagenfurt, Tech Meets Legal) nutzt dieses Repository ebenfalls, unabhängig von der 8-Sitzer-Studie oben. Das aktuelle Konsortium-Deliverable liegt in [`studies/flipflop_drt_integration_pilot/`](studies/flipflop_drt_integration_pilot/README.md) — siehe dort den Abschnitt "Start here".
+
 ---
 
 ## Studien-Übersicht
