@@ -5,7 +5,7 @@ from typing import Dict, List
 
 import pandas as pd
 
-ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+ROOT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))  # repo root (this script lives in studies/klagenfurt_8sitzer_studie/)
 sys.path.append(ROOT_DIR)
 
 from run_examples import run_scenarios

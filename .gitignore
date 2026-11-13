@@ -47,6 +47,7 @@ data/SampleFiles_recovered/
 
 # study directories except for example and example case studies
 studies/*
+!studies/klagenfurt_8sitzer_studie/
 !studies/uc2_age_based/
 !studies/uc3_accessibility/
 !studies/klagenfurt_h1_spitzenzeiten_case_study/

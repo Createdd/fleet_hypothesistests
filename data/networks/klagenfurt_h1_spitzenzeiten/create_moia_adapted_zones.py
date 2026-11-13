@@ -23,7 +23,7 @@ from shapely.geometry import Point, MultiPoint
 
 def find_repo_root(start: Path) -> Path:
     for parent in [start] + list(start.parents):
-        if (parent / "studies").is_dir() and (parent / "run_uc2_age_based.py").exists():
+        if (parent / "studies").is_dir() and (parent / "run_examples.py").exists():
             return parent
     return start
 

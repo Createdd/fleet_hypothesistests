@@ -13,14 +13,14 @@ Use existing runners with `--track`:
 Temporary CSV artifacts are deleted after execution.
 
 ## Commands
-- `python run_klagenfurt_h1_spitzenzeiten.py --track baseline`
-- `python run_klagenfurt_h1_spitzenzeiten.py --track trips`
-- `python run_klagenfurt_h2_spitzenzeiten.py --track baseline`
-- `python run_klagenfurt_h2_spitzenzeiten.py --track trips`
-- `python run_uc2_age_based.py --track baseline`
-- `python run_uc2_age_based.py --track trips`
-- `python run_uc3_accessibility.py --track baseline`
-- `python run_uc3_accessibility.py --track trips`
+- `python studies/klagenfurt_8sitzer_studie/run_klagenfurt_h1_spitzenzeiten.py --track baseline`
+- `python studies/klagenfurt_8sitzer_studie/run_klagenfurt_h1_spitzenzeiten.py --track trips`
+- `python studies/klagenfurt_8sitzer_studie/run_klagenfurt_h2_spitzenzeiten.py --track baseline`
+- `python studies/klagenfurt_8sitzer_studie/run_klagenfurt_h2_spitzenzeiten.py --track trips`
+- `python studies/klagenfurt_8sitzer_studie/run_uc2_age_based.py --track baseline`
+- `python studies/klagenfurt_8sitzer_studie/run_uc2_age_based.py --track trips`
+- `python studies/klagenfurt_8sitzer_studie/run_uc3_accessibility.py --track baseline`
+- `python studies/klagenfurt_8sitzer_studie/run_uc3_accessibility.py --track trips`
 
 ## Source-of-Truth Files
 - Scenario definitions remain single-source in existing files:

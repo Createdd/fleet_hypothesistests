@@ -1,24 +1,15 @@
-# 🚌 FleetPy Klagenfurt — Ridepooling-Simulationen
+# 🚌 FLIP-FLOP × FleetPy — Validierung der KI-Nachfrageprognose für Klagenfurt
 
 [![FleetPy](https://img.shields.io/badge/Framework-FleetPy-blue)](https://github.com/TUM-VT/FleetPy)
 [![Python 3.10](https://img.shields.io/badge/Python-3.10-green.svg)](https://www.python.org/downloads/)
 
-Dieses Repository enthält zwei unabhängige Vorhaben, die beide das [FleetPy](https://github.com/TUM-VT/FleetPy)-Simulationsframework für Ridepooling in Klagenfurt nutzen:
+**Konsortium:** AIT Austrian Institute of Technology, DatenVorsprung, KMG Klagenfurt Mobil, pdcp/SURAAA, Stadt Klagenfurt, Tech Meets Legal (FFG-gefördert).
 
-1. **FLIP-FLOP-Konsortialprojekt** (aktuell, siehe unten) — FFG-gefördert, Validierung einer KI-Nachfrageprognose gegen echte Betriebsdaten.
-2. **8-Sitzer-Fallstudie** (abgeschlossen, kompakte Zusammenfassung weiter unten) — Machbarkeitsstudie für einen Ridepooling-Dienst mit Standard- und barrierefreien Fahrzeugen.
+**Die Frage:** FlipFlop (AIT) sagt per KI-Modell voraus, welche Personen bei einem On-Demand-Angebot (DRT, bedarfsgesteuerter Ridepooling-Verkehr) vom Auto/ÖV/Rad/Fuß umsteigen würden. Ist diese prognostizierte Nachfrage realistisch — und lässt sie sich mit einer Fahrzeugflotte überhaupt sinnvoll bedienen?
 
----
+**Die Methode:** Das [FleetPy](https://github.com/TUM-VT/FleetPy)-Simulationsframework (TUM) dient als **unabhängiges Validierungswerkzeug**: Die FlipFlop-Prognose wird gegen echte KMG/MOIA-Betriebsdaten aus Klagenfurt benchmarkt — räumlich, mengenmäßig und operativ (simulierte Servicerate bei identischem Netz, Betriebstag und Flottengrößen).
 
-## 🆕 FLIP-FLOP-Konsortialprojekt: Ist die KI-Nachfrageprognose realistisch?
-
-**Konsortium:** AIT Austrian Institute of Technology, DatenVorsprung, KMG Klagenfurt Mobil, pdcp/SURAAA, Stadt Klagenfurt, Tech Meets Legal.
-
-**Die Frage:** FlipFlop (AIT) sagt per KI-Modell voraus, welche Personen bei einem On-Demand-Angebot (DRT) vom Auto/ÖV/Rad/Fuß umsteigen würden. Ist diese prognostizierte Nachfrage realistisch — und lässt sie sich mit FleetPy überhaupt sinnvoll bedienen?
-
-**Die Methode:** FleetPy dient hier nicht nur als Fuhrpark-Simulator für die 8-Sitzer-Studie, sondern als **unabhängiges Validierungswerkzeug**: Die FlipFlop-Prognose wird gegen echte KMG/MOIA-Betriebsdaten benchmarkt — räumlich, mengenmäßig und operativ (simulierte Servicerate).
-
-**Die Ergebnisse (Kurzfassung):**
+## Ergebnisse (Kurzfassung)
 
 | Check | Ergebnis |
 |---|---|
@@ -32,54 +23,14 @@ Die 8 Vergleichszonen wurden per Clustering direkt aus den echten MOIA-Fahrten g
 
 Ein unabhängiger Fund bestätigt zudem eine bereits von AIT beobachtete Modell-Eigenschaft: hohe Kostensensitivität, geringe Zeitsensitivität im Choice-Modell — zwei getrennte Methoden, ein übereinstimmendes Ergebnis.
 
-**📌 Einstieg:** [`studies/flipflop_drt_integration_pilot/README.md`](studies/flipflop_drt_integration_pilot/README.md) → Abschnitt "Start here" → [`consortium_presentation_flipflop_validation.ipynb`](studies/flipflop_drt_integration_pilot/analysis/consortium_presentation_flipflop_validation.ipynb) (kurze Präsentationsfassung) bzw. [`flipflop_demand_model_validity.ipynb`](studies/flipflop_drt_integration_pilot/analysis/flipflop_demand_model_validity.ipynb) (vollständige Analyse).
+## 📌 Einstieg
 
----
+1. **Präsentationsfassung (kurz):** [`consortium_presentation_flipflop_validation.ipynb`](studies/flipflop_drt_integration_pilot/analysis/consortium_presentation_flipflop_validation.ipynb)
+2. **Vollständige Analyse:** [`flipflop_demand_model_validity.ipynb`](studies/flipflop_drt_integration_pilot/analysis/flipflop_demand_model_validity.ipynb)
+3. **Methodik, Skripte, Reproduktion, offene Punkte:** [`studies/flipflop_drt_integration_pilot/README.md`](studies/flipflop_drt_integration_pilot/README.md)
 
-## 8-Sitzer-Fallstudie Klagenfurt (abgeschlossen)
+## Setup
 
-Machbarkeitsstudie für einen Ridepooling-Dienst in Klagenfurt mit **8-Sitzer Standard-** und **12-Sitzer barrierefreien Fahrzeugen**, Nachfolger einer früheren 4-Sitzer-Konsortiumstudie.
-
-**💡 Zentrale Erkenntnis:** Trotz Verdopplung der Sitzplatzkapazität (4→8/12 Sitze) blieben die Serviceraten identisch — ein empirischer Beweis, dass **räumliche Abdeckung wichtiger ist als absolute Flottenkapazität**. Dieser Befund wiederholt sich in den H1-Ergebnissen unten (8-24 Fahrzeuge bringen bei 500 Anfragen über ein 6-Zonen-Gebiet kaum Verbesserung) und deckt sich mit dem, was die FLIP-FLOP-Analyse oben unabhängig über Pooling-Effizienz zeigt.
-
-### Vier Teilstudien
-
-| Studie | Fokus | Details |
-|---|---|---|
-| **H1** — Servicequalität | Flotten 20/30/40 Fahrzeuge, Maximierung Servicerate | [H1_service_quality.md](H1_service_quality.md) |
-| **H2** — Minimale Flottengröße | Flotten 8/16/24/32, kritische Schwellenwerte | [H2_minimum_fleet.md](H2_minimum_fleet.md) |
-| **UC2** — Digitale Kompetenz | Support-Maßnahmen für ältere Nutzer:innen | [UC2_age_based.md](UC2_age_based.md) |
-| **UC3** — Barrierefreiheit | Flottenmix Standard/Gelenkbus, Rollstuhl/Kinderwagen | [UC3_accessibility.md](UC3_accessibility.md) |
-| **Vergleich** 8- vs. 4-Sitzer | Validierung der Vorgängerstudie | [comparison_previous_study.md](comparison_previous_study.md) |
-
-### Zentrale Ergebnisse (Filtered Network, 6 Zonen, 500 Anfragen über 16h)
-
-| Flottengröße | Servicerate | Ø Wartezeit | Bedient/Gesamt |
-|--------------|-------------|-------------|----------------|
-| 8 Fahrzeuge  | 1,8% | 4,6 min | 9/500 |
-| 16 Fahrzeuge | 1,8% | 4,6 min | 9/500 |
-| 24 Fahrzeuge | 3,0% | 4,1 min | 15/500 |
-
-Niedrige Serviceraten sind hier erwartungsgemäß: kleine Flotten über ein großflächiges 6-Zonen-Gebiet, ganztägiger Betrieb statt fokussierter Spitzenzeit. Eine frühere, spitzenzeit-fokussierte Konfiguration (100 Anfragen, 2h-Fenster) erreichte bei 24 Fahrzeugen 92% — die beiden Konfigurationen sind aufgrund unterschiedlicher Nachfragemenge/Zeitfenster **nicht direkt vergleichbar**. UC2/UC3-Simulationen mit dem gefilterten Netzwerk zeigen ähnlich niedrige Raten (<5%); für aussagekräftigere Ergebnisse wären größere Flotten (>50) oder ein fokussiertes Zeitfenster nötig. Volle Tabellen und Interpretation siehe die Studien-Dokumente oben.
-
-### Netzwerk
-
-Gefiltertes Kernnetzwerk: 3.435 Knoten, 6 Zonen (von ursprünglich 6.394 Knoten/12 Zonen gefiltert, Fokus auf Klagenfurt Stadtgebiet bis Lakeside Park). Setup, Scripts und vollständige Prozesskette: [data/networks/klagenfurt_h1_spitzenzeiten/README.md](data/networks/klagenfurt_h1_spitzenzeiten/README.md).
-
-![Klagenfurt Filtered Network Map](studies/klagenfurt_h1_spitzenzeiten_case_study/results/analysis/klagenfurt_filtered_zones_map.png)
-
-### Wissenschaftlicher Kontext: Hamburg-Studie (hvv hop vs. MOIA)
-
-Empirische Daten aus Hamburg zeigen, dass Ridepooling-Dienste je nach Geschäftsmodell sehr unterschiedliche Rollen einnehmen können: **hvv hop** (öffentlich gefördert, ÖPNV-Zubringer, 70% intermodale Nutzung) vs. **MOIA** (eigenwirtschaftlich, Pkw-Alternative, nur 14% intermodal). Beim Wechsel von ioki Hamburg zu MOIA (2023) sank die Nachfrage insgesamt um 28%, mit überproportionalem Rückgang in Gebieten mit niedrigem sozioökonomischen Status — ein Hinweis, dass Tarifgestaltung entscheidend für inklusiven Zugang ist. **Für Klagenfurt:** UC2 (Ältere) und UC3 (Barrierefreiheit) adressieren genau diese Inklusivitätsfrage; öffentliche Förderung ist wahrscheinlich nötig, um die in H1 identifizierte Flottengröße wirtschaftlich zu betreiben. (Quelle: empirische Studie Gebiet Osdorf/Lurup, 2023.)
-
----
-
-## Projekt-Setup
-
-### Voraussetzungen
-- Python 3.10+, Conda Environment
-
-### Installation
 ```bash
 git clone https://github.com/Createdd/fleet_hypothesistests.git
 cd fleet_hypothesistests
@@ -87,46 +38,28 @@ conda env create -f environment.yml
 conda activate fleetpy
 ```
 
-### Simulationen ausführen (8-Sitzer-Studie)
+Die FlipFlop-Eingangsdaten (`data/SampleFiles_recovered/`, Modell-Draws von AIT) und die MOIA-Fahrtdaten (`data/demand/trips_klagenfurt.csv`) sind nicht Teil des Repos und müssen separat abgelegt werden. Alle Befehle zum Netzbau, zur Nachfrageaufbereitung und zu den Simulationsläufen stehen im [Studien-README](studies/flipflop_drt_integration_pilot/README.md).
 
-```bash
-# H1 (Servicequalität)
-python run_klagenfurt_h1_spitzenzeiten.py
-jupyter notebook studies/klagenfurt_h1_spitzenzeiten_case_study/analysis/klagenfurt_h1_spitzenzeiten_analysis.ipynb
+## Weitere Inhalte
 
-# H2 (Minimale Flotte)
-python run_klagenfurt_h2_spitzenzeiten.py
-python studies/klagenfurt_h2_spitzenzeiten_case_study/klagenfurt_h2_spitzenzeiten_analysis.py
-
-# UC2 (Digitale Kompetenz) — erzeugt 4 Szenarien (baseline, phone_support, simple_ui, full_support)
-python run_uc2_age_based.py
-jupyter notebook studies/uc2_age_based/analysis/uc2_analysis.ipynb
-
-# UC3 (Barrierefreiheit) — erzeugt 4 Flottenzusammensetzungen (0/20/30/50% barrierefrei)
-python run_uc3_accessibility.py
-jupyter notebook studies/uc3_accessibility/analysis/uc3_analysis.ipynb
-```
-
-Für die FLIP-FLOP-Simulationen siehe [studies/flipflop_drt_integration_pilot/README.md](studies/flipflop_drt_integration_pilot/README.md).
-
-### Service-Parameter (8-Sitzer-Studie)
-- Max. Wartezeit: 8 min, max. Umwegfaktor: 40%, Einstiegszeit: 30-60s
-- Fahrzeugkapazität: 8 Sitze (Standard), 12 Sitze (barrierefrei)
-- Reoptimierungsintervall: 30s
-
----
+- **Frühere 8-Sitzer-Fallstudie (2025, H1/H2/UC2/UC3):** Machbarkeitsstudie mit 8-/12-Sitzer-Fahrzeugen, abgeschlossen; Ergebnisse wegen eines Netzwerkfehlers derzeit **unter Vorbehalt** → [studies/klagenfurt_8sitzer_studie/README.md](studies/klagenfurt_8sitzer_studie/README.md)
+- **Framework:** `src/`, `run_examples.py` und die Beispielstudien in `studies/` (example_study, munich, manhattan, chicago, module_tests) stammen aus dem TUM-FleetPy-Upstream; Parameterreferenz in [Input_Parameters.md](Input_Parameters.md). Einzige lokale Änderung am Framework: CLI-Fix in `run_examples.py` (`sys.argv[1:]`).
+- **Archiv:** abgelöste Skripte, Notebooks und README-Versionen in [archive/](archive/).
 
 ## Glossar
 
+- **DRT:** Demand-Responsive Transport — bedarfsgesteuerter On-Demand-Verkehr ohne festen Fahrplan, hier als Ridepooling
+- **Umsteiger (H-A):** Weg, der laut FlipFlop im Ist-Zustand nicht mit ÖV, bei DRT-Angebot zum ÖV-Tarif aber mit DRT zurückgelegt würde
 - **Servicerate:** Anteil bedienter Anfragen an allen Anfragen
 - **Wartezeit:** Zeit zwischen Anfrage und Abholung (Ø über bediente Anfragen)
-- **Fahrzeugauslastung:** Anteil der Zeit, in der Fahrzeuge operativ genutzt werden
 
 ## Datenquellen
+
+- **Nachfrageprognose:** FlipFlop Mixed-Logit-Choice-Modell (AIT), 471.140 kalibrierte Wege, 5 stochastische Draws je Szenario
+- **Betriebsdaten:** MOIA-Fahrten Klagenfurt (7 Kalendertage), bereitgestellt über das Konsortium
 - **Netzwerkdaten:** OpenStreetMap Klagenfurt
 - **Algorithmus:** Alonso-Mora et al. (2017), PNAS 114(3): 462-467
 - **Framework:** [FleetPy](https://github.com/TUM-VT/FleetPy) (TUM München)
-- **Vorherige Studie:** 4-Sitzer-Konsortiumstudie (AIT Austrian Institute of Technology)
 
 ## Lizenz
 Dieses Projekt verwendet das FleetPy-Framework unter dessen Lizenz.

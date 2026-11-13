@@ -154,7 +154,7 @@ Trotz Verdopplung der Fahrzeugkapazität (4→8 Sitze) bleiben Serviceraten bei 
 ```bash
 cd /Users/danieldeutsch/Desktop/code_projects/FleetPy
 conda activate fleetpy
-python run_uc3_accessibility.py
+python studies/klagenfurt_8sitzer_studie/run_uc3_accessibility.py
 ```
 
 **Was passiert:**

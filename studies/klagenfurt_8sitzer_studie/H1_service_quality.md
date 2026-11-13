@@ -67,7 +67,7 @@ Ziel: Optimierung der Servicequalität bei akzeptabler Kosteneffizienz.
 
 ### Simulation ausführen
 ```bash
-python run_klagenfurt_h1_spitzenzeiten.py
+python studies/klagenfurt_8sitzer_studie/run_klagenfurt_h1_spitzenzeiten.py
 jupyter notebook studies/klagenfurt_h1_spitzenzeiten_case_study/analysis/klagenfurt_h1_spitzenzeiten_analysis.ipynb
 ```
 
