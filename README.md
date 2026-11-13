@@ -19,6 +19,7 @@ Dieses Repository enthält zwei unabhängige Vorhaben, die beide das [FleetPy](h
 **Die Methode:** FleetPy dient hier nicht nur als Fuhrpark-Simulator für die 8-Sitzer-Studie, sondern als **unabhängiges Validierungswerkzeug**: Die FlipFlop-Prognose wird gegen echte KMG/MOIA-Betriebsdaten benchmarkt — räumlich, mengenmäßig und operativ (simulierte Servicerate).
 
 **Die Ergebnisse (Kurzfassung):**
+
 | Check | Ergebnis |
 |---|---|
 | **Räumlich** — Entsteht die Nachfrage in denselben Stadtteilen wie echte Fahrten? | **0,86 Korrelation** zwischen FlipFlop-Prognose und echten KMG/MOIA-Fahrten über 8 Zonen |
