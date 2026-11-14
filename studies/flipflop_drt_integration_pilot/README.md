@@ -143,6 +143,38 @@ The zone system itself, with both sources' zone shares, is mapped in `results/fl
 
 **Bottom line:** the FlipFlop-generated demand is spatially plausible (0.86 zone correlation), is not an under-estimate of real demand (it predicts more switching than MOIA realizes, not less), and is drivable in FleetPy at a service rate close to what real MOIA demand achieves under the same fleet — with the caveat that it pools somewhat more easily than real demand does.
 
+## v2 (Nov 2026): network fix and consistency test — supersedes the simulated-performance comparison above
+
+**Why:** `build_flipflop_network.py` floors every edge at 30 s; with 15 m median edge length that is an effective 3–4 km/h, so every v1 simulation result (service rates of 3–12 %, "nearly identical curves", pooling shares) is an artefact of a crawling fleet. Checks 1 and 2 of the validity notebook (spatial 0.86, volume) do not use the simulation and still stand. Check 3 is withdrawn and replaced by the consistency test below.
+
+**What changed** (all scripts in this folder, results under `results/v2_*` and `results/v2w6_*`):
+
+| | v1 | v2 |
+|---|---|---|
+| Network | 43k geometry vertices, 30 s floor | `build_gip_network.py`: official GIP link graph (`data/gip_network_ogd.gpkg`), 15,320 nodes / 34,125 directed edges, speeds and one-ways per direction from GIP, largest strongly connected component only; 34.5 km/h edge speed, 5 km beeline ≈ 9 min |
+| Routing | NetworkBasic (pure Python) | `NetworkBasicWithStoreCpp` (build once: `cd src/routing/cpp_router && python setup.py build_ext --inplace`); a 2,700-request day takes ~2 min instead of hours |
+| MOIA demand | 7 calendar days stacked, 06–22 h | `prepare_demand_v2.py`: one file per calendar day (102–249 requests, 95–98 % routable), full day |
+| FlipFlop demand | draw 1 | draws 1–5 (2,550–2,730 switchers/day each; the per-trip switch is a random realisation of a ~1.4 pp probability shift, so single draws are not meaningful) |
+| Vehicle start | uniform over network | density of real MOIA origins (`moia_origin_density.csv`) |
+| Runner | `run_examples.py` CLI / inline calls | `run_v2.py` (file-based entry point; inline `n_parallel_sim>1` silently loops forever on macOS) |
+| Question | "are the service-rate curves similar?" | **consistency:** does a plausible fleet deliver the level of service FlipFlop *assumed* when predicting the demand? |
+
+```bash
+python studies/flipflop_drt_integration_pilot/build_gip_network.py
+python studies/flipflop_drt_integration_pilot/prepare_demand_v2.py
+python studies/flipflop_drt_integration_pilot/run_v2.py scenario_cfg_v2_sweep.csv --parallel 5 --skip-done        # 72 runs, ~20 min
+python studies/flipflop_drt_integration_pilot/run_v2.py scenario_cfg_v2_sweep_wait6.csv --parallel 5 --skip-done  # 40 runs, ~7 min
+python studies/flipflop_drt_integration_pilot/evaluate_v2.py --pattern 'v2*'
+```
+
+**Results** (`analysis/flipflop_v2_consistency_test.ipynb`; assumed level of service = wait ≤ 6.3 min (AIT: DRT access = 30 % of Ø 21 min PT access) and in-vehicle time ≤ 1.4× direct — explicit assumptions until AIT supplies absolute values):
+
+1. **Implied MOIA fleet:** 8–20 vehicles (mean ~10–15) serve ≥ 90 % of the real daily trips. This is the calibration question for KMG: if their real fleet is in this range, the simulator is credible for Klagenfurt.
+2. **FlipFlop fleet sizing:** with the standard 8-min max wait, 100 vehicles serve 90 % of the ~2,600 predicted switchers, but only 55 % at the assumed quality. With the service configured to guarantee the assumed quality (`op_max_wait_time = 378 s`), 40 / 60 / 100 / 150 vehicles serve **54 / 63 / 77 / 89 %** of the predicted switchers (MOIA real demand: 8 / 10 / 15 / 20 vehicles → 73 / 79 / 89 / 92 %).
+3. **Same load, same behaviour:** at equal requests per vehicle and day (overlap 25–62), FlipFlop demand is served *better* than real MOIA demand (86 % vs. 69 %) because it is spatially denser and pools more (detour 1.21 vs. 1.07); the share within the assumed quality is identical (49 % vs. 48 %). The predicted demand is therefore operationally at least as tractable as real demand — the v1 "pooling gap" was a network artefact.
+
+**Bottom line of the consistency test:** the FlipFlop prediction is internally consistent only with a fleet of ~150 vehicles for Klagenfurt. With a fleet in the range KMG actually operates (tens of vehicles), roughly half of the predicted switchers would not receive the level of service the choice model assumed — the prediction is an upper bound and the equilibrium demand is lower. Next steps: confirm the real fleet and KPIs with KMG, obtain AIT's absolute per-trip LOS assumptions, then iterate once (achieved LOS → AIT → new demand → fleet).
+
 ## Interpretation
 
 Compare service rate, waiting time, detours, and utilization across fleet sizes. Before expanding to all five draws or policy scenarios, validate the conversion summary printed by the preparation script, especially the number of requests retained and the nearest-node distance distribution.

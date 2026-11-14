@@ -1,0 +1,3 @@
+scenario_name,rq_file,op_fleet_composition
+v2_probe_moia_day5_f10,moia_day5.csv,default_vehtype:10
+v2_probe_switchers_draw1_f40,switchers_DRT_Kostenx1_draw1.csv,default_vehtype:40

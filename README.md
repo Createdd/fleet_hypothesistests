@@ -15,7 +15,9 @@
 |---|---|
 | **Räumlich** — Entsteht die Nachfrage in denselben Stadtteilen wie echte Fahrten? | **0,86 Korrelation** zwischen FlipFlop-Prognose und echten KMG/MOIA-Fahrten über 8 Zonen |
 | **Mengenmäßig** — Ist die Nachfragemenge plausibel? | FlipFlop sagt 3,3–23x mehr Nachfrage voraus als MOIA real realisiert — eine Untergrenze, kein Alarmsignal (echtes Warnsignal wäre *weniger* gewesen) |
-| **Operativ** — Lässt sich das in FleetPy genauso gut bedienen wie echte Nachfrage? | Servicerate-Kurven von FlipFlop-Prognose und echter MOIA-Nachfrage sind bei gleicher Flottengröße **nahezu identisch** |
+| **Operativ (Konsistenz-Test, v2)** — Liefert eine plausible Flotte die Bedienqualität, die FlipFlop bei der Prognose *angenommen* hat? | Erst mit **~150 Fahrzeugen** erhalten 90 % der prognostizierten Umsteiger die angenommene Qualität (≤ 6,3 min Wartezeit); mit 40 Fahrzeugen sind es 54 %. Die echte MOIA-Nachfrage braucht dafür 15–20 Fahrzeuge. **Die Prognose ist eine Obergrenze** — mit einer realistischen Flotte liegt die Gleichgewichts-Nachfrage niedriger. Bei gleicher Last pro Fahrzeug ist die FlipFlop-Nachfrage aber mindestens so gut bedienbar wie echte Nachfrage. |
+
+> **Zurückgezogen (Nov 2026):** Die frühere operative Aussage „Servicerate-Kurven nahezu identisch" beruhte auf einem Simulationsnetz mit fehlerhaften Fahrzeiten (effektiv 3–4 km/h). Netz, Nachfrage und Fragestellung wurden in v2 neu aufgesetzt; Details und Annahmen im [v2-Notebook](studies/flipflop_drt_integration_pilot/analysis/flipflop_v2_consistency_test.ipynb). Die räumliche und die mengenmäßige Prüfung nutzen keine Simulation und sind davon nicht betroffen.
 
 Die 8 Vergleichszonen wurden per Clustering direkt aus den echten MOIA-Fahrten gebildet (keine Verwaltungsgrenzen). Zone 4 ist das Stadtzentrum — dort weicht die Prognose am stärksten ab (39 % vs. 24 % der Fahrtstarts):
 
@@ -25,9 +27,10 @@ Ein unabhängiger Fund bestätigt zudem eine bereits von AIT beobachtete Modell-
 
 ## 📌 Einstieg
 
-1. **Präsentationsfassung (kurz):** [`consortium_presentation_flipflop_validation.ipynb`](studies/flipflop_drt_integration_pilot/analysis/consortium_presentation_flipflop_validation.ipynb)
-2. **Vollständige Analyse:** [`flipflop_demand_model_validity.ipynb`](studies/flipflop_drt_integration_pilot/analysis/flipflop_demand_model_validity.ipynb)
-3. **Methodik, Skripte, Reproduktion, offene Punkte:** [`studies/flipflop_drt_integration_pilot/README.md`](studies/flipflop_drt_integration_pilot/README.md)
+1. **Konsistenz-Test (aktuell, v2):** [`flipflop_v2_consistency_test.ipynb`](studies/flipflop_drt_integration_pilot/analysis/flipflop_v2_consistency_test.ipynb) — implizite MOIA-Flotte, Flottenbedarf der FlipFlop-Nachfrage, Verhalten bei gleicher Last
+2. **Präsentationsfassung (kurz; Abschnitt 3 dort durch v2 ersetzt):** [`consortium_presentation_flipflop_validation.ipynb`](studies/flipflop_drt_integration_pilot/analysis/consortium_presentation_flipflop_validation.ipynb)
+3. **Räumliche und mengenmäßige Prüfung im Detail:** [`flipflop_demand_model_validity.ipynb`](studies/flipflop_drt_integration_pilot/analysis/flipflop_demand_model_validity.ipynb)
+4. **Methodik, Skripte, Reproduktion, offene Punkte:** [`studies/flipflop_drt_integration_pilot/README.md`](studies/flipflop_drt_integration_pilot/README.md)
 
 ## Setup
 
