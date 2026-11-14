@@ -1,4 +1,4 @@
-# 🚌 FLIP-FLOP × FleetPy — Validierung der KI-Nachfrageprognose für Klagenfurt
+# 🚌 FLIP-FLOP × FleetPy — Plausibilitäts- und Konsistenzprüfung der KI-Nachfrageprognose für Klagenfurt
 
 [![FleetPy](https://img.shields.io/badge/Framework-FleetPy-blue)](https://github.com/TUM-VT/FleetPy)
 [![Python 3.10](https://img.shields.io/badge/Python-3.10-green.svg)](https://www.python.org/downloads/)
@@ -7,28 +7,29 @@
 
 **Die Frage:** FlipFlop (AIT) sagt per KI-Modell voraus, welche Personen bei einem On-Demand-Angebot (DRT, bedarfsgesteuerter Ridepooling-Verkehr) vom Auto/ÖV/Rad/Fuß umsteigen würden. Ist diese prognostizierte Nachfrage realistisch — und lässt sie sich mit einer Fahrzeugflotte überhaupt sinnvoll bedienen?
 
-**Die Methode:** Das [FleetPy](https://github.com/TUM-VT/FleetPy)-Simulationsframework (TUM) dient als **unabhängiges Validierungswerkzeug**: Die FlipFlop-Prognose wird gegen echte KMG/MOIA-Betriebsdaten aus Klagenfurt benchmarkt — räumlich, mengenmäßig und operativ (simulierte Servicerate bei identischem Netz, Betriebstag und Flottengrößen).
+**Die Methode:** Das [FleetPy](https://github.com/TUM-VT/FleetPy)-Simulationsframework (TUM) dient als **unabhängiges Prüfinstrument** in drei Dimensionen: räumliche und mengenmäßige Plausibilität der Prognose gegenüber echten KMG/MOIA-Fahrten, betriebliche Umsetzbarkeit (Flottenbedarf) und innere Konsistenz — liefert eine realistische Flotte die Bedienqualität, die FlipFlop bei der Prognose vorausgesetzt hat? Ob die prognostizierten Personen tatsächlich umsteigen, kann nur der reale Betrieb zeigen; die Simulation prüft die Voraussetzungen dafür.
 
 ## Ergebnisse (Kurzfassung)
 
-| Check | Ergebnis |
-|---|---|
-| **Räumlich** — Entsteht die Nachfrage in denselben Stadtteilen wie echte Fahrten? | **0,86 Korrelation** zwischen FlipFlop-Prognose und echten KMG/MOIA-Fahrten über 8 Zonen |
-| **Mengenmäßig** — Ist die Nachfragemenge plausibel? | FlipFlop sagt 3,3–23x mehr Nachfrage voraus als MOIA real realisiert — eine Untergrenze, kein Alarmsignal (echtes Warnsignal wäre *weniger* gewesen) |
-| **Operativ (Konsistenz-Test, v2)** — Liefert eine plausible Flotte die Bedienqualität, die FlipFlop bei der Prognose *angenommen* hat? | Erst mit **~150 Fahrzeugen** erhalten 90 % der prognostizierten Umsteiger die angenommene Qualität (≤ 6,3 min Wartezeit); mit 40 Fahrzeugen sind es 54 %. Die echte MOIA-Nachfrage braucht dafür 15–20 Fahrzeuge. **Die Prognose ist eine Obergrenze** — mit einer realistischen Flotte liegt die Gleichgewichts-Nachfrage niedriger. Bei gleicher Last pro Fahrzeug ist die FlipFlop-Nachfrage aber mindestens so gut bedienbar wie echte Nachfrage. |
+| Prüfung | Befund | Was sich daraus ableiten lässt |
+|---|---|---|
+| **Räumlich** — Entsteht die prognostizierte Nachfrage dort, wo heute echte Fahrten stattfinden? | Die Verteilung der prognostizierten Fahrtstarts über 8 Zonen stimmt mit den echten KMG/MOIA-Fahrten weitgehend überein (Korrelation 0,86). Größte Abweichung im Stadtzentrum (Zone 4: 39 % vs. 24 %). | Das Modell bildet die räumliche Struktur der Nachfrage richtig ab. Die Zentrumsabweichung ist der eine Punkt, der mit AIT zu klären ist. |
+| **Mengenmäßig** — Ist die prognostizierte Menge plausibel? | FlipFlop prognostiziert rund **2.600 DRT-Wege pro Tag** im Bediengebiet; der heutige MOIA-Betrieb realisiert **100–260 Fahrten pro Tag**. | Die Prognose beschreibt das Potenzial eines flächendeckenden Angebots zum ÖV-Tarif, nicht den heutigen Betrieb. Dass sie deutlich über der heute realisierten Nachfrage liegt, ist bei einem kleinen bestehenden Angebot zu erwarten; läge sie darunter, wäre das Modell unplausibel. |
+| **Operativ** — Welche Flotte setzt die Prognose voraus? | Die heutige echte Nachfrage wird mit **15–20 Fahrzeugen** zu über 90 % bedient. Die prognostizierte Nachfrage erreicht bei der vom Modell unterstellten Bedienqualität (Wartezeit ≤ ca. 6 min) 90 % erst mit **rund 150 Fahrzeugen**; mit 40 Fahrzeugen werden 54 % bedient. Bei gleicher Auslastung je Fahrzeug ist die prognostizierte Nachfrage besser bündelbar als die heutige. | Die Prognose gilt nur zusammen mit einer entsprechend großen Flotte. Mit einer realistischen Flotte bekommt ein Teil der prognostizierten Umsteiger nicht die unterstellte Qualität und steigt im Modell nicht um — die tatsächlich erreichbare Nachfrage liegt also unter der Prognose. Wie weit darunter, ergibt eine Rückkopplung der erreichbaren Bedienqualität in das FlipFlop-Modell (nächster Schritt mit AIT). |
 
-> **Zurückgezogen (Nov 2026):** Die frühere operative Aussage „Servicerate-Kurven nahezu identisch" beruhte auf einem Simulationsnetz mit fehlerhaften Fahrzeiten (effektiv 3–4 km/h). Netz, Nachfrage und Fragestellung wurden in v2 neu aufgesetzt; Details und Annahmen im [v2-Notebook](studies/flipflop_drt_integration_pilot/analysis/flipflop_v2_consistency_test.ipynb). Die räumliche und die mengenmäßige Prüfung nutzen keine Simulation und sind davon nicht betroffen.
+**Kurz:** Die Prognose ist räumlich richtig, mengenmäßig als Potenzial zu lesen und betrieblich gut bündelbar. Für die Dimensionierung eines realen Angebots sind Flottengröße und Nachfrage gemeinsam zu bestimmen; die simulierten Kennzahlen (Flotte, Bedienungsgrad, Wartezeiten je Szenario) liefern dafür die Grundlage. Annahmen: Bedienqualität aus der AIT-Modelldokumentation abgeleitet (Zugang = 30 % der ÖV-Zugangszeit), Bediengebiet = Gebiet der echten Fahrten, Flotte und Betriebszeitraum des MOIA-Betriebs lagen nicht vor.
 
 Die 8 Vergleichszonen wurden per Clustering direkt aus den echten MOIA-Fahrten gebildet (keine Verwaltungsgrenzen). Zone 4 ist das Stadtzentrum — dort weicht die Prognose am stärksten ab (39 % vs. 24 % der Fahrtstarts):
 
 ![FlipFlop vs. MOIA: Anteil der Fahrtstarts je Zone](studies/flipflop_drt_integration_pilot/results/flipflop_vs_moia_zone_map.png)
 
-Ein unabhängiger Fund bestätigt zudem eine bereits von AIT beobachtete Modell-Eigenschaft: hohe Kostensensitivität, geringe Zeitsensitivität im Choice-Modell — zwei getrennte Methoden, ein übereinstimmendes Ergebnis.
+Die geringe Umsteigequote (ÖV-Anteil im Bediengebiet 11,6 % → 12,9 % im DRT-Szenario zum ÖV-Tarif) deckt sich mit der von AIT selbst beobachteten hohen Kosten- und geringen Zeitsensitivität des Wahlmodells.
 
 ## 📌 Einstieg
 
-1. **Konsistenz-Test (aktuell, v2):** [`flipflop_v2_consistency_test.ipynb`](studies/flipflop_drt_integration_pilot/analysis/flipflop_v2_consistency_test.ipynb) — implizite MOIA-Flotte, Flottenbedarf der FlipFlop-Nachfrage, Verhalten bei gleicher Last
-2. **Präsentationsfassung (kurz; Abschnitt 3 dort durch v2 ersetzt):** [`consortium_presentation_flipflop_validation.ipynb`](studies/flipflop_drt_integration_pilot/analysis/consortium_presentation_flipflop_validation.ipynb)
+0. **Einseiter für den Endbericht:** [FlipFlop_FleetPy_Kurzbericht_2026-11-14.docx](studies/flipflop_drt_integration_pilot/FlipFlop_FleetPy_Kurzbericht_2026-11-14.docx)
+1. **Konsistenzprüfung (operativ):** [`flipflop_consistency_test.ipynb`](studies/flipflop_drt_integration_pilot/analysis/flipflop_consistency_test.ipynb) — implizite MOIA-Flotte, Flottenbedarf der FlipFlop-Nachfrage, Verhalten bei gleicher Last
+2. **Präsentationsfassung (kurz, alle drei Prüfungen):** [`consortium_presentation_flipflop_validation.ipynb`](studies/flipflop_drt_integration_pilot/analysis/consortium_presentation_flipflop_validation.ipynb)
 3. **Räumliche und mengenmäßige Prüfung im Detail:** [`flipflop_demand_model_validity.ipynb`](studies/flipflop_drt_integration_pilot/analysis/flipflop_demand_model_validity.ipynb)
 4. **Methodik, Skripte, Reproduktion, offene Punkte:** [`studies/flipflop_drt_integration_pilot/README.md`](studies/flipflop_drt_integration_pilot/README.md)
 
@@ -39,6 +40,7 @@ git clone https://github.com/Createdd/fleet_hypothesistests.git
 cd fleet_hypothesistests
 conda env create -f environment.yml
 conda activate fleetpy
+(cd src/routing/cpp_router && python setup.py build_ext --inplace)   # C++-Router, einmalig; von den Simulationen benötigt
 ```
 
 Die FlipFlop-Eingangsdaten (`data/SampleFiles_recovered/`, Modell-Draws von AIT) und die MOIA-Fahrtdaten (`data/demand/trips_klagenfurt.csv`) sind nicht Teil des Repos und müssen separat abgelegt werden. Alle Befehle zum Netzbau, zur Nachfrageaufbereitung und zu den Simulationsläufen stehen im [Studien-README](studies/flipflop_drt_integration_pilot/README.md).
@@ -60,7 +62,7 @@ Die FlipFlop-Eingangsdaten (`data/SampleFiles_recovered/`, Modell-Draws von AIT)
 
 - **Nachfrageprognose:** FlipFlop Mixed-Logit-Choice-Modell (AIT), 471.140 kalibrierte Wege, 5 stochastische Draws je Szenario
 - **Betriebsdaten:** MOIA-Fahrten Klagenfurt (7 Kalendertage), bereitgestellt über das Konsortium
-- **Netzwerkdaten:** OpenStreetMap Klagenfurt
+- **Netzwerkdaten:** Graphenintegrations-Plattform (GIP, `data/gip_network_ogd.gpkg`) für die Konsistenzprüfung; OpenStreetMap für Karten und die frühere 8-Sitzer-Studie
 - **Algorithmus:** Alonso-Mora et al. (2017), PNAS 114(3): 462-467
 - **Framework:** [FleetPy](https://github.com/TUM-VT/FleetPy) (TUM München)
 

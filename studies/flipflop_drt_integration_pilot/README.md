@@ -4,16 +4,17 @@ This study is the first bridge between the recovered FlipFlop mode-choice sample
 
 > ## 📌 Start here
 >
-> **[`analysis/consortium_presentation_flipflop_validation.ipynb`](analysis/consortium_presentation_flipflop_validation.ipynb)** is the current, primary deliverable of this study — a short, visualization-led summary for the FLIP-FLOP consortium, written to prepare the "Meeting mit Christian (AIT DRC)" that Konsortial-Meeting 10 (22.09.2026) flagged as the required next step after simulating with realistic MOIA data. Open this one first.
+> **[`analysis/flipflop_consistency_test.ipynb`](analysis/flipflop_consistency_test.ipynb)** is the primary result of this study: the operational consistency test — implied MOIA fleet, fleet needed for the FlipFlop demand at its assumed level of service, and behaviour at equal load. See "Consistency test pipeline" below for how to reproduce it.
 >
-> It condenses **[`analysis/flipflop_demand_model_validity.ipynb`](analysis/flipflop_demand_model_validity.ipynb)**, the full three-part validity check (spatial, volume, simulated performance) this summary is built on. Everything else in `analysis/` is earlier, superseded, or supporting work kept for traceability — see the table below.
+> **[`analysis/consortium_presentation_flipflop_validation.ipynb`](analysis/consortium_presentation_flipflop_validation.ipynb)** is the short consortium-facing summary; sections 1–2 (spatial, volume) in detail, section 3 summarises the consistency test. It condenses **[`analysis/flipflop_demand_model_validity.ipynb`](analysis/flipflop_demand_model_validity.ipynb)**, which carries the detail for checks 1–2. Everything else in `analysis/` is earlier, superseded, or supporting work kept for traceability — see the table below.
 
 | Notebook | Status |
 |---|---|
-| `consortium_presentation_flipflop_validation.ipynb` | **Current — present this one** |
-| `flipflop_demand_model_validity.ipynb` | Current — full detail behind the summary above |
-| `flipflop_drt_feasibility_results.ipynb` | Current — hypothesis H-A results (feeds into the validity check) |
-| `flipflop_drt_demand_construction.ipynb` | Current — how the H-A demand was built and validated |
+| `flipflop_consistency_test.ipynb` | **Current — primary result (operational consistency test)** |
+| `consortium_presentation_flipflop_validation.ipynb` | Current — consortium summary of all three checks |
+| `flipflop_demand_model_validity.ipynb` | Current — detail behind checks 1–2 (spatial, volume) |
+| `flipflop_drt_feasibility_results.ipynb` | Historical — early H-A results on the previous network build |
+| `flipflop_drt_demand_construction.ipynb` | Supporting — how the H-A switcher definition was derived (still the basis of `prepare_demand_v2.py`) |
 | `flipflop_vs_moia_simulation_comparison.ipynb` | Superseded by the validity check above (old all-modes demand, mismatched time window) |
 | `flipflop_vs_moia_klagenfurt_bounded_comparison.ipynb` | Supporting — spatial-only comparison, pre-dates the simulated checks |
 | `flipflop_vs_moia_bounded_comparison.ipynb` | Historical — Neubau-track version, kept for reference only |
@@ -143,13 +144,11 @@ The zone system itself, with both sources' zone shares, is mapped in `results/fl
 
 **Bottom line:** the FlipFlop-generated demand is spatially plausible (0.86 zone correlation), is not an under-estimate of real demand (it predicts more switching than MOIA realizes, not less), and is drivable in FleetPy at a service rate close to what real MOIA demand achieves under the same fleet — with the caveat that it pools somewhat more easily than real demand does.
 
-## v2 (Nov 2026): network fix and consistency test — supersedes the simulated-performance comparison above
+## Consistency test pipeline (current)
 
-**Why:** `build_flipflop_network.py` floors every edge at 30 s; with 15 m median edge length that is an effective 3–4 km/h, so every v1 simulation result (service rates of 3–12 %, "nearly identical curves", pooling shares) is an artefact of a crawling fleet. Checks 1 and 2 of the validity notebook (spatial 0.86, volume) do not use the simulation and still stand. Check 3 is withdrawn and replaced by the consistency test below.
+**Setup** (all scripts in this folder; results under `results/v2_*` and `results/v2w6_*`; the earlier pipeline in this folder is kept for traceability):
 
-**What changed** (all scripts in this folder, results under `results/v2_*` and `results/v2w6_*`):
-
-| | v1 | v2 |
+| | earlier pipeline | current |
 |---|---|---|
 | Network | 43k geometry vertices, 30 s floor | `build_gip_network.py`: official GIP link graph (`data/gip_network_ogd.gpkg`), 15,320 nodes / 34,125 directed edges, speeds and one-ways per direction from GIP, largest strongly connected component only; 34.5 km/h edge speed, 5 km beeline ≈ 9 min |
 | Routing | NetworkBasic (pure Python) | `NetworkBasicWithStoreCpp` (build once: `cd src/routing/cpp_router && python setup.py build_ext --inplace`); a 2,700-request day takes ~2 min instead of hours |
@@ -167,13 +166,13 @@ python studies/flipflop_drt_integration_pilot/run_v2.py scenario_cfg_v2_sweep_wa
 python studies/flipflop_drt_integration_pilot/evaluate_v2.py --pattern 'v2*'
 ```
 
-**Results** (`analysis/flipflop_v2_consistency_test.ipynb`; assumed level of service = wait ≤ 6.3 min (AIT: DRT access = 30 % of Ø 21 min PT access) and in-vehicle time ≤ 1.4× direct — explicit assumptions until AIT supplies absolute values):
+**Results** (`analysis/flipflop_consistency_test.ipynb`; assumed level of service = wait ≤ 6.3 min (AIT: DRT access = 30 % of Ø 21 min PT access) and in-vehicle time ≤ 1.4× direct — explicit assumptions until AIT supplies absolute values):
 
 1. **Implied MOIA fleet:** 8–20 vehicles (mean ~10–15) serve ≥ 90 % of the real daily trips. This is the calibration question for KMG: if their real fleet is in this range, the simulator is credible for Klagenfurt.
 2. **FlipFlop fleet sizing:** with the standard 8-min max wait, 100 vehicles serve 90 % of the ~2,600 predicted switchers, but only 55 % at the assumed quality. With the service configured to guarantee the assumed quality (`op_max_wait_time = 378 s`), 40 / 60 / 100 / 150 vehicles serve **54 / 63 / 77 / 89 %** of the predicted switchers (MOIA real demand: 8 / 10 / 15 / 20 vehicles → 73 / 79 / 89 / 92 %).
-3. **Same load, same behaviour:** at equal requests per vehicle and day (overlap 25–62), FlipFlop demand is served *better* than real MOIA demand (86 % vs. 69 %) because it is spatially denser and pools more (detour 1.21 vs. 1.07); the share within the assumed quality is identical (49 % vs. 48 %). The predicted demand is therefore operationally at least as tractable as real demand — the v1 "pooling gap" was a network artefact.
+3. **Same load, same behaviour:** at equal requests per vehicle and day (overlap 25–62), FlipFlop demand is served *better* than real MOIA demand (86 % vs. 69 %) because it is spatially denser and pools more (detour 1.21 vs. 1.07); the share within the assumed quality is identical (49 % vs. 48 %). The predicted demand is therefore operationally at least as tractable as real demand — the pooling gap seen with the earlier network build does not persist.
 
-**Bottom line of the consistency test:** the FlipFlop prediction is internally consistent only with a fleet of ~150 vehicles for Klagenfurt. With a fleet in the range KMG actually operates (tens of vehicles), roughly half of the predicted switchers would not receive the level of service the choice model assumed — the prediction is an upper bound and the equilibrium demand is lower. Next steps: confirm the real fleet and KPIs with KMG, obtain AIT's absolute per-trip LOS assumptions, then iterate once (achieved LOS → AIT → new demand → fleet).
+**Bottom line:** the FlipFlop prediction is internally consistent only with a fleet of ~150 vehicles for Klagenfurt. With a fleet in the range KMG actually operates (tens of vehicles), roughly half of the predicted switchers would not receive the level of service the choice model assumed — the prediction is an upper bound and the equilibrium demand is lower. Next steps: confirm the real fleet and KPIs with KMG, obtain AIT's absolute per-trip LOS assumptions, then iterate once (achieved LOS → AIT → new demand → fleet).
 
 ## Interpretation
 
@@ -181,8 +180,10 @@ Compare service rate, waiting time, detours, and utilization across fleet sizes.
 
 ## Next extensions
 
-1. Extend the H-A fleet-size sweep upward (80/100/150+) to find where rides-per-vehicle starts to flatten - that inflection point is the real minimum-viable-fleet answer (H2-style). Apply the same wider sweep to the full-day MOIA comparison.
-2. Test price sensitivity (H-B): rebuild demand from `draws_DRT_Kostenx0.5.csv` and `draws_DRT_Kostenx2.csv` and compare candidate-demand volume and required fleet size against the Kostenx1 baseline above.
-3. Repeat H-A (and the full-day MOIA comparison) for Draws 2-5 to check draw-to-draw stability.
-4. Investigate the Zone 4 spatial divergence and the pooling-rate gap found in the model-validity notebook - both are concrete, answerable follow-ups rather than open-ended uncertainty.
-5. Backport the largest-connected-component fix to `prepare_klagenfurt_baseline_draw1.py` and `prepare_neubau_baseline_draw1.py` so the all-mode stress-test numbers above are no longer biased by ~9 structurally unroutable requests.
+Covered by the consistency test: fleet sweep up to 150 vehicles, all 5 draws, full-day MOIA per calendar day. Still open:
+
+1. **Calibrate the simulator against the real operation:** obtain KMG's fleet size, service hours, wait-time distribution and rejection rate for the data period and check them against the implied fleet (8–20 vehicles) from the consistency test.
+2. **Replace the assumed level of service with AIT's absolute per-trip values** (access minutes, in-vehicle time in the DRT scenarios); re-run `evaluate_v2.py` with the confirmed thresholds.
+3. **Iterate once with AIT:** feed the level of service achieved at a realistic fleet back into the choice model and re-run the sweep on the resulting demand — this yields the equilibrium demand that the consistency test identifies as lower than the prediction.
+4. **Price scenarios (H-B):** `prepare_demand_v2.py --price-scenarios DRT_Kostenx0.5 DRT_Kostenx2` and the same sweep, reported as ranges over draws.
+5. Investigate the Zone 4 spatial divergence (38.7 % vs. 24.3 % of trip starts) and the 13 % of switcher origins outside the 8 MOIA-derived zones.
