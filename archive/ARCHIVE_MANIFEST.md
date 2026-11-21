@@ -12,6 +12,7 @@ This manifest records post-cleanup archival placement and provenance (evidence t
 - `archive/legacy_munich_exploration/*`: first-week Munich exploration (Sept 2025), abandoned when the project moved to Klagenfurt. Distinct from `studies/munich_case_study/`, the upstream FleetPy example, which remains active.
 - `archive/legacy_moia_notebooks/*`: May 2026 MOIA exploration notebooks (root `notebooks/` dir), superseded by the properly-homed analysis notebooks in `studies/flipflop_drt_integration_pilot/analysis/`.
 - `archive/superseded_scripts/*`: scripts replaced by a working equivalent elsewhere, kept for provenance only.
+- `archive/legacy_flipflop_pilot/*`: FlipFlop pilot notebooks that can no longer be re-run (their result directories were replaced by later sweeps); stored outputs kept as a record.
 
 ## Provenance Rules
 - Filename prefix (`h1_`, `h2_`, `uc2_`, `uc3_`, `klagenfurt_`) determines experiment-family assignment.
@@ -38,7 +39,7 @@ This manifest records post-cleanup archival placement and provenance (evidence t
 | `archive/runs/klagenfurt_general/klagenfurt_simulation.log` | root `klagenfurt_simulation.log` | klagenfurt_general | filename prefix | medium |
 | `archive/runs/klagenfurt_general/klagenfurt_simulation_optimized.log` | root `klagenfurt_simulation_optimized.log` | klagenfurt_general | filename prefix | medium |
 | `archive/runs/regression_checks/standard_bugfix.log` | root `standard_bugfix.log` | cross-study regression | filename semantics | medium |
-| `archive/figures/klagenfurt/klagenfurt_filtered_zones_map.png` | root `klagenfurt_filtered_zones_map.png` | klagenfurt zoning | filename prefix | high |
+| ~~`archive/figures/klagenfurt/klagenfurt_filtered_zones_map.png`~~ (removed 2026-11, byte-identical duplicate of `studies/klagenfurt_h1_spitzenzeiten_case_study/results/analysis/klagenfurt_filtered_zones_map.png`) | root `klagenfurt_filtered_zones_map.png` | klagenfurt zoning | filename prefix | high |
 | `archive/figures/klagenfurt/klagenfurt_zones_map_with_basemap.png` | root `klagenfurt_zones_map_with_basemap.png` | klagenfurt zoning | filename prefix | high |
 | `archive/figures/klagenfurt/klagenfurt_zones_map.png` | previous `archive/klagenfurt_zones_map.png` | klagenfurt zoning | filename prefix | medium |
 | `archive/figures/munich/temporal_test_munich_scenario_1.png` | root `temporal_test_munich_scenario_1.png` | munich scenario test | filename prefix | high |
@@ -74,3 +75,11 @@ README.md, H1_service_quality.md, and H2_minimum_fleet.md were updated to refere
 
 ## Uncertainty
 - Exact simulation run identifiers (timestamp/job-id linkage) are not recoverable from filenames alone. I do not know.
+
+## 2026-11 FlipFlop Pilot Cleanup
+
+| Archived path | Pre-cleanup path | Reason | Confidence |
+|---|---|---|---|
+| `archive/legacy_flipflop_pilot/flipflop_vs_moia_simulation_comparison.ipynb` | `studies/flipflop_drt_integration_pilot/analysis/flipflop_vs_moia_simulation_comparison.ipynb` | reads `results/moia_klagenfurt_baseline_30`, which no longer exists (fleet sweep changed to 20/40/60, then to the v2 consistency test); stored output documents the old 07:00–09:00 all-mode comparison; relative paths inside the notebook are not adjusted | high |
+
+Also removed from version control (not archived): four tracked macOS `.DS_Store` files; `.DS_Store` is now in `.gitignore`.

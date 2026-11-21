@@ -1,3 +1,11 @@
+"""DEPRECATED - kept only to reproduce the early Neubau pilot (07:00-09:00, all modes, draw 1).
+
+Known defect: endpoints are snapped to any node that appears in an edge, not to the network's
+largest connected component, so some requests are structurally unroutable (about 9 of 100 in
+the Klagenfurt pilot). Not fixed on purpose, to keep the historical numbers reproducible.
+
+Use prepare_demand_v2.py (current consistency test) or prepare_drt_switcher_demand.py instead.
+"""
 import os
 
 import numpy as np
