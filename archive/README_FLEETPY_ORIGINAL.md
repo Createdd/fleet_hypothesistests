@@ -21,7 +21,7 @@ Diese Repository enthält eine umfassende Fallstudie zur Machbarkeit eines Ridep
 
 👉 **[Zur vollständigen Klagenfurt H1 Spitzenzeiten-Studie](README_KLAGENFURT.md)** 👈
 
-![Klagenfurt Zones](klagenfurt_zones_map.png)
+![Klagenfurt Zones](figures/klagenfurt/klagenfurt_zones_map.png)
 
 <img src="https://github.com/user-attachments/assets/ea839af5-3465-4bd1-8ed4-79c8fe0fd524" alt="Fleetpy Logo" height="400">
 
@@ -195,7 +195,7 @@ We welcome contributions from the community! 🚀
 5. Open a Pull Request!
 
 <!-- ... TODO: contributing.md
-🔍 Check out [CONTRIBUTING.md](link) for guidelines.
+🔍 Check out CONTRIBUTING.md for guidelines.
 -->
 
 ---

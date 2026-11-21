@@ -3,12 +3,15 @@ evaluation -> key figures -> every figure quoted in the READMEs, notebooks and t
 
 Levels
   quick  (~1 min, run by the git pre-commit hook)
+         0. the repository can be read: every tracked .md/.ipynb renders like on GitHub without visible
+            raw markup, and every relative link/image points to a tracked file   (check_readability.py)
          1. unit tests (tests/)
          2. simulation results on disk are exactly the ones recorded by the last full validation, and
             inputs + simulation code are unchanged since then            (results/simulation_manifest.json)
          3. re-evaluating the results reproduces results/v2_evaluation.csv byte for byte
          4. re-computing all key figures reproduces results/key_figures.json (figures + input hashes)
-         5. every quoted figure in README/notebooks/report matches key_figures.json   (check_claims.py)
+         5. every quoted figure in README/notebooks/report matches key_figures.json, and the documents
+            render cleanly like on GitHub (pandoc, GFM; no visible tags, no broken links)   (check_claims.py)
   full   (~1.5 h with --parallel 5) everything in quick, plus
          a. rebuild network and demand, byte-compare with the files in data/ (restored if they differ)
          b. re-simulate every scenario of the sweep under a temporary name and compare it with the
@@ -158,10 +161,17 @@ def step_key_figures(rep):
                    f"{len(figs)} figures" if not problems else "; ".join(problems[:8]))
 
 
+def step_readability(rep):
+    import check_readability
+    errors, n = check_readability.run()
+    return rep.add("repository is readable (all tracked .md/.ipynb render, links and images resolve)", not errors,
+                   f"{n} documents" if not errors else "; ".join(errors[:8]))
+
+
 def step_claims(rep):
     import check_claims
     errors, counts = check_claims.run()
-    return rep.add("quoted figures match key figures", not errors,
+    return rep.add("quoted figures match key figures and render correctly", not errors,
                    f"{sum(counts.values())} figures in {len(counts)} documents" if not errors else "; ".join(errors[:8]))
 
 
@@ -284,6 +294,7 @@ def main():
     rep = Report()
     print(f"FlipFlop end-to-end validation, level {args.level}", flush=True)
     step_unit_tests(rep)
+    step_readability(rep)
     if args.level == "full":
         with tempfile.TemporaryDirectory() as tmp:
             step_rebuild_data(rep, tmp)

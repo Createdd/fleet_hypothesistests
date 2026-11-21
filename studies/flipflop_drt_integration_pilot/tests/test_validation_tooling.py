@@ -18,6 +18,7 @@ STUDY_DIR = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(STUDY_DIR))
 
 import check_claims  # noqa: E402
+import check_readability  # noqa: E402
 import key_figures  # noqa: E402
 import run_v2  # noqa: E402
 
@@ -59,24 +60,77 @@ class ClaimCheckTest(unittest.TestCase):
         return check_claims.run(update=update, figures_file=self.figs, files=[self.md], docx=False)
 
     def test_matching_tag_passes(self):
-        errors, counts = self._check("Korrelation <!--kf:zone_corr|de2-->0,87<!--/kf-->.")
+        errors, counts = self._check("Korrelation <!--kf:zone_corr:de2-->0,87<!--/kf-->.")
         self.assertEqual(errors, [])
         self.assertEqual(list(counts.values()), [1])
 
     def test_stale_value_is_reported_and_update_rewrites_it(self):
-        errors, _ = self._check("Korrelation <!--kf:zone_corr|de2-->0,86<!--/kf-->.")
+        errors, _ = self._check("Korrelation <!--kf:zone_corr:de2-->0,86<!--/kf-->.")
         self.assertEqual(len(errors), 1)
         self.assertIn("shows '0,86', results say '0,87'", errors[0])
-        self._check("Korrelation <!--kf:zone_corr|de2-->0,86<!--/kf-->.", update=True)
-        self.assertEqual(self.md.read_text(), "Korrelation <!--kf:zone_corr|de2-->0,87<!--/kf-->.")
+        self._check("Korrelation <!--kf:zone_corr:de2-->0,86<!--/kf-->.", update=True)
+        self.assertEqual(self.md.read_text(), "Korrelation <!--kf:zone_corr:de2-->0,87<!--/kf-->.")
 
     def test_unknown_figure_and_tag_in_code_span_are_errors(self):
-        errors, _ = self._check("<!--kf:nope|de0-->1<!--/kf--> and `x = <!--kf:fleet|de0-->150<!--/kf-->`")
+        errors, _ = self._check("<!--kf:nope:de0-->1<!--/kf--> and `x = <!--kf:fleet:de0-->150<!--/kf-->`")
         self.assertTrue(any("unknown figure 'nope'" in e for e in errors))
         self.assertTrue(any("tag inside code span" in e for e in errors))
 
+    def test_pipe_separator_is_rejected(self):
+        # "|" splits a markdown table cell, so the tag would become visible text
+        errors, _ = self._check("| a | <!--kf:fleet|de0-->150<!--/kf--> |")
+        self.assertTrue(any("'|' in tag" in e for e in errors))
+
+    @unittest.skipUnless(check_claims.find_pandoc(), "pandoc not installed")
+    def test_rendered_output_shows_no_tag_in_a_table(self):
+        """Regression: the README table showed '<!--kf:zones' as text because '|' split the cell."""
+        self.md.write_text("| a | b |\n|---|---|\n| x <!--kf:fleet|de0-->150<!--/kf--> | y |\n")
+        errors = check_claims.check_rendering(self.md, check_claims.find_pandoc())
+        self.assertTrue(any("visible tag fragment" in e for e in errors), errors)
+        self.md.write_text("| a | b |\n|---|---|\n| x <!--kf:fleet:de0-->150<!--/kf--> | y |\n")
+        self.assertEqual(check_claims.check_rendering(self.md, check_claims.find_pandoc()), [])
+
+    def test_missing_renderer_is_a_failure_not_a_pass(self):
+        self.md.write_text("text")
+        self.assertTrue(any("NOT verified" in e for e in check_claims.check_rendering(self.md, None)))
+
+    def test_broken_relative_link_is_reported(self):
+        self.md.write_text("[x](does/not/exist.md)")
+        self.assertTrue(any("broken link" in e for e in check_claims.check_rendering(self.md, check_claims.find_pandoc())))
+
     def test_docx_templates_render(self):
         self.assertEqual(check_claims.render("korreliert mit {zone_corr|de2}", {"zone_corr": 0.867745}), "korreliert mit 0,87")
+
+
+@unittest.skipUnless(check_claims.find_pandoc(), "pandoc not installed")
+class ReadabilityTest(unittest.TestCase):
+    def setUp(self):
+        self.doc = STUDY_DIR / "tests" / "_tmp_readability_test.md"
+        self.pandoc = check_claims.find_pandoc()
+        self.tracked = check_readability.tracked_files()
+
+    def tearDown(self):
+        self.doc.unlink(missing_ok=True)
+
+    def _problems(self, text):
+        self.doc.write_text(text)
+        return check_readability.problems_in(self.doc, self.pandoc, self.tracked)
+
+    def test_clean_document_passes(self):
+        self.assertEqual(self._problems("# T\n\n| a | b |\n|---|---|\n| <!--kf:x:de0-->1<!--/kf--> | [ok](../README.md) |\n"), [])
+
+    def test_visible_comment_fragment_in_table_is_found(self):
+        self.assertTrue(any("visible raw markup" in p for p in self._problems("| a | b |\n|---|---|\n| <!--kf:x|de0-->1<!--/kf--> | y |\n")))
+
+    def test_broken_image_and_untracked_target_are_found(self):
+        probs = self._problems("![m](nope.png) [c](test_pipeline_v2.py)")
+        self.assertTrue(any("broken image" in p for p in probs))
+        self.doc.with_name("_tmp_untracked.txt").write_text("x")
+        try:
+            probs = self._problems("[u](_tmp_untracked.txt)")
+            self.assertTrue(any("only locally" in p for p in probs))
+        finally:
+            self.doc.with_name("_tmp_untracked.txt").unlink()
 
 
 class KeyFigureDiffTest(unittest.TestCase):

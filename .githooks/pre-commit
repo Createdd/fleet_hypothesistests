@@ -1,9 +1,9 @@
 #!/bin/sh
 # Pre-commit: end-to-end validation of the FlipFlop results (quick level, ~1 min).
-# Runs only when the commit touches the study, the READMEs or the simulation code.
+# Runs when the commit touches the study, the simulation code, or any Markdown file or notebook.
 # Activate once per clone:  git config core.hooksPath .githooks
 # Python: $FLEETPY_PYTHON, else the conda env "fleetpy", else python3.
-if ! git diff --cached --name-only | grep -qE '^(README\.md|run_examples\.py|src/|studies/flipflop_drt_integration_pilot/)'; then
+if ! git diff --cached --name-only | grep -qE '^(run_examples\.py|src/|studies/flipflop_drt_integration_pilot/)|\.(md|ipynb)$'; then
   exit 0
 fi
 PY="${FLEETPY_PYTHON:-}"

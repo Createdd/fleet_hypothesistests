@@ -22,7 +22,7 @@ Diese Studie analysiert die Machbarkeit und Performance eines Ridepooling-Dienst
 
 ### 📈 Performance-Analyse
 
-![Klagenfurt Performance Analysis](studies/klagenfurt_h1_spitzenzeiten_case_study/results/analysis/klagenfurt_h1_spitzenzeiten_performance_analysis.png)
+![Klagenfurt Performance Analysis](../studies/klagenfurt_h1_spitzenzeiten_case_study/results/analysis/klagenfurt_performance_analysis.png)
 
 **Zentrale Erkenntnisse:**
 - ✅ **Hohe Service-Raten**: 84-98% der Anfragen werden bedient
@@ -37,7 +37,7 @@ Diese Studie analysiert die Machbarkeit und Performance eines Ridepooling-Dienst
 
 ### Klagenfurt Zonensystem (12 Zonen)
 
-![Klagenfurt Zones Map](klagenfurt_zones_map.png)
+![Klagenfurt Zones Map](figures/klagenfurt/klagenfurt_zones_map.png)
 
 **Netzwerk-Charakteristika:**
 - **Knoten**: 2.099 (Straßenkreuzungen und Haltepunkte)
