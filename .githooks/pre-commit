@@ -1,0 +1,22 @@
+#!/bin/sh
+# Pre-commit: end-to-end validation of the FlipFlop results (quick level, ~1 min).
+# Runs only when the commit touches the study, the READMEs or the simulation code.
+# Activate once per clone:  git config core.hooksPath .githooks
+# Python: $FLEETPY_PYTHON, else the conda env "fleetpy", else python3.
+if ! git diff --cached --name-only | grep -qE '^(README\.md|run_examples\.py|src/|studies/flipflop_drt_integration_pilot/)'; then
+  exit 0
+fi
+PY="${FLEETPY_PYTHON:-}"
+if [ -z "$PY" ]; then
+  for c in "$HOME/opt/anaconda3/envs/fleetpy/bin/python" "$HOME/anaconda3/envs/fleetpy/bin/python" "$HOME/miniconda3/envs/fleetpy/bin/python"; do
+    [ -x "$c" ] && PY="$c" && break
+  done
+fi
+PY="${PY:-python3}"
+echo "pre-commit: FlipFlop end-to-end validation (quick) ..."
+if ! "$PY" studies/flipflop_drt_integration_pilot/validate_e2e.py --level quick; then
+  echo ""
+  echo "Commit blocked: results and their documentation are not consistent (see above)."
+  echo "Fix the cause, or after an intended change follow the steps in validate_e2e.py --help."
+  exit 1
+fi

@@ -39,6 +39,10 @@ def main():
     const_path = args.const_cfg if os.path.exists(args.const_cfg) else os.path.join(SCENARIO_DIR, args.const_cfg)
     df = pd.read_csv(scen_path)
     if args.only:
+        unknown = sorted(set(args.only) - set(df["scenario_name"]))
+        if unknown:
+            print(f"unknown scenario name(s) for --only: {', '.join(unknown)}", file=sys.stderr)
+            return 2
         df = df[df["scenario_name"].isin(args.only)]
     if args.skip_done:
         done = df["scenario_name"].apply(lambda s: os.path.exists(os.path.join(RESULTS_DIR, s, "standard_eval.csv")))
@@ -46,7 +50,7 @@ def main():
         df = df[~done]
     if df.empty:
         print("nothing to run")
-        return
+        return 0
     tmp = os.path.join(SCENARIO_DIR, f"_run_{os.path.basename(scen_path)}")
     df.to_csv(tmp, index=False)
     print(f"{len(df)} scenarios, {args.parallel} in parallel, start {time.strftime('%H:%M:%S')}", flush=True)
@@ -58,10 +62,19 @@ def main():
         if os.path.exists(tmp):
             os.remove(tmp)
     print(f"finished {time.strftime('%H:%M:%S')}, wall time {timedelta(seconds=int(time.time() - t0))}", flush=True)
+    failed = []
     for s in df["scenario_name"]:
-        ok = os.path.exists(os.path.join(RESULTS_DIR, s, "standard_eval.csv"))
+        # a result only counts if it was (re)written by this run; an older standard_eval.csv must not hide a failure
+        f = os.path.join(RESULTS_DIR, s, "standard_eval.csv")
+        ok = os.path.exists(f) and os.path.getmtime(f) >= t0
         print(f"  {'OK ' if ok else 'MISSING'} {s}")
+        if not ok:
+            failed.append(s)
+    if failed:
+        print(f"{len(failed)} of {len(df)} scenarios failed", file=sys.stderr)
+        return 1
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

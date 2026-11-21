@@ -217,3 +217,7 @@ dmypy.json
 
 # macOS Finder metadata
 .DS_Store
+
+# FlipFlop study: tracked results (key figures and the validated simulation manifest)
+!studies/flipflop_drt_integration_pilot/results/key_figures.json
+!studies/flipflop_drt_integration_pilot/results/simulation_manifest.json

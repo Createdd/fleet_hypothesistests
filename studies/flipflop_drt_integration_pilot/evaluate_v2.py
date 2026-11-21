@@ -80,8 +80,10 @@ def main():
     print(df[["scenario", "requests", "served_pct", "served_within_assumed_los_pct", "wait_median_min", "wait_p90_min",
               "detour_median", "rides_per_veh_h", "occupancy", "fleet_util_pct"]].round(2).to_string(index=False))
 
-    # fleet-level aggregate across days (MOIA) / draws (FlipFlop)
-    agg = df.groupby(["source", "fleet"]).agg(
+    # fleet-level aggregate across days (MOIA) / draws (FlipFlop), kept apart per operating variant
+    # ("" = standard 8 min max wait, "w6" = assumed-quality config); probe runs are excluded
+    sweep = df[~df["scenario"].str.contains("probe")].assign(variant=lambda x: x["variant"].replace("", "standard"))
+    agg = sweep.groupby(["variant", "source", "fleet"]).agg(
         runs=("scenario", "size"), requests_mean=("requests", "mean"),
         served_mean=("served_pct", "mean"), served_min=("served_pct", "min"), served_max=("served_pct", "max"),
         within_los_mean=("served_within_assumed_los_pct", "mean"),
