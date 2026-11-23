@@ -50,7 +50,7 @@ Zuerst wird geprüft, ob das Repository lesbar ist: Jede versionierte Markdown-D
 
 ```bash
 python studies/flipflop_drt_integration_pilot/validate_e2e.py                # schnell (~40 s): Lesbarkeit, Tests, Auswertung, Kennzahlen, Dokumente, Ergebnis-Manifest
-python studies/flipflop_drt_integration_pilot/validate_e2e.py --level full   # vollständig (~1,5 h): baut Netz und Nachfrage neu, simuliert alle Läufe neu, führt die Notebooks aus
+python studies/flipflop_drt_integration_pilot/validate_e2e.py --level full   # vollständig (1,5–3 h): baut Netz und Nachfrage neu, simuliert alle Läufe neu, führt die Notebooks aus
 git config core.hooksPath .githooks                                          # einmalig: schnelle Prüfung vor jedem Commit, der Studie, READMEs oder src/ betrifft
 ```
 

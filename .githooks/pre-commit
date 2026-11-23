@@ -6,6 +6,19 @@
 if ! git diff --cached --name-only | grep -qE '^(run_examples\.py|src/|studies/flipflop_drt_integration_pilot/)|\.(md|ipynb)$'; then
   exit 0
 fi
+# The validation reads the working tree. Make sure that is exactly what gets committed:
+# a relevant file must not differ between the staged version and the working tree.
+if ! CHANGED=$(git diff --name-only); then
+  echo "Commit blocked: could not compare staged files with the working tree (git diff failed)."
+  exit 1
+fi
+UNSTAGED=$(printf '%s\n' "$CHANGED" | grep -E '^(run_examples\.py|src/|studies/flipflop_drt_integration_pilot/)|\.(md|ipynb)$')
+if [ -n "$UNSTAGED" ]; then
+  echo "Commit blocked: these files have changes that are not staged, so the validation would not"
+  echo "check what is committed. Stage them (git add) or stash them first:"
+  echo "$UNSTAGED" | sed 's/^/  /'
+  exit 1
+fi
 PY="${FLEETPY_PYTHON:-}"
 if [ -z "$PY" ]; then
   for c in "$HOME/opt/anaconda3/envs/fleetpy/bin/python" "$HOME/anaconda3/envs/fleetpy/bin/python" "$HOME/miniconda3/envs/fleetpy/bin/python"; do

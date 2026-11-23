@@ -12,7 +12,7 @@ Levels
          4. re-computing all key figures reproduces results/key_figures.json (figures + input hashes)
          5. every quoted figure in README/notebooks/report matches key_figures.json, and the documents
             render cleanly like on GitHub (pandoc, GFM; no visible tags, no broken links)   (check_claims.py)
-  full   (~1.5 h with --parallel 5) everything in quick, plus
+  full   (1.5-3 h with --parallel 5) everything in quick, plus
          a. rebuild network and demand, byte-compare with the files in data/ (restored if they differ)
          b. re-simulate every scenario of the sweep under a temporary name and compare it with the
             stored result (all 1_user-stats.csv values must be identical)
@@ -25,7 +25,7 @@ After an intended change (new data, new code, new scenarios):
 
 Usage (from repo root):
   python studies/flipflop_drt_integration_pilot/validate_e2e.py                 # quick
-  python studies/flipflop_drt_integration_pilot/validate_e2e.py --level full    # full, ~1.5 h
+  python studies/flipflop_drt_integration_pilot/validate_e2e.py --level full    # full, 1.5-3 h
 Exit code 0 only if every step passed; steps that could not run count as failures.
 """
 import argparse

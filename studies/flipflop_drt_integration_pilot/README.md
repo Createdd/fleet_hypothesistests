@@ -72,7 +72,7 @@ Every result figure in this README, the root README, the markdown of the three c
 
 ```bash
 python studies/flipflop_drt_integration_pilot/validate_e2e.py                # quick, ~30 s (pre-commit hook)
-python studies/flipflop_drt_integration_pilot/validate_e2e.py --level full   # ~1.5 h
+python studies/flipflop_drt_integration_pilot/validate_e2e.py --level full   # 1.5-3 h
 ```
 
 **After an intended change** (new data, code or scenarios): run the sweep → `evaluate_v2.py --pattern 'v2*'` → `key_figures.py --write` → `check_claims.py --update` → re-read every sentence around a changed figure → `validate_e2e.py --level full`. Figures are never typed by hand.
