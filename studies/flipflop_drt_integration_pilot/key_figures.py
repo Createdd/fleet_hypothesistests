@@ -236,6 +236,7 @@ def fleet_figures():
         means = g.groupby("fleet")["served_pct"].mean()
         for f, v in means.items():
             figs[f"{src}_w6_f{f}_served_pct"] = float(v)
+            figs[f"{src}_w6_f{f}_unserved_pct"] = float(100 - v)
         reach, below = means.index[means >= SERVED_TARGET_PCT], means.index[means < SERVED_TARGET_PCT]
         figs[f"{src}_w6_fleet_reaching_90"] = int(reach.min()) if len(reach) else None
         figs[f"{src}_w6_largest_fleet_below_90"] = int(below.max()) if len(below) else None

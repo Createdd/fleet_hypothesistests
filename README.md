@@ -61,7 +61,7 @@ git config core.hooksPath .githooks                                          # e
 - **Frühere 8-Sitzer-Fallstudie (2025, H1/H2/UC2/UC3):** Machbarkeitsstudie mit 8-/12-Sitzer-Fahrzeugen, abgeschlossen; Ergebnisse wegen eines Netzwerkfehlers derzeit **unter Vorbehalt** → [studies/klagenfurt_8sitzer_studie/README.md](studies/klagenfurt_8sitzer_studie/README.md)
 - **Framework:** `src/`, `run_examples.py` und die Beispielstudien in `studies/` (example_study, munich, manhattan, chicago, module_tests) stammen aus dem TUM-FleetPy-Upstream; Parameterreferenz in [Input_Parameters.md](Input_Parameters.md). Einzige lokale Änderung am Framework: CLI-Fix in `run_examples.py` (`sys.argv[1:]`).
 - **Archiv:** abgelöste Skripte, Notebooks und README-Versionen in [archive/](archive/).
-- **Berichtsunterlagen:** Einseiter für den Endbericht als Word-Datei: [FlipFlop_FleetPy_Kurzbericht_2026-11-14.docx](studies/flipflop_drt_integration_pilot/FlipFlop_FleetPy_Kurzbericht_2026-11-14.docx).
+- **Berichtsunterlagen:** Einseiter für den Endbericht als Word-Datei: [FlipFlop_FleetPy_Kurzbericht_2026-11-25.docx](studies/flipflop_drt_integration_pilot/FlipFlop_FleetPy_Kurzbericht_2026-11-25.docx).
 
 ## Glossar
 

@@ -44,7 +44,7 @@ TAGGED_FILES = [
 # minimum number of tags per file, so that silently deleting the tags is caught as well
 MIN_TAGS = {"README.md": 15, "studies/flipflop_drt_integration_pilot/README.md": 25}
 
-DOCX_FILE = STUDY_DIR / "FlipFlop_FleetPy_Kurzbericht_2026-11-14.docx"
+DOCX_FILE = STUDY_DIR / "FlipFlop_FleetPy_Kurzbericht_2026-11-25.docx"
 DOCX_CLAIMS = [
     "Zugangszeit von {drt_access_share_pct|de0} % der ÖV-Zugangszeit",
     "Straßengraph aus der Graphenintegrations-Plattform (GIP) mit {network_nodes|de0~100} Knoten",
@@ -56,16 +56,23 @@ DOCX_CLAIMS = [
     "bzw. {ff_fleet_min|de0} bis {ff_fleet_max|de0} Fahrzeugen (prognostizierte Nachfrage)",
     "maximal {assumed_wait_min|de1} Minuten Wartezeit",
     "korreliert mit {zone_corr|de2} mit jener der realen Fahrten",
-    "erreichen {moia_implied_fleet_min|de0} bis {moia_implied_fleet_max|de0} Fahrzeuge einen Bedienungsgrad von mindestens 90 %",
+    "{moia_implied_fleet_max|de0} Fahrzeuge einen Bedienungsgrad von mindestens 90 %",
     "Echte MOIA-Fahrten ({moia_requests_per_day_min|de0}–{moia_requests_per_day_max|de0})",
     "8 Fzg: {moia_w6_f8_served_pct|de0} %", "10 Fzg: {moia_w6_f10_served_pct|de0} %",
     "15 Fzg: {moia_w6_f15_served_pct|de0} %", "20 Fzg: {moia_w6_f20_served_pct|de0} %",
     "{moia_w6_largest_fleet_below_90|de0}–{moia_w6_fleet_reaching_90|de0} Fzg",
-    "FlipFlop-Umsteiger (ca. {ff_switchers_per_day_mean|de0~100})",
     "40 Fzg: {ff_w6_f40_served_pct|de0} %", "60 Fzg: {ff_w6_f60_served_pct|de0} %",
     "100 Fzg: {ff_w6_f100_served_pct|de0} %", "150 Fzg: {ff_w6_f150_served_pct|de0} %",
     "ca. {ff_w6_fleet_max|de0} Fzg",
-    "erst mit rund {ff_w6_fleet_max|de0} Fahrzeugen erreicht",
+    "ein Bedienungsgrad von rund 90 % erst mit etwa {ff_w6_fleet_max|de0} Fahrzeugen erreicht "
+    "({ff_w6_f150_served_pct|de0} % bei {ff_w6_fleet_max|de0}, der größten simulierten Flotte)",
+    "Selbst mit 40 Fahrzeugen, mindestens doppelt so vielen, wie die heutige Nachfrage benötigt "
+    "({moia_implied_fleet_min|de0}–{moia_implied_fleet_max|de0} Fahrzeuge, simuliert), erhält knapp die Hälfte "
+    "der prognostizierten Umsteiger ({ff_w6_f40_unserved_pct|de0} %) nicht die Bedienqualität",
+    "erreichen bei üblichen Betriebsregeln {moia_implied_fleet_min|de0} bis {moia_implied_fleet_max|de0} Fahrzeuge",
+    "die Läufe mit garantierter Annahme-Qualität verwenden die Ziehungen 1–{ff_w6_draws_or_days|de0}",
+    "FlipFlop-Umsteiger (ca. {ff_switchers_per_day_mean|de0~100}; Ziehungen 1–{ff_w6_draws_or_days|de0})",
+    "rund 90 % bei",
     "mit {equal_load_ff_served_pct|de0} % zu einem höheren Anteil bedient als die reale ({equal_load_moia_served_pct|de0} %)",
     "Wartezeit ≤ {assumed_wait_min|de1} Minuten und Fahrzeit ≤ {assumed_detour|de1}-fache Direktfahrzeit",
 ]

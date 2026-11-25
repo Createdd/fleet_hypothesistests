@@ -19,7 +19,7 @@ This study uses FleetPy's operational ridepooling simulation as an independent c
 | `flipflop_vs_moia_bounded_comparison.ipynb` | Historical — Neubau-track version, kept for reference only |
 | ~~`flipflop_vs_moia_simulation_comparison.ipynb`~~ | Moved to [`archive/legacy_flipflop_pilot/`](../../archive/legacy_flipflop_pilot/) — can no longer be re-run |
 
-The report one-pager for the consortium final report is [`FlipFlop_FleetPy_Kurzbericht_2026-11-14.docx`](FlipFlop_FleetPy_Kurzbericht_2026-11-14.docx).
+The report one-pager for the consortium final report is [`FlipFlop_FleetPy_Kurzbericht_2026-11-25.docx`](FlipFlop_FleetPy_Kurzbericht_2026-11-25.docx).
 
 ## Current result: operational consistency test
 
