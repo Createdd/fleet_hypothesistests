@@ -43,6 +43,7 @@ NETWORK_DIR = ROOT_DIR / "data" / "networks" / "klagenfurt_gip" / "base"
 DEMAND_DIR = ROOT_DIR / "data" / "demand" / "flipflop_v2" / "matched" / "klagenfurt_gip"
 INIT_DIST_DIR = ROOT_DIR / "data" / "fleetctrl" / "initial_vehicle_distribution" / "klagenfurt_gip"
 EVALUATION_FILE = RESULTS_DIR / "v2_evaluation.csv"
+SOLVER_COMPARISON_FILE = RESULTS_DIR / "solver_comparison_gurobi_vs_highs.csv"
 SWEEP_FILES = [STUDY_DIR / "scenarios" / n for n in ("scenario_cfg_v2_sweep.csv", "scenario_cfg_v2_sweep_wait6.csv")]
 
 # Assumed level of service (AIT model documentation): DRT access = 30 % of the mean 21 min PT access
@@ -69,7 +70,8 @@ def input_files():
     """Every file the published figures depend on, relative to the repo root."""
     files = [BASELINE_FILE, DRT_FILE, MOIA_FILE, ZONES_FILE, ROOT_DIR / "data" / "gip_network_ogd.gpkg",
              *sorted(NETWORK_DIR.glob("*")), *sorted(DEMAND_DIR.glob("*.csv")), *sorted(INIT_DIST_DIR.glob("*.csv")),
-             STUDY_DIR / "scenarios" / "const_cfg_v2_consistency.yaml", *SWEEP_FILES, EVALUATION_FILE]
+             STUDY_DIR / "scenarios" / "const_cfg_v2_consistency.yaml", *SWEEP_FILES, EVALUATION_FILE,
+             SOLVER_COMPARISON_FILE]
     return [f for f in files if f.is_file()]
 
 
@@ -241,6 +243,10 @@ def fleet_figures():
         figs[f"{src}_w6_fleet_reaching_90"] = int(reach.min()) if len(reach) else None
         figs[f"{src}_w6_largest_fleet_below_90"] = int(below.max()) if len(below) else None
         figs[f"{src}_w6_fleet_max"] = int(means.index.max())
+        figs[f"{src}_w6_fleet_min"] = int(means.index.min())
+        closest = int((means - SERVED_TARGET_PCT).abs().idxmin())
+        figs[f"{src}_w6_fleet_closest_90"] = closest
+        figs[f"{src}_w6_closest_90_served_pct"] = float(means[closest])
         figs[f"{src}_w6_draws_or_days"] = int(g["set"].nunique())
 
     # equal load: requests per vehicle and day, overlapping range of both sources (standard config)
@@ -259,6 +265,19 @@ def fleet_figures():
     return figs
 
 
+def solver_comparison_figures():
+    """Gurobi (results until 2026-11-21) vs. HiGHS on the same scenarios, see solver_comparison_gurobi_vs_highs.csv."""
+    c = pd.read_csv(SOLVER_COMPARISON_FILE)
+    m, f = c[c.source == "moia"], c[c.source == "ff"]
+    return {
+        "solver_cmp_runs": int(len(c)),
+        "solver_cmp_moia_runs": int(len(m)), "solver_cmp_moia_identical": int(m.identical_user_stats.sum()),
+        "solver_cmp_ff_runs": int(len(f)), "solver_cmp_ff_identical": int(f.identical_user_stats.sum()),
+        "solver_cmp_ff_diff_min_pp": float(f.served_diff_pp.min()), "solver_cmp_ff_diff_max_pp": float(f.served_diff_pp.max()),
+        "solver_cmp_ff_diff_mean_pp": float(f.served_diff_pp.mean()),
+    }
+
+
 def compute():
     moia = pd.read_csv(MOIA_FILE)
     figs = {"assumed_wait_min": PT_ACCESS_MIN * DRT_ACCESS_SHARE, "assumed_wait_s": round(PT_ACCESS_MIN * DRT_ACCESS_SHARE * 60),
@@ -269,6 +288,7 @@ def compute():
     figs.update(moia_volume_figures(moia))
     figs.update(network_figures())
     figs.update(fleet_figures())
+    figs.update(solver_comparison_figures())
     return {k: (round(v, 6) if isinstance(v, float) else v) for k, v in figs.items()}
 
 

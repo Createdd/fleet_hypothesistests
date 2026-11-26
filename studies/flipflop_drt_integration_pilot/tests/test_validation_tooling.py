@@ -192,5 +192,53 @@ class RunV2ExitCodeTest(unittest.TestCase):
         self.assertEqual(self._main("--only", "goood"), 2)
 
 
+class GurobiPreflightTest(unittest.TestCase):
+    """Regression: with an expired Gurobi license FleetPy silently ran without optimisation."""
+
+    def _cfg(self, text):
+        f = Path(tempfile.mkstemp(suffix=".yaml")[1])
+        f.write_text(text)
+        self.addCleanup(f.unlink)
+        return str(f)
+
+    def test_failing_gurobi_blocks_alonso_mora(self):
+        broken = mock.Mock()
+        broken.Env.side_effect = RuntimeError("License expired 2026-11-23")
+        with mock.patch.dict(sys.modules, {"gurobipy": broken}):
+            msg = run_v2.gurobi_problem(self._cfg("op_rp_batch_optimizer: AlonsoMora\n"))
+        self.assertIn("License expired", msg)
+
+    def test_no_check_when_gurobi_is_not_used(self):
+        broken = mock.Mock()
+        broken.Env.side_effect = RuntimeError("must not be called")
+        with mock.patch.dict(sys.modules, {"gurobipy": broken}):
+            self.assertIsNone(run_v2.gurobi_problem(self._cfg("op_rp_batch_optimizer: AlonsoMora\nop_solver: CPLEX\n")))
+            self.assertIsNone(run_v2.gurobi_problem(self._cfg("op_module: PoolingIRSOnly\n")))
+
+    def test_scenario_column_decides_which_solver_is_checked(self):
+        import pandas as pd
+        broken = mock.Mock()
+        broken.Env.side_effect = RuntimeError("License expired")
+        cfg = self._cfg("op_rp_batch_optimizer: AlonsoMora\n")
+        with mock.patch.dict(sys.modules, {"gurobipy": broken}):
+            self.assertIsNone(run_v2.gurobi_problem(cfg, pd.DataFrame({"op_solver": ["HiGHS", "HiGHS"]})))
+            self.assertIn("License expired", run_v2.gurobi_problem(cfg, pd.DataFrame({"op_solver": ["HiGHS", None]})))
+
+    def test_sweep_is_not_started_when_gurobi_fails(self):
+        d = Path(tempfile.mkdtemp())
+        self.addCleanup(lambda: __import__("shutil").rmtree(d))
+        scen = d / "s.csv"
+        scen.write_text("scenario_name,rq_file,op_fleet_composition\na,x.csv,default_vehtype:1\n")
+        const = d / "c.yaml"
+        const.write_text("op_rp_batch_optimizer: AlonsoMora\n")
+        started = mock.Mock()
+        with mock.patch.object(run_v2, "gurobi_problem", return_value="Gurobi cannot start: expired"), \
+                mock.patch.object(sys, "argv", ["run_v2.py", str(scen), "--const-cfg", str(const)]), \
+                mock.patch.dict(sys.modules, {"run_examples": mock.Mock(run_scenarios=started)}), \
+                contextlib.redirect_stdout(io.StringIO()), contextlib.redirect_stderr(io.StringIO()):
+            self.assertEqual(run_v2.main(), 3)
+        started.assert_not_called()
+
+
 if __name__ == "__main__":
     unittest.main()

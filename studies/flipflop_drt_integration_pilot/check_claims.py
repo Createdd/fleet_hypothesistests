@@ -61,17 +61,19 @@ DOCX_CLAIMS = [
     "8 Fzg: {moia_w6_f8_served_pct|de0} %", "10 Fzg: {moia_w6_f10_served_pct|de0} %",
     "15 Fzg: {moia_w6_f15_served_pct|de0} %", "20 Fzg: {moia_w6_f20_served_pct|de0} %",
     "{moia_w6_largest_fleet_below_90|de0}–{moia_w6_fleet_reaching_90|de0} Fzg",
-    "40 Fzg: {ff_w6_f40_served_pct|de0} %", "60 Fzg: {ff_w6_f60_served_pct|de0} %",
+    "20 Fzg: {ff_w6_f20_served_pct|de0} %", "40 Fzg: {ff_w6_f40_served_pct|de0} %",
     "100 Fzg: {ff_w6_f100_served_pct|de0} %", "150 Fzg: {ff_w6_f150_served_pct|de0} %",
-    "ca. {ff_w6_fleet_max|de0} Fzg",
-    "ein Bedienungsgrad von rund 90 % erst mit etwa {ff_w6_fleet_max|de0} Fahrzeugen erreicht "
-    "({ff_w6_f150_served_pct|de0} % bei {ff_w6_fleet_max|de0}, der größten simulierten Flotte)",
-    "Selbst mit 40 Fahrzeugen, mindestens doppelt so vielen, wie die heutige Nachfrage benötigt "
-    "({moia_implied_fleet_min|de0}–{moia_implied_fleet_max|de0} Fahrzeuge, simuliert), erhält knapp die Hälfte "
-    "der prognostizierten Umsteiger ({ff_w6_f40_unserved_pct|de0} %) nicht die Bedienqualität",
+    "ca. {ff_w6_fleet_closest_90|de0} Fzg",
+    "ein Bedienungsgrad von rund 90 % erst mit etwa {ff_w6_fleet_closest_90|de0} Fahrzeugen erreicht "
+    "({ff_w6_closest_90_served_pct|de0} %; {ff_w6_fleet_max|de0} Fahrzeuge: {ff_w6_f200_served_pct|de0} %)",
+    "Mit 20 Fahrzeugen, dem oberen Rand dessen, was die heutige Nachfrage benötigt "
+    "({moia_implied_fleet_min|de0}–{moia_implied_fleet_max|de0} Fahrzeuge, simuliert), erhalten knapp zwei Drittel "
+    "der prognostizierten Umsteiger ({ff_w6_f20_unserved_pct|de0} %) nicht die Bedienqualität",
+    "selbst mit 40 Fahrzeugen noch {ff_w6_f40_unserved_pct|de0} %",
+    "eine Flotte von rund {ff_w6_fleet_closest_90|de0} Fahrzeugen voraussetzt",
+    "mit dem frei verfügbaren Optimierer HiGHS berechnet",
     "erreichen bei üblichen Betriebsregeln {moia_implied_fleet_min|de0} bis {moia_implied_fleet_max|de0} Fahrzeuge",
-    "die Läufe mit garantierter Annahme-Qualität verwenden die Ziehungen 1–{ff_w6_draws_or_days|de0}",
-    "FlipFlop-Umsteiger (ca. {ff_switchers_per_day_mean|de0~100}; Ziehungen 1–{ff_w6_draws_or_days|de0})",
+    "FlipFlop-Umsteiger (ca. {ff_switchers_per_day_mean|de0~100})",
     "rund 90 % bei",
     "mit {equal_load_ff_served_pct|de0} % zu einem höheren Anteil bedient als die reale ({equal_load_moia_served_pct|de0} %)",
     "Wartezeit ≤ {assumed_wait_min|de1} Minuten und Fahrzeit ≤ {assumed_detour|de1}-fache Direktfahrzeit",

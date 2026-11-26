@@ -15,6 +15,7 @@ nr_mod_operators: 1
 rq_type: BasicRequest
 op_module: RidePoolingBatchAssignmentFleetcontrol
 op_rp_batch_optimizer: AlonsoMora
+op_solver: HiGHS  # open-source MILP solver (scipy); results until 2026-11-21 used Gurobi
 op_fleet_composition: OVERWRITE_IN_SCENARIO_CONFIG
 op_vr_control_func_dict:
   func_key: distance_and_user_times_man
