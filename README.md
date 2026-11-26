@@ -51,7 +51,7 @@ Zuerst wird geprüft, ob das Repository lesbar ist: Jede versionierte Markdown-D
 ```bash
 python studies/flipflop_drt_integration_pilot/validate_e2e.py                # schnell (~40 s): Lesbarkeit, Tests, Auswertung, Kennzahlen, Dokumente, Ergebnis-Manifest
 python studies/flipflop_drt_integration_pilot/validate_e2e.py --level full   # vollständig (1,5–3 h): baut Netz und Nachfrage neu, simuliert alle Läufe neu, führt die Notebooks aus
-git config core.hooksPath .githooks                                          # einmalig: schnelle Prüfung vor jedem Commit, der Studie, READMEs oder src/ betrifft
+git config core.hooksPath .githooks                                          # einmalig: schnelle Prüfung vor jedem Commit, der die Studie, src/ oder eine Markdown-Datei/ein Notebook betrifft
 ```
 
 Ändern sich Daten, Code oder Szenarien gewollt, sind die Schritte im Kopf von [`validate_e2e.py`](studies/flipflop_drt_integration_pilot/validate_e2e.py) beschrieben. Zahlen werden nie von Hand nachgetragen, sondern mit `check_claims.py --update` aus den Kennzahlen übernommen; den umgebenden Text prüft man danach selbst.
@@ -59,7 +59,7 @@ git config core.hooksPath .githooks                                          # e
 ## Weitere Inhalte
 
 - **Frühere 8-Sitzer-Fallstudie (2025, H1/H2/UC2/UC3):** Machbarkeitsstudie mit 8-/12-Sitzer-Fahrzeugen, abgeschlossen; Ergebnisse wegen eines Netzwerkfehlers derzeit **unter Vorbehalt** → [studies/klagenfurt_8sitzer_studie/README.md](studies/klagenfurt_8sitzer_studie/README.md)
-- **Framework:** `src/`, `run_examples.py` und die Beispielstudien in `studies/` (example_study, munich, manhattan, chicago, module_tests) stammen aus dem TUM-FleetPy-Upstream; Parameterreferenz in [Input_Parameters.md](Input_Parameters.md). Einzige lokale Änderung am Framework: CLI-Fix in `run_examples.py` (`sys.argv[1:]`).
+- **Framework:** `src/`, `run_examples.py` und die Beispielstudien in `studies/` (example_study, munich, manhattan, chicago, module_tests) stammen aus dem TUM-FleetPy-Upstream; Parameterreferenz in [Input_Parameters.md](Input_Parameters.md). Lokale Änderungen am Framework: CLI-Fix in `run_examples.py` (`sys.argv[1:]`) und die Solver-Option HiGHS in `src/fleetctrl/pooling/batch/AlonsoMora/AlonsoMoraAssignment.py`.
 - **Archiv:** abgelöste Skripte, Notebooks und README-Versionen in [archive/](archive/).
 - **Berichtsunterlagen:** Einseiter für den Endbericht als Word-Datei: [FlipFlop_FleetPy_Kurzbericht_2026-11-25.docx](studies/flipflop_drt_integration_pilot/FlipFlop_FleetPy_Kurzbericht_2026-11-25.docx).
 
