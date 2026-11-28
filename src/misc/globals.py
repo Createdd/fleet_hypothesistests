@@ -192,7 +192,7 @@ G_OP_PA_ADD_BT = "op_parcel_add_boarding_time"
 G_OP_REC_ADD_ASS = "op_record_additional_assignment"
 
 # operator specific attributes
-G_RA_SOLVER = "op_solver"   # currently "Gurobi" or "CPLEX"
+G_RA_SOLVER = "op_solver"   # currently "Gurobi" or "CPLEX"; "HiGHS" (open source, via scipy) for the AlonsoMora batch assignment
 G_RA_RP_BATCH_OPT = "op_rp_batch_optimizer"
 G_RA_LOCK_TIME = "op_lock_time"
 G_RA_REOPT_TS = "op_reoptimisation_timestep"

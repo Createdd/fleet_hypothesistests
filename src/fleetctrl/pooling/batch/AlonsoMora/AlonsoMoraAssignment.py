@@ -1511,6 +1511,8 @@ class AlonsoMoraAssignment(BatchAssignmentAlgorithmBase):
             self._runOptimisation_Gurobi()
         elif self.solver == "CPLEX":
             self._runOptimisation_CPLEX()
+        elif self.solver == "HiGHS":
+            self._runOptimisation_HiGHS()
         else:
             raise EnvironmentError(f"False input for {G_RA_SOLVER}! Solver {self.solver} not found!")
 
@@ -1687,6 +1689,92 @@ class AlonsoMoraAssignment(BatchAssignmentAlgorithmBase):
                     traceback.print_exc()
                     warning_created = True
         gurobi.disposeDefaultEnv()
+
+    def _runOptimisation_HiGHS(self):
+        """ same assignment ILP as _runOptimisation_Gurobi (same variables in the same order, same
+        constraints, same MIP gap and time limit), solved with the open-source solver HiGHS via
+        scipy.optimize.milp (scipy >= 1.9, no license needed). HiGHS takes no start solution, so the
+        current assignments are not passed as a warm start (this only affects solving time).
+        """
+        from scipy.optimize import milp, LinearConstraint, Bounds
+        from scipy.sparse import coo_matrix
+
+        vids = {}   #vid -> rtv_keys
+        unassigned_rids = {}  #unassigned rid (or cluster_id) -> rtv_keys
+        assigned_rids = {}  #assigned rid (or cluster_id) -> rtv_keys
+        var_keys = []   # column index -> rtv_key (same order as the Gurobi variables)
+        col_of = {}     # rtv_key -> column index
+        obj = []
+
+        for rtv_key in sorted(self.rtv_costs.keys()):
+            cfv = self.rtv_costs[rtv_key]
+            vid = getVidFromRTVKey(rtv_key)
+            rids = getRidsFromRTVKey(rtv_key)
+            if cfv == float('inf') or np.isnan(cfv):
+                LOG.warning("v2rb with infinite cfv! no route found? {} {}".format(rtv_key, cfv))
+                continue
+            error_flag = False      #True if request not found on this core
+            try:
+                vids[vid].append(rtv_key)
+            except:
+                vids[vid] = [rtv_key]
+            for rid in rids:
+                if not self.active_requests.get(rid):
+                    error_flag = True
+                    LOG.error(f"rid {rid} should not be here, also not key {rtv_key}")
+                    vids[vid].remove(rtv_key)
+                    self.delete_request(rid)
+            if not error_flag:
+                for rid in rids:
+                    v_rid = self._get_associated_baserid(rid)
+                    if self.unassigned_requests.get(rid):
+                        unassigned_rids.setdefault(v_rid, []).append(rtv_key)
+                    else:
+                        assigned_rids.setdefault(v_rid, []).append(rtv_key)
+            col_of[rtv_key] = len(var_keys)
+            var_keys.append(rtv_key)
+            obj.append(cfv)
+
+        rows, cols, lb, ub = [], [], [], []
+        for group, lo, hi in ((vids, -np.inf, 1), (unassigned_rids, -np.inf, 1), (assigned_rids, 1, 1)):
+            for keys in group.values():
+                r = len(lb)
+                for k in keys:
+                    rows.append(r)
+                    cols.append(col_of[k])
+                lb.append(lo)
+                ub.append(hi)
+        n = len(var_keys)
+        new_assignments = {}
+        sum_cfv = 0
+        if n > 0:
+            constraints = []
+            if lb:
+                A = coo_matrix((np.ones(len(rows)), (rows, cols)), shape=(len(lb), n)).tocsr()
+                constraints = [LinearConstraint(A, np.array(lb, dtype=float), np.array(ub, dtype=float))]
+            options = {"disp": False, "mip_rel_gap": GUROBI_MIPGAP}
+            if self.optimisation_timeout:
+                options["time_limit"] = float(self.optimisation_timeout)
+            res = milp(c=np.array(obj, dtype=float), integrality=np.ones(n), bounds=Bounds(0, 1),
+                       constraints=constraints, options=options)
+            LOG.info("=========")
+            LOG.info("OPT TIME {}:".format(self.sim_time))
+            LOG.info("solution status {} ({})".format(res.status, res.message))
+            LOG.info("number opt requests {} | number revealed requests {} | number active requests: {}".format(len(self.rid_to_consider_for_global_optimisation.keys()), len(unassigned_rids.keys()) + len(assigned_rids.keys()), len(self.active_requests.keys())))
+            LOG.info("number rtv_objs: {}".format(len(self.rtv_costs.keys())))
+            self.opt_stats = (res.status, 0 if res.x is None else 1)
+            if res.x is None:
+                if res.status == 2:
+                    LOG.error("optimisation problem infeasible!")
+                    raise EnvironmentError("HiGHS: assignment problem infeasible")
+                LOG.error("no solution within timeout found!")
+                raise NotImplementedError("HiGHS: no feasible solution within the time limit")
+            for i in np.flatnonzero(np.round(res.x) == 1):
+                key = var_keys[i]
+                new_assignments[getVidFromRTVKey(key)] = key
+                sum_cfv += self.rtv_costs[key]
+        self.current_best_cfv = sum_cfv
+        self.optimisation_solutions = new_assignments
 
     def _runOptimisation_CPLEX(self):
         """This method creates and solves the assignment optimization problem using CPLEX.

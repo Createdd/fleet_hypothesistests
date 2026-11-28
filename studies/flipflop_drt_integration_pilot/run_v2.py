@@ -23,6 +23,35 @@ SCENARIO_DIR = os.path.join(STUDY_DIR, "scenarios")
 RESULTS_DIR = os.path.join(STUDY_DIR, "results")
 
 
+def gurobi_problem(const_path, scenarios=None):
+    """FleetPy's Alonso-Mora assignment needs Gurobi. If Gurobi cannot start (e.g. expired license),
+    FleetPy retries for up to 300 s per optimisation step and then silently continues WITHOUT
+    optimising, so a sweep would run for days and produce wrong results. Returns an error text or None."""
+    try:
+        import yaml
+        with open(const_path) as f:
+            cfg = yaml.safe_load(f) or {}
+    except Exception:  # noqa: BLE001  (non-yaml configs: nothing to check here)
+        return None
+    if cfg.get("op_rp_batch_optimizer") != "AlonsoMora":
+        return None
+    default = str(cfg.get("op_solver", "Gurobi"))
+    if scenarios is not None and "op_solver" in scenarios:
+        solvers = set(scenarios["op_solver"].fillna(default).astype(str))
+    else:
+        solvers = {default}
+    if "Gurobi" not in solvers:
+        return None
+    try:
+        import gurobipy
+        with gurobipy.Env(empty=True) as env:
+            env.setParam("OutputFlag", 0)
+            env.start()
+    except Exception as e:  # noqa: BLE001  (any failure to start Gurobi blocks the sweep)
+        return f"Gurobi cannot start: {e}"
+    return None
+
+
 def main():
     from run_examples import run_scenarios  # noqa: E402  (after sys.path)
 
@@ -51,6 +80,10 @@ def main():
     if df.empty:
         print("nothing to run")
         return 0
+    problem = gurobi_problem(const_path, df)
+    if problem:
+        print(f"{problem}\nNo scenario started. Renew the Gurobi license (e.g. grbgetkey) and run again.", file=sys.stderr)
+        return 3
     tmp = os.path.join(SCENARIO_DIR, f"_run_{os.path.basename(scen_path)}")
     df.to_csv(tmp, index=False)
     print(f"{len(df)} scenarios, {args.parallel} in parallel, start {time.strftime('%H:%M:%S')}", flush=True)

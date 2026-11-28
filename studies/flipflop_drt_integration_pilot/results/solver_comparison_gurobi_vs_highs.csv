@@ -1,0 +1,13 @@
+scenario,source,variant,fleet,requests,served_pct_gurobi,served_pct_highs,within_los_pct_gurobi,within_los_pct_highs,same_vehicle_assignment_pct,identical_user_stats,served_diff_pp
+v2_ff_draw1_f40,ff,standard,40,2728,68.218,69.538,32.625,33.651,32.1,False,1.32
+v2_ff_draw2_f80,ff,standard,80,2549,88.584,89.368,52.334,54.61,23.7,False,0.784
+v2_ff_draw3_f100,ff,standard,100,2594,86.777,89.09,48.882,50.54,21.6,False,2.313
+v2_ff_draw5_f20,ff,standard,20,2585,50.29,50.484,23.52,23.636,81.8,False,0.194
+v2_moia_day0_f10,moia,standard,10,102,96.078,96.078,87.255,87.255,100.0,True,0.0
+v2_moia_day2_f4,moia,standard,4,121,61.983,61.983,40.496,40.496,100.0,True,0.0
+v2_moia_day5_f15,moia,standard,15,249,94.378,94.378,81.124,81.124,100.0,True,0.0
+v2w6_ff_draw1_f40,ff,w6,40,2728,54.069,55.095,44.135,44.575,49.6,False,1.026
+v2w6_ff_draw2_f150,ff,w6,150,2549,91.173,90.624,80.149,79.09,24.4,False,-0.549
+v2w6_ff_draw3_f60,ff,w6,60,2594,58.674,58.674,48.882,48.882,77.2,False,0.0
+v2w6_moia_day3_f15,moia,w6,15,134,84.328,84.328,83.582,83.582,100.0,True,0.0
+v2w6_moia_day6_f8,moia,w6,8,143,76.923,76.923,76.224,76.224,100.0,True,0.0

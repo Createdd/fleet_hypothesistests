@@ -221,3 +221,4 @@ dmypy.json
 # FlipFlop study: tracked results (key figures and the validated simulation manifest)
 !studies/flipflop_drt_integration_pilot/results/key_figures.json
 !studies/flipflop_drt_integration_pilot/results/simulation_manifest.json
+!studies/flipflop_drt_integration_pilot/results/solver_comparison_gurobi_vs_highs.csv
